@@ -4,7 +4,14 @@ var port = (process.env.PORT || 17256);
 var app = express();
 var t = new time.Date();
 
-app.get("/", (request,response)=>{
+
+app.get("/",(req,res) => {
+res.send("<html> <body>Servidor del Grupo SOS1617-01 </body> </html")    
+    
+    
+});
+
+app.get("/time", (request,response)=>{
     var day = t.getDate();
     var month = months();
     var year = t.getFullYear();
@@ -12,7 +19,7 @@ app.get("/", (request,response)=>{
     var min = t.getMinutes();
     var sec = t.getSeconds();
     
-    response.send(day+"--"+month+" of "+year+","+hour+":"+min+":"+sec);
+    response.send(day+"--"+month+" of "+year+",  "+hour+":"+min+":"+sec);
     
     
     });
