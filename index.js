@@ -4,16 +4,16 @@ var port = (process.env.PORT || 17256);
 var app = express();
 var t = new time.Date();
 
-app.get("/", (request,response)=>{
+app.get("/time", (request,response)=>{
     var day = t.getDate();
     var month = months();
     var year = t.getFullYear();
     var hour= t.getHours();
     var min = t.getMinutes();
     var sec = t.getSeconds();
-    
-    response.send(day+"--"+month+" of "+year+","+hour+":"+min+":"+sec);
-    
+    var letter = let();
+   
+    response.send(day+letter+" "+month+" of "+year+", "+hour+":"+min+":"+sec);
     
     });
 app.listen(port,(err)=>{
@@ -22,6 +22,31 @@ app.listen(port,(err)=>{
     else
     console.log("ERROR initializing server on port ->"+port+" : "+err);
 });
+app.get("/", (request,response)=>{
+  
+    response.send("<html><body><h2>Prueba a añadir a la URL <font color='red'>/time </font>:D</h2></body></html>");
+    
+    });
+
+function let(){
+    var d = t.getDate();
+    var res;
+    switch (d) {
+        case 1:
+            res = "st";
+            break;
+        case 2:
+            res = "nd";
+            break;
+        case 3:
+            res = "rd";
+            break;
+        default:
+            res = "th";
+            break;
+    }
+    return res;
+}
 
 function months(){
     var n=t.getMonth();

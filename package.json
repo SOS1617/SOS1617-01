@@ -8,17 +8,17 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
-    "type":"git",
-    "url":"git+https://github.com/SOS1617/SOS1616¡7-01.git"
+    "type": "git",
+    "url": "git+https://github.com/SOS1617/SOS1616¡7-01.git"
   },
   "author": "sos1617-01",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/SOS1617/SOS1617-01/issues"
-
   },
-  "homepage": "https://github.com/SOS1617/SOS1617-01#readme"
+  "homepage": "https://github.com/SOS1617/SOS1617-01#readme",
   "dependencies": {
-    "time": "^0.11.4",
-    "express": "^4.14.1"
+    "express": "^4.14.1",
+    "time": "^0.11.4"
   }
+}
