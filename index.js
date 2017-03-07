@@ -1,8 +1,14 @@
 var express = require("express");
 var time = require('time');
+var path = require("path");
+
 var port = (process.env.PORT || 17256);
 var app = express();
+var publicFolder = path.join(__dirname,'public');
 var t = new time.Date();
+
+
+app.use("/",express.static(publicFolder));
 
 app.get("/time", (request,response)=>{
     var day = t.getDate();
@@ -16,11 +22,10 @@ app.get("/time", (request,response)=>{
     response.send(day+letter+" "+month+" of "+year+", "+hour+":"+min+":"+sec);
     
     });
-app.listen(port,(err)=>{
-    if(!err)
-    console.log("Server on port ->"+port);
-    else
-    console.log("ERROR initializing server on port ->"+port+" : "+err);
+app.listen(port,()=>{
+    console.log("Port"+port+"is open");
+}).on('error',(error)=>{
+    console.log("Server failed on port"+ port);
 });
 app.get("/", (request,response)=>{
   
