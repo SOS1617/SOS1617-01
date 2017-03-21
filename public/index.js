@@ -9,6 +9,7 @@ var DataStore = require('nedb');
 var MongoClient=require("mongodb").MongoClient;
 
 var mdbURL1="mongodb://bearuirei2:us33ak7x@ds137360.mlab.com:37360/sos161701";
+var mdbURL2="mongodb://irepavfer:irepavfer@ds137730.mlab.com:37730/sos01";
 
 var port = (process.env.PORT || 10000);
 var BASE_API_PATH = "/api/v1";
