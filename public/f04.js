@@ -8,15 +8,15 @@ var path = require('path');
 var DataStore = require('nedb');
 var MongoClient=require("mongodb").MongoClient;
 
-var mdbURL1="mongodb://bearuirei2:us33ak7x@ds137360.mlab.com:37360/sos161701";
-var mdbURL2="mongodb://irepavfer:irepavfer@ds137730.mlab.com:37730/sos01";
+var mdbURL="mongodb://bearuirei2:us33ak7x@ds137360.mlab.com:37360/sos161701";
+
 
 var port = (process.env.PORT || 10000);
 var BASE_API_PATH = "/api/v1";
 
 var db;
 //var dbFileName = path.join(__dirname, 'gvg.db');
-MongoClient.connect(mdbURL1,{native_parser:true},function(err,database){
+MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
     
     if(err){
         console.log(err);
@@ -33,9 +33,8 @@ MongoClient.connect(mdbURL1,{native_parser:true},function(err,database){
 
 
 var app = express();
-
+app.use("/api/v1",express.static(path.join('public')));
 app.use(bodyParser.json()); //use default json enconding/decoding
-app.use("/api/v1",express.static(path.join(__dirname,'public')));
 app.use(helmet()); //improve security
 
 
@@ -282,7 +281,9 @@ app.delete(BASE_API_PATH + "/gvg/:country", function (request, response) {
     }
 });
 
-db.find({}, function (err, datas) { //Callback que devuelve todos los contactos
+app.get(BASE_API_PATH + "/startups-stats/loadInitialData", function (request, response) {
+    console.log("INFO: New GET request to /startups-stats when BD is empty");
+db.find({}).toArray(function (err, datas) { //Callback que devuelve todos los contactos
     console.log('INFO: Initialiting DB...');
 
     if (err) {
@@ -326,6 +327,7 @@ db.find({}, function (err, datas) { //Callback que devuelve todos los contactos
     } else {
         console.log('INFO: DB has ' + datas.length + ' datas ');
     }
+});
 });
 
 // Base GET

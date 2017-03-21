@@ -4,7 +4,7 @@
   "description": "servidor fecha f02",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node f04.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
