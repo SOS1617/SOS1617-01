@@ -1,31 +1,31 @@
 *GET a la ruta base que devuelve una lista con todos los recursos
 
-console.log("curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/contacts'");
+console.log("curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/gvg'");
 
 *POST a la ruta base que crea un nuevo recurso
 
-console.log("curl -v -XPOST -H 'Content-type: application/json' -d '{ \"name\": \"David\", \"phone\": \"954556350\", \"email\": \"david@example.com\" }' 'http://localhost:8080/api/v1/contacts'");
+console.log("curl -v -XPOST -H 'Content-type: application/json' -d '{ "country": "Italia", "year": "2015", "income_million": "6800", "income_ratio":"6.1" }' 'http://localhost:8080/api/v1/gvg'");
 
 *GET a un recurso que devuelve ese recurso 
 
-console.log("curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/contacts/David'");
+console.log("curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/gvg/Francia'");
 
 *DELETE a un recurso que borra ese recurso
 
-console.log("curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/contacts/Antonio'");
+console.log("curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/gvg/Alemania'");
 
 *PUT a un recurso que actualiza ese recurso 
 
-console.log("curl -v -XPUT -H 'Content-type: application/json' -d '{ \"name\": \"Antonio\", \"phone\": \"954556350\", \"email\": \"antonio@example.com\" }' 'http://localhost:8080/api/v1/contacts/David'");
+console.log("curl -v -XPUT -H 'Content-type: application/json' -d '{"country": "Italia", "year": "2016", "income_million": "6800", "income_ratio":"6.1" }' 'http://localhost:8080/api/v1/contacts/Italia'");
 
 *POST a un recurso que debe dar un error de método no permitido.
 
-
+console.log("curl -v -XPOST -H 'Content-type: application/json' -d '{ "country": "Italia", "year": "2015", "income_million": "6800", "income_ratio":"6.1" }' 'http://localhost:8080/api/v1/gvg/Francia'");
 
 *PUT a la ruta base que debe dar un error de método no permitido.
 
-console.log("curl -v -XPUT -H 'Content-type: application/json' -d '{ \"name\": \"Antonio\", \"phone\": \"954556350\", \"email\": \"antonio@example.com\" }' 'http://localhost:8080/api/v1/contacts'");
+console.log("curl -v -XPUT -H 'Content-type: application/json' -d '{ console.log("curl -v -XPOST -H 'Content-type: application/json' -d '{ "country": "Italia", "year": "2015", "income_million": "6800", "income_ratio":"6.1" }' 'http://localhost:8080/api/v1/gvg'"); }' 'http://localhost:8080/api/v1/gvg'");
 
 *DELETE a la ruta base que borra todos los recursos
 
-console.log("curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/contacts'");
+console.log("curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/gvg'");
