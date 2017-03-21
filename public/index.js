@@ -8,14 +8,14 @@ var path = require('path');
 var DataStore = require('nedb');
 var MongoClient=require("mongodb").MongoClient;
 
-var mdbURL="mongodb://bearuirei2:us33ak7x@ds137360.mlab.com:37360/sos161701";
+var mdbURL1="mongodb://bearuirei2:us33ak7x@ds137360.mlab.com:37360/sos161701";
 
 var port = (process.env.PORT || 10000);
 var BASE_API_PATH = "/api/v1";
 
 var db;
 //var dbFileName = path.join(__dirname, 'gvg.db');
-MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
+MongoClient.connect(mdbURL1,{native_parser:true},function(err,database){
     
     if(err){
         console.log(err);
