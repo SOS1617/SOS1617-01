@@ -34,6 +34,7 @@ MongoClient.connect(mdbURL1,{native_parser:true},function(err,database){
 var app = express();
 
 app.use(bodyParser.json()); //use default json enconding/decoding
+app.use("/api/v1",express.static(path.join(__dirname,'public')));
 app.use(helmet()); //improve security
 
 
