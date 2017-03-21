@@ -1,0 +1,18 @@
+{
+  "name": "SOS1617-01",
+  "version": "1.0.0",
+  "keywords": [],
+  "author": "bearuirei2@alum.us.es",
+  "scripts": {
+    "start": "node gvg.js"
+  },
+  "contributors": [],
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "helmet": "^3.5.0",
+    "mongodb": "^2.2.25",
+    "nedb": "^1.8.0",
+    "path": "^0.12.7"
+  }
+}
