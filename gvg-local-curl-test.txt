@@ -1,0 +1,31 @@
+*GET a la ruta base que devuelve una lista con todos los recursos
+
+console.log("curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/contacts'");
+
+*POST a la ruta base que crea un nuevo recurso
+
+console.log("curl -v -XPOST -H 'Content-type: application/json' -d '{ \"name\": \"David\", \"phone\": \"954556350\", \"email\": \"david@example.com\" }' 'http://localhost:8080/api/v1/contacts'");
+
+*GET a un recurso que devuelve ese recurso 
+
+console.log("curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/contacts/David'");
+
+*DELETE a un recurso que borra ese recurso
+
+console.log("curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/contacts/Antonio'");
+
+*PUT a un recurso que actualiza ese recurso 
+
+console.log("curl -v -XPUT -H 'Content-type: application/json' -d '{ \"name\": \"Antonio\", \"phone\": \"954556350\", \"email\": \"antonio@example.com\" }' 'http://localhost:8080/api/v1/contacts/David'");
+
+*POST a un recurso que debe dar un error de método no permitido.
+
+
+
+*PUT a la ruta base que debe dar un error de método no permitido.
+
+console.log("curl -v -XPUT -H 'Content-type: application/json' -d '{ \"name\": \"Antonio\", \"phone\": \"954556350\", \"email\": \"antonio@example.com\" }' 'http://localhost:8080/api/v1/contacts'");
+
+*DELETE a la ruta base que borra todos los recursos
+
+console.log("curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/contacts'");
