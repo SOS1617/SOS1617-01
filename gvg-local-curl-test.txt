@@ -16,7 +16,7 @@ console.log("curl -v -XDELETE -H 'Content-type: application/json'  'http://local
 
 *PUT a un recurso que actualiza ese recurso 
 
-console.log("curl -v -XPUT -H 'Content-type: application/json' -d '{"country": "Italia", "year": "2016", "income_million": "6800", "income_ratio":"6.1" }' 'http://localhost:8080/api/v1/contacts/Italia'");
+console.log("curl -v -XPUT -H 'Content-type: application/json' -d '{"country": "Asia", "year": "2015", "income_million": "46600", "income_ratio":"10.7" }' 'http://localhost:8080/api/v1/gvg/Asia'");
 
 *POST a un recurso que debe dar un error de método no permitido.
 
@@ -24,7 +24,7 @@ console.log("curl -v -XPOST -H 'Content-type: application/json' -d '{ "country":
 
 *PUT a la ruta base que debe dar un error de método no permitido.
 
-console.log("curl -v -XPUT -H 'Content-type: application/json' -d '{ console.log("curl -v -XPOST -H 'Content-type: application/json' -d '{ "country": "Italia", "year": "2015", "income_million": "6800", "income_ratio":"6.1" }' 'http://localhost:8080/api/v1/gvg'"); }' 'http://localhost:8080/api/v1/gvg'");
+console.log("curl -v -XPUT -H 'Content-type: application/json' -d '{"country": "Francia", "year": "2016", "income_million": "6800", "income_ratio":"6.1" }' 'http://localhost:8080/api/v1/gvg'");
 
 *DELETE a la ruta base que borra todos los recursos
 
