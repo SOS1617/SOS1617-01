@@ -745,5 +745,3 @@ app.delete(BASE_API_PATH + "/youthunemploymentstats/:country", function (request
         });
     }
 });
-
-
