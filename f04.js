@@ -348,7 +348,7 @@ app.get(BASE_API_PATH + "/startups-stats/loadInitialData", function (request, re
 // GET a collection
 app.get(BASE_API_PATH + "/startups-stats", function (request, response) {
     console.log("INFO: New GET request to /startups-stats");
-    db2.find({}, function (err, datas) { 
+    db2.find({}).toArray(function (err, datas) { 
         if (err) {
             console.error('WARNING: Error getting data from DB');
             response.sendStatus(500); // internal server error
@@ -451,7 +451,7 @@ app.put(BASE_API_PATH + "/startups-stats/:country", function (request, response)
             console.log("WARNING: The contact " + JSON.stringify(updatedData, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
-            db2.find({}, function (err, contacts) {
+            db2.find({}).toArray( function (err, contacts) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
