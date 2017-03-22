@@ -440,13 +440,10 @@ app.put(BASE_API_PATH + "/startups-stats", function (request, response) {
 
 
 //PUT over a single resource
-<<<<<<< HEAD
 app.put(BASE_API_PATH + "/startups-stats/:name", function (request, response) {
     var updatedData =request.body;
-=======
 app.put(BASE_API_PATH + "/startups-stats/:country", function (request, response) {
     var updatedData = request.body;
->>>>>>> b632012ab6b4f5afc059914e2c3c35b6b5ce4466
     var country = request.params.country;
     console.log("request.body"+request.body);
     if (!updatedData) {
