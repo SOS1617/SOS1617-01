@@ -35,8 +35,8 @@ MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
 
 
 var app = express();
-app.use("/api/v1",express.static(path.join('SOS1617-01')));
-app.use(bodyParser.json()); //use default json enconding/decoding
+app.use("/api/v1/",express.static(path.join('public')));
+//app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security
 
 
@@ -285,7 +285,6 @@ app.delete(BASE_API_PATH + "/gvg/:country", function (request, response) {
 
 
 
-
 app.get(BASE_API_PATH + "/startups-stats/loadInitialData", function (request, response) {
     console.log("INFO: New GET request to /startups-stats when BD is empty");
     db.find({}).toArray(function (err, datas) { //Callback que devuelve todos los contactos
@@ -335,12 +334,13 @@ app.get(BASE_API_PATH + "/startups-stats/loadInitialData", function (request, re
 });
 });
 
-/*/ Base GET
-app.get("/", function (request, response) {
+// Base GET
+/*app.get("/", function (request, response) {
     console.log("INFO: Redirecting to /startups-stats");
     response.redirect(301, BASE_API_PATH + "/startups-stats");
-});
-*/
+});*/
+
+
 
 // GET a collection
 app.get(BASE_API_PATH + "/startups-stats", function (request, response) {
@@ -516,5 +516,3 @@ app.delete(BASE_API_PATH + "/startups-stats/:name", function (request, response)
         });
     }
 });
-
-

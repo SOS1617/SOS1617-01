@@ -9,7 +9,6 @@ var t = new time.Date();
 
 
 app.use("/",express.static(publicFolder));
-app.use("/api/v1",express.static(publicFolder));
 app.get("/time", (request,response)=>{
     var day = t.getDate();
     var month = months();
