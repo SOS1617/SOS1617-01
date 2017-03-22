@@ -15,6 +15,7 @@ var port = (process.env.PORT || 10000);
 var BASE_API_PATH = "/api/v1";
 
 var db;
+var db2;
 //var dbFileName = path.join(__dirname, 'gvg.db');
 MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
     
@@ -23,6 +24,7 @@ MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
         process.exit("CONECTION DB FAILED"+err);
     }
        db= database.collection("gvg");
+       db2 = database.collection("startups-stats");
        app.listen(port,()=>{
            console.log("Magic is happening on port " + port);
        });
@@ -281,9 +283,12 @@ app.delete(BASE_API_PATH + "/gvg/:country", function (request, response) {
     }
 });
 
+
+
+
 app.get(BASE_API_PATH + "/startups-stats/loadInitialData", function (request, response) {
     console.log("INFO: New GET request to /startups-stats when BD is empty");
-db.find({}).toArray(function (err, datas) { //Callback que devuelve todos los contactos
+    db.find({}).toArray(function (err, datas) { //Callback que devuelve todos los contactos
     console.log('INFO: Initialiting DB...');
 
     if (err) {
@@ -295,7 +300,7 @@ db.find({}).toArray(function (err, datas) { //Callback que devuelve todos los co
     if (datas.length === 0) {
         console.log('INFO: Empty DB, loading initial data');
 
-        var people = [{
+        var datasD = [{
                 "country": "Spain",
                 "year": "2016",
                 "total": "2663",
@@ -323,24 +328,24 @@ db.find({}).toArray(function (err, datas) { //Callback que devuelve todos los co
                 "increase": "24%",
                 "investment": "182 millions"
             }];
-        db.insert(people);  //Mete un array o un objeto dentro de la base de datos
+        db.insert(datasD);  //Mete un array o un objeto dentro de la base de datos
     } else {
         console.log('INFO: DB has ' + datas.length + ' datas ');
     }
 });
 });
 
-// Base GET
+/*/ Base GET
 app.get("/", function (request, response) {
     console.log("INFO: Redirecting to /startups-stats");
     response.redirect(301, BASE_API_PATH + "/startups-stats");
 });
-
+*/
 
 // GET a collection
 app.get(BASE_API_PATH + "/startups-stats", function (request, response) {
     console.log("INFO: New GET request to /startups-stats");
-    db.find({}, function (err, datas) { 
+    db2.find({}, function (err, datas) { 
         if (err) {
             console.error('WARNING: Error getting data from DB');
             response.sendStatus(500); // internal server error
@@ -360,7 +365,7 @@ app.get(BASE_API_PATH + "/startups-stats/:country", function (request, response)
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New GET request to /startups-stats/" + countryP);
-        db.find({country : countryP}, function (err, filteredDatas) {   //Busca todos los elementos que cumplan determinados criterios (colocados en {}), en este caso todos.
+        db2.find({country : countryP}, function (err, filteredDatas) {   //Busca todos los elementos que cumplan determinados criterios (colocados en {}), en este caso todos.
             if (err) {
                 console.error('WARNING: Error getting data from DB');
                 response.sendStatus(500); // internal server error
@@ -392,7 +397,7 @@ app.post(BASE_API_PATH + "/startups-stats", function (request, response) {
             console.log("WARNING: The contact " + JSON.stringify(newData, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
-            db.find({}, function (err, contacts) {
+            db2.find({}, function (err, contacts) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
@@ -416,7 +421,7 @@ app.post(BASE_API_PATH + "/startups-stats", function (request, response) {
 
 
 //POST over a single resource
-app.post(BASE_API_PATH + "/contacts/:country", function (request, response) {
+app.post(BASE_API_PATH + "/startups-stats/:country", function (request, response) {
     var country = request.params.country;
     console.log("WARNING: New POST request to /contacts/" + country + ", sending 405...");
     response.sendStatus(405); // method not allowed
@@ -431,7 +436,7 @@ app.put(BASE_API_PATH + "/startups-stats", function (request, response) {
 
 
 //PUT over a single resource
-app.put(BASE_API_PATH + "/startups-stats/:name", function (request, response) {
+app.put(BASE_API_PATH + "/startups-stats/:country", function (request, response) {
     var updatedData = request.body;
     var country = request.params.country;
     if (!updatedData) {
@@ -443,7 +448,7 @@ app.put(BASE_API_PATH + "/startups-stats/:name", function (request, response) {
             console.log("WARNING: The contact " + JSON.stringify(updatedData, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
-            db.find({}, function (err, contacts) {
+            db2.find({}, function (err, contacts) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
@@ -452,7 +457,7 @@ app.put(BASE_API_PATH + "/startups-stats/:name", function (request, response) {
                         return (contact.name.localeCompare(country, "en", {'sensitivity': 'base'}) === 0);
                     });
                     if (contactsBeforeInsertion.length > 0) {
-                        db.update({country: country}, updatedData);
+                        db2.update({country: country}, updatedData);
                         console.log("INFO: Modifying contact with name " + country + " with data " + JSON.stringify(updatedData, 2, null));
                         response.send(updatedData); // return the updated contact
                     } else {
@@ -469,7 +474,7 @@ app.put(BASE_API_PATH + "/startups-stats/:name", function (request, response) {
 //DELETE over a collection
 app.delete(BASE_API_PATH + "/startups-stats", function (request, response) {
     console.log("INFO: New DELETE request to /startups-stats");
-    db.remove({}, {multi: true}, function (err, numRemoved) {
+    db2.remove({}, {multi: true}, function (err, numRemoved) {
         if (err) {
             console.error('WARNING: Error removing data from DB');
             response.sendStatus(500); // internal server error
@@ -494,7 +499,7 @@ app.delete(BASE_API_PATH + "/startups-stats/:name", function (request, response)
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New DELETE request to /startups-statss/" + country);
-        db.remove({country: country}, {}, function (err, numRemoved) {
+        db2.remove({country: country}, {}, function (err, numRemoved) {
             if (err) {
                 console.error('WARNING: Error removing data from DB');
                 response.sendStatus(500); // internal server error
