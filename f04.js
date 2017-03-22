@@ -369,7 +369,7 @@ app.get(BASE_API_PATH + "/startups-stats/:country", function (request, response)
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New GET request to /startups-stats/" + countryP);
-        db2.find({country : countryP}, function (err, filteredDatas) {   //Busca todos los elementos que cumplan determinados criterios (colocados en {}), en este caso todos.
+        db2.find({country : countryP}).toArray(function (err, filteredDatas) {   //Busca todos los elementos que cumplan determinados criterios (colocados en {}), en este caso todos.
             if (err) {
                 console.error('WARNING: Error getting data from DB');
                 response.sendStatus(500); // internal server error
@@ -380,7 +380,7 @@ app.get(BASE_API_PATH + "/startups-stats/:country", function (request, response)
                     console.log("INFO: Sending datas: " + JSON.stringify(data, 2, null));
                     response.send(data);
                 } else {
-                    console.log("WARNING: There are not any contact with name " + countryP);
+                    console.log("WARNING: There are not any data with country " + countryP);
                     response.sendStatus(404); // not found
                 }
             }
@@ -401,19 +401,19 @@ app.post(BASE_API_PATH + "/startups-stats", function (request, response) {
             console.log("WARNING: The contact " + JSON.stringify(newData, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
-            db2.find({}, function (err, contacts) {
+            db2.find({}, function (err, datas) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
                 } else {
-                    var contactsBeforeInsertion = contacts.filter((contact) => {
+                    var contactsBeforeInsertion = datas.filter((contact) => {
                         return (contact.country.localeCompare(newData.country, "en", {'sensitivity': 'base'}) === 0);
                     });
                     if (contactsBeforeInsertion.length > 0) {
-                        console.log("WARNING: The contact " + JSON.stringify(newData, 2, null) + " already extis, sending 409...");
+                        console.log("WARNING: The data " + JSON.stringify(newData, 2, null) + " already extis, sending 409...");
                         response.sendStatus(409); // conflict
                     } else {
-                        console.log("INFO: Adding contact " + JSON.stringify(newData, 2, null));
+                        console.log("INFO: Adding data " + JSON.stringify(newData, 2, null));
                         db.insert(newData);
                         response.sendStatus(201); // created
                     }
@@ -427,7 +427,7 @@ app.post(BASE_API_PATH + "/startups-stats", function (request, response) {
 //POST over a single resource
 app.post(BASE_API_PATH + "/startups-stats/:country", function (request, response) {
     var country = request.params.country;
-    console.log("WARNING: New POST request to /contacts/" + country + ", sending 405...");
+    console.log("WARNING: New POST request to /country/" + country + ", sending 405...");
     response.sendStatus(405); // method not allowed
 });
 
@@ -455,12 +455,12 @@ app.put(BASE_API_PATH + "/startups-stats/:country", function (request, response)
             console.log("WARNING: The contact " + JSON.stringify(updatedData, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
-            db2.find({}).toArray( function (err, contacts) {
+            db2.find({}).toArray( function (err, datas) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
                 } else {
-                    var contactsBeforeInsertion = contacts.filter((contact) => {
+                    var contactsBeforeInsertion = datas.filter((contact) => {
                         return (contact.name.localeCompare(country, "en", {'sensitivity': 'base'}) === 0);
                     });
                     if (contactsBeforeInsertion.length > 0) {
@@ -505,7 +505,7 @@ app.delete(BASE_API_PATH + "/startups-stats/:name", function (request, response)
         console.log("WARNING: New DELETE request to /startups-stats/:country without country, sending 400...");
         response.sendStatus(400); // bad request
     } else {
-        console.log("INFO: New DELETE request to /startups-statss/" + country);
+        console.log("INFO: New DELETE request to /startups-stats/" + country);
         db2.remove({country: country}, {}, function (err, numRemoved) {
             if (err) {
                 console.error('WARNING: Error removing data from DB');

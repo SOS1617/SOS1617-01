@@ -4,7 +4,7 @@ console.log("curl -v -XGET -H 'Content-type: application/json'  'http://localhos
 
 *POST a la ruta base que crea un nuevo recurso
 
-console.log("curl -v -XPOST -H 'Content-type: application/json' -d '{"country":"Italy","year":"2016","total":"2420","increase":"24%","investment":"182 millions"}' 'http://localhost:8080/api/v1/gvg'");
+console.log("curl -v -XPOST -H 'Content-type: application/json' -d '{"country":"Italy","year":"2016","total":"2420","increase":"24%","investment":"182 millions"}' 'http://localhost:8080/api/v1/startups-stats'");
 
 *GET a un recurso que devuelve ese recurso 
 
