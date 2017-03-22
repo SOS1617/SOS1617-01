@@ -18,7 +18,7 @@ console.log("curl -v -XDELETE -H 'Content-type: application/json'  'https://sos1
 
 *PUT a un recurso que actualiza ese recurso 
 
-console.log("curl -v -XPUT -H 'Content-type: application/json' -d '{"country": "Italia", "year": "2016", "income_million": "6800", "income_ratio":"6.1" }' 'https://sos1617-01.herokuapp.com/api/v1/gvg/Italia'");
+console.log("curl -v -XPUT -H 'Content-type: application/json' -d '{"country": "Asia", "year": "2016", "income_million": "46600", "income_ratio":"10.7" }' 'https://sos1617-01.herokuapp.com/api/v1/gvg/Italia'");
 
 *POST a un recurso que debe dar un error de método no permitido.
 

@@ -207,6 +207,7 @@ app.put(BASE_API_PATH + "/gvg", function (request, response) {
 //PUT over a single resource
 app.put(BASE_API_PATH + "/gvg/:country", function (request, response) {
     var updatedCountry = request.body;
+    console.log("request.body"+request.body);
     var country = request.params.country;
     if (!updatedCountry) {
         console.log("WARNING: New PUT request to /gvg/ without country, sending 400...");
@@ -439,9 +440,15 @@ app.put(BASE_API_PATH + "/startups-stats", function (request, response) {
 
 
 //PUT over a single resource
+<<<<<<< HEAD
+app.put(BASE_API_PATH + "/startups-stats/:name", function (request, response) {
+    var updatedData =request.body;
+=======
 app.put(BASE_API_PATH + "/startups-stats/:country", function (request, response) {
     var updatedData = request.body;
+>>>>>>> b632012ab6b4f5afc059914e2c3c35b6b5ce4466
     var country = request.params.country;
+    console.log("request.body"+request.body);
     if (!updatedData) {
         console.log("WARNING: New PUT request to /startups-stats/ without data, sending 400...");
         response.sendStatus(400); // bad request
