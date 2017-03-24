@@ -439,11 +439,7 @@ app.put(BASE_API_PATH + "/startups-stats", function (request, response) {
 
 
 //PUT over a single resource
-<<<<<<< HEAD
-app.put(BASE_API_PATH + "/startups-stats/:name", function (request, response) {
-    var updatedData =request.body;
-=======
->>>>>>> c9193e04433ba04e93515bf479ddab6d3cbe9614
+
 app.put(BASE_API_PATH + "/startups-stats/:country", function (request, response) {
     var updatedData = request.body;
     var country = request.params.country;
