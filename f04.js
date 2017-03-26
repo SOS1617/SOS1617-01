@@ -156,7 +156,7 @@ app.get(BASE_API_PATH + "/gvg/:country", function (request, response) {
 
 //POST over a collection
 app.post(BASE_API_PATH + "/gvg", function (request, response) {
-    var newData = request.body;
+    var newData = request.params.country;
     if (!newData) {
         console.log("WARNING: New POST request to /gvg/ without datas, sending 400...");
         response.sendStatus(400); // bad request
