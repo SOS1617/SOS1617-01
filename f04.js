@@ -156,30 +156,30 @@ app.get(BASE_API_PATH + "/gvg/:country", function (request, response) {
 
 //POST over a collection
 app.post(BASE_API_PATH + "/gvg", function (request, response) {
-    var newCountry = request.body;
-    if (!newCountry) {
-        console.log("WARNING: New POST request to /gvg/ without country, sending 400...");
+    var newData = request.body;
+    if (!newData) {
+        console.log("WARNING: New POST request to /gvg/ without datas, sending 400...");
         response.sendStatus(400); // bad request
     } else {
-        console.log("INFO: New POST request to /gvg with body: " + JSON.stringify(newCountry, 2, null));
-        if (!newCountry.country || !newCountry.year || !newCountry.income_million||!newCountry.income_ratio) {
-            console.log("WARNING: The country " + JSON.stringify(newCountry, 2, null) + " is not well-formed, sending 422...");
+        console.log("INFO: New POST request to /gvg with body: " + JSON.stringify(newData, 2, null));
+        if (!newData.country || !newData.year || !newData.income_million || !newData.income_ratio ) {
+            console.log("WARNING: The contact " + JSON.stringify(newData, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
-            db.find({}).toArray(function (err, gvg) {
+            db.find({}, function (err, datas) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
                 } else {
-                    var countriesBeforeInsertion = gvg.filter((countries) => {
-                        return (countries.country.localeCompare(newCountry.country, "en", {'sensitivity': 'base'}) === 0);
+                    var countriesBeforeInsertion = datas.filter((country) => {
+                        return (country.country.localeCompare(newData.country, "en", {'sensitivity': 'base'}) === 0);
                     });
                     if (countriesBeforeInsertion.length > 0) {
-                        console.log("WARNING: The country " + JSON.stringify(newCountry, 2, null) + " already extis, sending 409...");
+                        console.log("WARNING: The data " + JSON.stringify(newData, 2, null) + " already extis, sending 409...");
                         response.sendStatus(409); // conflict
                     } else {
-                        console.log("INFO: Adding country " + JSON.stringify(newCountry, 2, null));
-                        db.insert(newCountry);
+                        console.log("INFO: Adding data " + JSON.stringify(newData, 2, null));
+                        db.insert(newData);
                         response.sendStatus(201); // created
                     }
                 }
