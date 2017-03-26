@@ -1,37 +1,34 @@
 
 *POST a la ruta base que crea un nuevo recurso
 
-console.log("curl -v -XPOST -H 'Content-type: application/json' -d 
-'"country": "Italia", "male_unemployment_ratio": 30.0, "female_unemployment_ratio": 21.0 }' 
-'http://localhost:8080/api/v1/youthunemploymentstats'");
+curl -v -XPOST -H 'Content-type: application/json' -d  '"country": "Italia", "male_unemployment_ratio": 30.0, "female_unemployment_ratio": 21.0 }'  'http://localhost:8080/api/v1/youthunemploymentstats'
+
+*GET a todos los recursos
+
+curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/youthunemploymentstats'"
+
 
 *GET a un recurso que devuelve ese recurso 
 
-console.log("curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/youthunemploymentstats/Francia'");
+curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/youthunemploymentstats/francia'
 
 *DELETE a un recurso que borra ese recurso
 
-console.log("curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/youthunemploymentstats/Alemania'");
+curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/youthunemploymentstats/alemania'
 
 *POST a un recurso que debe dar un error de método no permitido.
 
-console.log("curl -v -XPUT -H 'Content-type: application/json' -d
-'{"country": "Italia", "male_unemployment_ratio": 30.0, "female_unemployment_ratio": 21.0}'
-'http://localhost:8080/api/v1/youthunemploymentstats/'");
+curl -v -XPUT -H 'Content-type: application/json' -d '{"country": "italia","year":2017, "male_unemployment_ratio": 30.0, "female_unemployment_ratio": 21.0}' 'http://localhost:8080/api/v1/youthunemploymentstats/'
 
 *PUT a un recurso que actualiza ese recurso 
 
-
-console.log("curl -v -XPOST -H 'Content-type: application/json' -d 
-'{ "country": "Italia", "year": "2015", "income_million": "6800", "income_ratio":"6.1" }' 
-'http://localhost:8080/api/v1/youthunemploymentstats/Francia'");
+curl -v -XPOST -H 'Content-type: application/json' -d '{ "country": "italia", "year": "2015", "income_million": "6800", "income_ratio":"6.1" }' 
+'http://localhost:8080/api/v1/youthunemploymentstats/francia'
 
 *PUT a la ruta base que debe dar un error de método no permitido.
 
-console.log("curl -v -XPUT -H 'Content-type: application/json' -d 
-'{ "country": "Italia", "year": "2015", "income_million": "6800", "income_ratio":"6.1" }'
-'http://localhost:8080/api/v1/gvg'"); }' 'http://localhost:8080/api/v1/youthunemploymentstats'");
+curl -v -XPUT -H 'Content-type: application/json' -d '{ "country": "italia", "year": "2015", "income_million": "6800", "income_ratio":"6.1" }' 'http://localhost:8080/api/v1/gvg'"); }' 'http://localhost:8080/api/v1/youthunemploymentstats'
 
 *DELETE a la ruta base que borra todos los recursos
 
-console.log("curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/youthunemploymentstats'");
+curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/youthunemploymentstats'
