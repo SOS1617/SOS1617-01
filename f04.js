@@ -539,18 +539,21 @@ app.get(BASE_API_PATH + "/youthunemploymentstats/loadInitialData", function (req
 
         var countries = [{
                 "country":"germany",
-                "male_unemployment_ratio":10.0,
-                "female_unemployment_ratio":10.0
+                "year":2017,
+                "male_unemployment_ratio":7.3,
+                "female_unemployment_ratio":5.5
             },
             {
-                  "country":"spain",
-                "male_unemployment_ratio":44.0,
-                "female_unemployment_ratio":44.0
+                "country":"germany",
+                "year":2017,
+                "male_unemployment_ratio":42.2,
+                "female_unemployment_ratio":42.3
             },
             {
-                 "country":"italy",
-                "male_unemployment_ratio":33.0,
-                "female_unemployment_ratio":33.0
+                "country":"germany",
+                "year":2017,
+                "male_unemployment_ratio":35.4,
+                "female_unemployment_ratio":40.5
             }];
         dba.insert(countries);
         console.log("DB CREATE ");
@@ -623,7 +626,7 @@ app.post(BASE_API_PATH + "/youthunemploymentstats", function (request, response)
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New POST request to /youthunemploymentstats with body: " + JSON.stringify(newData, 2, null));
-        if (!newData.country || !newData.male_unemployment_ratio || !newData.female_unemployment_ratio) {
+        if (!newData.country || !newData.male_unemployment_ratio || !newData.female_unemployment_ratio || !newData.year) {
             console.log("WARNING: The contact " + JSON.stringify(newData, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
@@ -672,7 +675,7 @@ app.put(BASE_API_PATH + "/youthunemploymentstats/:country", function (request, r
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New PUT request to /youthunemploymentstats/" + country + " with data " + JSON.stringify(updatedCountry, 2, null));
-        if (!updatedCountry.country || !updatedCountry.male_unemployment_ratio || !updatedCountry.female_unemployment_ratio) {
+        if (!updatedCountry.country || !updatedCountry.male_unemployment_ratio || !updatedCountry.female_unemployment_ratio || !updatedCountry.year) {
             console.log("WARNING: The country " + JSON.stringify(updatedCountry, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
