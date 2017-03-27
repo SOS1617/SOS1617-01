@@ -38,8 +38,8 @@ MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
 
 
 var app = express();
-app.use("/api/v1/",express.static(path.join('public')));
-//app.use(bodyParser.json()); //use default json enconding/decoding
+//app.use("/api/v1/",express.static(path.join('public')));
+app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security
 
 
@@ -153,11 +153,11 @@ app.get(BASE_API_PATH + "/gvg/:country", function (request, response) {
     }
 });
 
-
+//janfsfsdfsdufñSJF
 //POST over a collection
 app.post(BASE_API_PATH + "/gvg", function (request, response) {
-    var newData = request.params.country;
-    if (!newData) {
+    var newData = request.body;
+    if (!newData) {         
         console.log("WARNING: New POST request to /gvg/ without datas, sending 400...");
         response.sendStatus(400); // bad request
     } else {
