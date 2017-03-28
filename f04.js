@@ -39,6 +39,7 @@ MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
 
 var app = express();
 app.use("/api/v1/",express.static(path.join('public')));
+app.use("/api/v1/test",express.static(path.join('public')));
 app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security
 
@@ -96,6 +97,7 @@ app.get(BASE_API_PATH + "/gvg/loadInitialData", function (request, response) {
             }];
         db.insert(countries);
         console.log("DB CREATE ");
+        response.sendStatus(201);
     } else {
         console.log('INFO: DB has ' + gvg.length + ' countries ');
     }
@@ -157,28 +159,26 @@ app.get(BASE_API_PATH + "/gvg/:country", function (request, response) {
 //POST over a collection
 app.post(BASE_API_PATH + "/gvg", function (request, response) {
     var newData = request.body;
-    if (!newData) {         
-        console.log("WARNING: New POST request to /gvg/ without datas, sending 400...");
+    if (!newData) {
+        console.log("WARNING: New POST request to /gvg/ without country, sending 400...");
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New POST request to /gvg with body: " + JSON.stringify(newData, 2, null));
-        if (!newData.country || !newData.year || !newData.income_million || !newData.income_ratio ) {
-            console.log("WARNING: The contact " + JSON.stringify(newData, 2, null) + " is not well-formed, sending 422...");
+        if (!newData.country || !newData.year || !newData.income_million || !newData.income_ratio) {
+            console.log("WARNING: The country " + JSON.stringify(newData, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
-            db.find({}, function (err, datas) {
+            db.find({country:newData.country}).toArray(function (err, count) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
                 } else {
-                    var countriesBeforeInsertion = datas.filter((country) => {
-                        return (country.country.localeCompare(newData.country, "en", {'sensitivity': 'base'}) === 0);
-                    });
-                    if (countriesBeforeInsertion.length > 0) {
-                        console.log("WARNING: The data " + JSON.stringify(newData, 2, null) + " already extis, sending 409...");
+                  
+                    if (count.length > 0) {
+                        console.log("WARNING: The country " + JSON.stringify(newData, 2, null) + " already extis, sending 409...");
                         response.sendStatus(409); // conflict
                     } else {
-                        console.log("INFO: Adding data " + JSON.stringify(newData, 2, null));
+                        console.log("INFO: Adding country" + JSON.stringify(newData, 2, null));
                         db.insert(newData);
                         response.sendStatus(201); // created
                     }
@@ -228,7 +228,8 @@ app.put(BASE_API_PATH + "/gvg/:country", function (request, response) {
                     if (countriesBeforeInsertion.length > 0) {
                         db.update({country: country}, updatedCountry);
                         console.log("INFO: Modifying country with name " + country + " with data " + JSON.stringify(updatedCountry, 2, null));
-                        response.send(updatedCountry); // return the updated contact
+                        response.send(updatedCountry); 
+                        response.sendStatus(200)// return the updated contact
                     } else {
                         console.log("WARNING: There are not any country called " + country);
                         response.sendStatus(404); // not found
@@ -255,6 +256,12 @@ app.delete(BASE_API_PATH + "/gvg", function (request, response) {
                 console.log("WARNING: There are no countries to delete");
                 response.sendStatus(404); // not found
             }
+               
+        }
+        if(!err){
+             console.log("Collect has been drop");
+                response.sendStatus(200);
+            
         }
     });
 });
@@ -274,12 +281,13 @@ app.delete(BASE_API_PATH + "/gvg/:country", function (request, response) {
                 response.sendStatus(500); // internal server error
             } else {
                 console.log("INFO: Countries removed: " + numRemoved);
-                if (numRemoved === 1) {
+                if (numRemoved > 1) {
                     console.log("INFO: The country with name " + country + " has been succesfully deleted, sending 204...");
                     response.sendStatus(204); // no content
                 } else {
                     console.log("WARNING: There are no countries to delete");
                     response.sendStatus(404); // not found
+                    console.log("Contenido de numRemoved"+numRemoved);
                 }
             }
         });
