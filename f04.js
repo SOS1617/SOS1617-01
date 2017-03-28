@@ -721,7 +721,7 @@ app.delete(BASE_API_PATH + "/youthunemploymentstats", function (request, respons
             console.error('WARNING: Error removing data from DB');
             response.sendStatus(500); // internal server error
         } else {
-            if (num > 0) {
+            if (num.n > 0) {
                 console.log("INFO: All the countries (" + numRemoved + ") have been succesfully deleted, sending 204...");
                 response.sendStatus(204); // no content
             } else {
