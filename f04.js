@@ -281,12 +281,13 @@ app.delete(BASE_API_PATH + "/gvg/:country", function (request, response) {
                 response.sendStatus(500); // internal server error
             } else {
                 console.log("INFO: Countries removed: " + numRemoved);
-                if (numRemoved === 1) {
+                if (numRemoved > 1) {
                     console.log("INFO: The country with name " + country + " has been succesfully deleted, sending 204...");
                     response.sendStatus(204); // no content
                 } else {
                     console.log("WARNING: There are no countries to delete");
                     response.sendStatus(404); // not found
+                    console.log("Contenido de numRemoved"+numRemoved);
                 }
             }
         });
