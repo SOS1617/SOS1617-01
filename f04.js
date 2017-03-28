@@ -227,7 +227,8 @@ app.put(BASE_API_PATH + "/gvg/:country", function (request, response) {
                     if (countriesBeforeInsertion.length > 0) {
                         db.update({country: country}, updatedCountry);
                         console.log("INFO: Modifying country with name " + country + " with data " + JSON.stringify(updatedCountry, 2, null));
-                        response.send(updatedCountry); // return the updated contact
+                        response.send(updatedCountry); 
+                        response.sendStatus(200)// return the updated contact
                     } else {
                         console.log("WARNING: There are not any country called " + country);
                         response.sendStatus(404); // not found
