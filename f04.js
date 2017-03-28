@@ -244,22 +244,20 @@ app.put(BASE_API_PATH + "/gvg/:country", function (request, response) {
 //DELETE over a collection
 app.delete(BASE_API_PATH + "/gvg", function (request, response) {
     console.log("INFO: New DELETE request to /gvg");
-    db.drop({}, {multi: true}, function (err, numRemoved) {
+    db.remove({}, {multi: true}, function (err, numRemoved) {
         var num = JSON.parse(numRemoved);
         if (err) {
             console.error('WARNING: Error removing data from DB');
             response.sendStatus(500); // internal server error
         } else {
             if (num.n > 0) {
-                console.log("INFO: All countries (" + numRemoved + ") have been succesfully deleted, sending 204...");
+                console.log("INFO: All the datas (" + numRemoved + ") have been succesfully deleted, sending 204...");
                 response.sendStatus(204); // no content
             } else {
-                console.log("WARNING: There are no countries to delete");
+                console.log("WARNING: There are no datas to delete");
                 response.sendStatus(404); // not found
             }
-               
         }
-       
     });
 });
 
@@ -721,7 +719,7 @@ app.delete(BASE_API_PATH + "/youthunemploymentstats", function (request, respons
             console.error('WARNING: Error removing data from DB');
             response.sendStatus(500); // internal server error
         } else {
-            if (num > 0) {
+            if (num.n > 0) {
                 console.log("INFO: All the countries (" + numRemoved + ") have been succesfully deleted, sending 204...");
                 response.sendStatus(204); // no content
             } else {
