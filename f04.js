@@ -167,7 +167,7 @@ app.post(BASE_API_PATH + "/gvg", function (request, response) {
             console.log("WARNING: The country " + JSON.stringify(newData, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
-            dba.find({country:newData.country}).toArray(function (err, count) {
+            db.find({country:newData.country}).toArray(function (err, count) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
@@ -178,7 +178,7 @@ app.post(BASE_API_PATH + "/gvg", function (request, response) {
                         response.sendStatus(409); // conflict
                     } else {
                         console.log("INFO: Adding country" + JSON.stringify(newData, 2, null));
-                        dba.insert(newData);
+                        db.insert(newData);
                         response.sendStatus(201); // created
                     }
                 }
