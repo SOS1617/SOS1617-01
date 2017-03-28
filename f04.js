@@ -175,7 +175,7 @@ app.post(BASE_API_PATH + "/gvg", function (request, response) {
                     var countriesBeforeInsertion = datas.filter((country) => {
                         return (country.country.localeCompare(newData.country, "en", {'sensitivity': 'base'}) === 0);
                     });
-                    if (countriesBeforeInsertion.length > 0) {
+                    if (datas.length > 0) {
                         console.log("WARNING: The data " + JSON.stringify(newData, 2, null) + " already extis, sending 409...");
                         response.sendStatus(409); // conflict
                     } else {
