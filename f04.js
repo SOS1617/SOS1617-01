@@ -244,12 +244,13 @@ app.put(BASE_API_PATH + "/gvg/:country", function (request, response) {
 //DELETE over a collection
 app.delete(BASE_API_PATH + "/gvg", function (request, response) {
     console.log("INFO: New DELETE request to /gvg");
-    db.drop({}, {multi: true}, function (err, numRemoved) {
+    db.drop({}, {multi: true}, function (err, result) {
+        var numRemoved = JSON.parse(result);
         if (err) {
             console.error('WARNING: Error removing data from DB');
             response.sendStatus(500); // internal server error
         } else {
-            if (numRemoved > 0) {
+            if (numRemoved.n > 0) {
                 console.log("INFO: All countries (" + numRemoved + ") have been succesfully deleted, sending 204...");
                 response.sendStatus(204); // no content
             } else {
@@ -275,13 +276,14 @@ app.delete(BASE_API_PATH + "/gvg/:country", function (request, response) {
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New DELETE request to /gvg/" + country);
-        db.deleteOne({country: country}, function (err, numRemoved) {
+        db.deleteOne({country: country}, function (err, result) {
+            var numRemoved = JSON.parse(result);
             if (err) {
                 console.error('WARNING: Error removing data from DB');
                 response.sendStatus(500); // internal server error
             } else {
                 console.log("INFO: Countries removed: " + numRemoved);
-                if (numRemoved > 1) {
+                if (numRemoved.n ===1) {
                     console.log("INFO: The country with name " + country + " has been succesfully deleted, sending 204...");
                     response.sendStatus(204); // no content
                 } else {
