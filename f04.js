@@ -691,12 +691,14 @@ app.put(BASE_API_PATH + "/youthunemploymentstats/:country", function (request, r
         } else {
             
             dba.find({country:updatedCountry.country}).toArray(function (err, paises) {
+                var numRemoved = JSON.parse(paises);
+
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
                 } else {
                 
-                    if (paises.length > 0) {
+                    if (numRemoved.n > 0) {
                         dba.update({country: updatedCountry.country}, updatedCountry);
                         console.log("INFO: Modifying country with name " + country + " with data " + JSON.stringify(updatedCountry, 2, null));
                         response.send(updatedCountry); // return the updated contact
@@ -742,12 +744,14 @@ app.delete(BASE_API_PATH + "/youthunemploymentstats/:country", function (request
     } else {
         console.log("INFO: New DELETE request to /youthunemploymentstats/" + country);
         dba.remove({country: country}, function (err, numRemoved) {
+                var num = JSON.parse(numRemoved);
+
             if (err) {
                 console.error('WARNING: Error removing data from DB');
                 response.sendStatus(500); // internal server error
             } else {
                 console.log("INFO: country removed: " + numRemoved);
-                if (numRemoved) {
+                if (num.n>0) {
                     console.log("INFO: The country with name " + country + " has been succesfully deleted, sending 204...");
                     response.sendStatus(204); // no content
                 } else {
