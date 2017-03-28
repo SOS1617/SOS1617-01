@@ -39,6 +39,7 @@ MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
 
 var app = express();
 app.use("/api/v1/",express.static(path.join('public')));
+app.use("/api/v1/test",express.static(path.join('public')));
 app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security
 
@@ -274,7 +275,7 @@ app.delete(BASE_API_PATH + "/gvg/:country", function (request, response) {
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New DELETE request to /gvg/" + country);
-        db.deleteOne({country: country}, function (err, numRemoved) {
+        db.delete({country: country}, function (err, numRemoved) {
             if (err) {
                 console.error('WARNING: Error removing data from DB');
                 response.sendStatus(500); // internal server error
