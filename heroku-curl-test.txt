@@ -39,32 +39,39 @@ console.log("curl -v -XDELETE -H 'Content-type: application/json'  'https://sos1
 
 *POST a la ruta base que crea un nuevo recurso
 
-curl -v -XPOST -H 'Content-type: application/json' -d  '"country": "Italia", "male_unemployment_ratio": 30.0, "female_unemployment_ratio": 21.0 }'  'https://sos1617-01.herokuapp.com/api/v1/youthunemploymentstats'
+curl -v -XPOST -H 'Content-type: application/json' -d 
+'"country": "italia", "year":2016,"male_unemployment_ratio": 30.0, "female_unemployment_ratio": 21.0 }' 
+'https://sos1617-01.herokuapp.com/api/v1/youthunemploymentstats'
 
 *GET a todos los recursos
 
-curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/youthunemploymentstats'"
+curl -v -XGET -H 'Content-type: application/json'  'https://sos1617-01.herokuapp.com/api/v1/youthunemploymentstats'"
 
 
 *GET a un recurso que devuelve ese recurso 
 
-curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/youthunemploymentstats/francia'
+curl -v -XGET -H 'Content-type: application/json'  'https://sos1617-01.herokuapp.com/api/v1/youthunemploymentstats/francia'
 
 *DELETE a un recurso que borra ese recurso
 
-curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/youthunemploymentstats/alemania'
+curl -v -XDELETE -H 'Content-type: application/json'  'https://sos1617-01.herokuapp.com/api/v1/youthunemploymentstats/alemania'
 
 *POST a un recurso que debe dar un error de método no permitido.
 
-curl -v -XPUT -H 'Content-type: application/json' -d '{"country": "italia","year":2017, "male_unemployment_ratio": 30.0, "female_unemployment_ratio": 21.0}' 'https://sos1617-01.herokuapp.com/api/v1/youthunemploymentstats/'
+curl -v -XPUT -H 'Content-type: application/json' -d
+'{"country": "italia","year":2017, "male_unemployment_ratio": 30.0, "female_unemployment_ratio": 21.0}' 
+'https://sos1617-01.herokuapp.com/api/v1/youthunemploymentstats/italia'
 
 *PUT a un recurso que actualiza ese recurso 
 
-curl -v -XPOST -H 'Content-type: application/json' -d '{ "country": "italia", "year": "2015", "income_million": "6800", "income_ratio":"6.1" }' 'https://sos1617-01.herokuapp.com/api/v1/youthunemploymentstats/francia'
+curl -v -XPOST -H 'Content-type: application/json' -d 
+'"country": "italia", "year":2017,"male_unemployment_ratio": 30.0, "female_unemployment_ratio": 21.0 }'
+'https://sos1617-01.herokuapp.com/api/v1/youthunemploymentstats/francia'
 
 *PUT a la ruta base que debe dar un error de método no permitido.
 
-curl -v -XPUT -H 'Content-type: application/json' -d '{ "country": "italia", "year": "2015", "income_million": "6800", "income_ratio":"6.1" }' 'https://sos1617-01.herokuapp.com/api/v1/gvg'"); }' 'http://localhost:8080/api/v1/youthunemploymentstats'
+curl -v -XPUT -H 'Content-type: application/json' -d '{ "country": "italia", "year": "2015", "income_million": "6800", "income_ratio":"6.1" }' 
+'https://sos1617-01.herokuapp.com/api/v1/gvg'"); }' 'https://sos1617-01.herokuapp.com/api/v1/youthunemploymentstats'
 
 *DELETE a la ruta base que borra todos los recursos
 

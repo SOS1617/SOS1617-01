@@ -556,13 +556,13 @@ app.get(BASE_API_PATH + "/youthunemploymentstats/loadInitialData", function (req
                 "female_unemployment_ratio":5.5
             },
             {
-                "country":"germany",
+                "country":"spain",
                 "year":2017,
                 "male_unemployment_ratio":42.2,
                 "female_unemployment_ratio":42.3
             },
             {
-                "country":"germany",
+                "country":"italy",
                 "year":2017,
                 "male_unemployment_ratio":35.4,
                 "female_unemployment_ratio":40.5
@@ -717,11 +717,13 @@ app.put(BASE_API_PATH + "/youthunemploymentstats/:country", function (request, r
 app.delete(BASE_API_PATH + "/youthunemploymentstats", function (request, response) {
     console.log("INFO: New DELETE request to /youthunemploymentstats");
     dba.remove({}, function (err, numRemoved) {
+            var num = JSON.parse(numRemoved);
+
         if (err) {
             console.error('WARNING: Error removing data from DB');
             response.sendStatus(500); // internal server error
         } else {
-            if (numRemoved) {
+            if (num > 0) {
                 console.log("INFO: All the countries (" + numRemoved + ") have been succesfully deleted, sending 204...");
                 response.sendStatus(204); // no content
             } else {
