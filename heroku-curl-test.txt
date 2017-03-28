@@ -77,32 +77,32 @@ curl -v -XDELETE -H 'Content-type: application/json'  'https://sos1617-01.heroku
 
 *GET a la ruta base que devuelve una lista con todos los recursos
 
-console.log("curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/startups-stats'");
+console.log("curl -v -XGET -H 'Content-type: application/json'  'https://sos1617-01.herokuapp.com/api/v1/startups-stats'");
 
 *POST a la ruta base que crea un nuevo recurso
 
-console.log("curl -v -XPOST -H 'Content-type: application/json' -d '{"country":"Holand","year":"2015","total":"2420","increase":"10%","investment":"200 millions"}' 'http://localhost:8080/api/v1/startups-stats'");
+console.log("curl -v -XPOST -H 'Content-type: application/json' -d '{"country":"Holand","year":"2015","total":"2420","increase":"10%","investment":"200 millions"}' 'https://sos1617-01.herokuapp.com/api/v1/startups-stats'");
 
 *GET a un recurso que devuelve ese recurso 
 
-console.log("curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/startups-stats/Italy'");
+console.log("curl -v -XGET -H 'Content-type: application/json'  'https://sos1617-01.herokuapp.com/api/v1/startups-stats/Italy'");
 
 *DELETE a un recurso que borra ese recurso
 
-console.log("curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/startups-stats/Spain'");
+console.log("curl -v -XDELETE -H 'Content-type: application/json'  'https://sos1617-01.herokuapp.com/api/v1/startups-stats/Spain'");
 
 *PUT a un recurso que actualiza ese recurso 
 
-console.log("curl -v -XPUT -H 'Content-type: application/json' -d '{"country":"Italy","year":"2016","total":"2420","increase":"24%","investment":"182 millions"}' 'http://localhost:8080/api/v1/contacts/Italy'");
+console.log("curl -v -XPUT -H 'Content-type: application/json' -d '{"country":"Italy","year":"2016","total":"2420","increase":"24%","investment":"182 millions"}' 'https://sos1617-01.herokuapp.com/api/v1/startups-stats/Italy'");
 
 *POST a un recurso que debe dar un error de método no permitido.
 
-console.log("curl -v -XPOST -H 'Content-type: application/json' -d '{"country":"Italy","year":"2016","total":"2420","increase":"24%","investment":"182 millions"}' 'http://localhost:8080/api/v1/startups-stats/Italy'");
+console.log("curl -v -XPOST -H 'Content-type: application/json' -d '{"country":"Italy","year":"2016","total":"2420","increase":"24%","investment":"182 millions"}' 'https://sos1617-01.herokuapp.com/api/v1/startups-stats/Italy'");
 
 *PUT a la ruta base que debe dar un error de método no permitido.
 
-console.log("curl -v -XPUT -H 'Content-type: application/json' -d '{"country":"Italy","year":"2016","total":"2420","increase":"24%","investment":"182 millions"}' 'http://localhost:8080/api/v1/startups-stats'"); }' 'http://localhost:8080/api/v1/startups-stats'");
+console.log("curl -v -XPUT -H 'Content-type: application/json' -d '{"country":"Italy","year":"2016","total":"2420","increase":"24%","investment":"182 millions"}' 'https://sos1617-01.herokuapp.com/api/v1/startups-stats'"); }' 'https://sos1617-01.herokuapp.com/api/v1/startups-stats'");
 
 *DELETE a la ruta base que borra todos los recursos
 
-console.log("curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/startups-stats'");
+console.log("curl -v -XDELETE -H 'Content-type: application/json'  'https://sos1617-01.herokuapp.com/api/v1/startups-stats'");
