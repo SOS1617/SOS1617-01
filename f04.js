@@ -405,15 +405,15 @@ app.post(BASE_API_PATH + "/startups-stats", function (request, response) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
                 } else {
-                    var contactsBeforeInsertion = datas.filter((contact) => {
+                    var countriesBeforeInsertion = datas.filter((contact) => {
                         return (contact.country.localeCompare(newData.country, "en", {'sensitivity': 'base'}) === 0);
                     });
-                    if (contactsBeforeInsertion.length > 0) {
+                    if (countriesBeforeInsertion.length > 0) {
                         console.log("WARNING: The data " + JSON.stringify(newData, 2, null) + " already extis, sending 409...");
                         response.sendStatus(409); // conflict
                     } else {
                         console.log("INFO: Adding data " + JSON.stringify(newData, 2, null));
-                        db.insert(newData);
+                        db2.insert(newData);
                         response.sendStatus(201); // created
                     }
                 }
