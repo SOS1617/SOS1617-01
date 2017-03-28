@@ -244,13 +244,13 @@ app.put(BASE_API_PATH + "/gvg/:country", function (request, response) {
 //DELETE over a collection
 app.delete(BASE_API_PATH + "/gvg", function (request, response) {
     console.log("INFO: New DELETE request to /gvg");
-    db.drop({}, {multi: true}, function (err, result) {
-        var numRemoved = JSON.parse(result);
+    db.drop({}, {multi: true}, function (err, numRemoved) {
+        var num = JSON.parse(numRemoved);
         if (err) {
             console.error('WARNING: Error removing data from DB');
             response.sendStatus(500); // internal server error
         } else {
-            if (numRemoved.n > 0) {
+            if (num.n > 0) {
                 console.log("INFO: All countries (" + numRemoved + ") have been succesfully deleted, sending 204...");
                 response.sendStatus(204); // no content
             } else {
