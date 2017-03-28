@@ -487,11 +487,12 @@ app.put(BASE_API_PATH + "/startups-stats/:country", function (request, response)
 app.delete(BASE_API_PATH + "/startups-stats", function (request, response) {
     console.log("INFO: New DELETE request to /startups-stats");
     db2.remove({}, {multi: true}, function (err, numRemoved) {
+        var num = JSON.parse(numRemoved);
         if (err) {
             console.error('WARNING: Error removing data from DB');
             response.sendStatus(500); // internal server error
         } else {
-            if (numRemoved > 0) {
+            if (num.n > 0) {
                 console.log("INFO: All the datas (" + numRemoved + ") have been succesfully deleted, sending 204...");
                 response.sendStatus(204); // no content
             } else {
@@ -512,13 +513,14 @@ app.delete(BASE_API_PATH + "/startups-stats/:country", function (request, respon
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New DELETE request to /startups-stats/" + country);
-        db2.deleteOne({country: country}, function (err, numRemoved) {
+        db2.deleteOne({country: country}, function (err, result) {
+            var numRemoved = JSON.parse(result);
             if (err) {
                 console.error('WARNING: Error removing data from DB');
                 response.sendStatus(500); // internal server error
             } else {
-                console.log("INFO: Datas removed: " + numRemoved);
-                if (numRemoved === 1) {
+                console.log("INFO: Datas removed: " + numRemoved.n);
+                if (numRemoved.n > 0) {
                     console.log("INFO: The data with country " + country + " has been succesfully deleted, sending 204...");
                     response.sendStatus(204); // no content
                 } else {
