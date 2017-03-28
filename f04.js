@@ -259,11 +259,7 @@ app.delete(BASE_API_PATH + "/gvg", function (request, response) {
             }
                
         }
-        if(!err){
-             console.log("Collect has been drop");
-                response.sendStatus(200);
-            
-        }
+       
     });
 });
 
