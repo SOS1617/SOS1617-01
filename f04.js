@@ -275,7 +275,7 @@ app.delete(BASE_API_PATH + "/gvg/:country", function (request, response) {
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New DELETE request to /gvg/" + country);
-        db.delete({country: country}, function (err, numRemoved) {
+        db.deleteOne({country: country}, function (err, numRemoved) {
             if (err) {
                 console.error('WARNING: Error removing data from DB');
                 response.sendStatus(500); // internal server error
