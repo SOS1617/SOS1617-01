@@ -16,7 +16,7 @@ console.log("curl -v -XDELETE -H 'Content-type: application/json'  'http://local
 
 *PUT a un recurso que actualiza ese recurso 
 
-console.log("curl -v -XPUT -H 'Content-type: application/json' -d '{"country":"Italy","year":"2016","total":"2420","increase":"24%","investment":"182 millions"}' 'http://localhost:8080/api/v1/contacts/Italy'");
+console.log("curl -v -XPUT -H 'Content-type: application/json' -d '{"country":"Spain","year":"2000","total":"2420","increase":"24%","investment":"182 millions"}' 'http://localhost:8080/api/v1/startups-stats/Spain'");
 
 *POST a un recurso que debe dar un error de método no permitido.
 

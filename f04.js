@@ -465,13 +465,15 @@ app.put(BASE_API_PATH + "/startups-stats/:country", function (request, response)
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
                 } else {
-                    var contactsBeforeInsertion = datas.filter((contact) => {
-                        return (contact.name.localeCompare(country, "en", {'sensitivity': 'base'}) === 0);
+                    var contactsBeforeInsertion = datas.filter((data) => {
+                        return (data.country.localeCompare(country, "en", {'sensitivity': 'base'}) === 0);
+                       
                     });
                     if (contactsBeforeInsertion.length > 0) {
                         db2.update({country: country}, updatedData);
                         console.log("INFO: Modifying contact with name " + country + " with data " + JSON.stringify(updatedData, 2, null));
                         response.send(updatedData); // return the updated contact
+                        response.sendStatus(200);
                     } else {
                         console.log("WARNING: There are not any contact with name " + country);
                         response.sendStatus(404); // not found
