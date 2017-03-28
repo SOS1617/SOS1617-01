@@ -255,6 +255,12 @@ app.delete(BASE_API_PATH + "/gvg", function (request, response) {
                 console.log("WARNING: There are no countries to delete");
                 response.sendStatus(404); // not found
             }
+               
+        }
+        if(!err){
+             console.log("Collect has been drop");
+                response.sendStatus(200);
+            
         }
     });
 });
