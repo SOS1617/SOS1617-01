@@ -96,6 +96,7 @@ app.get(BASE_API_PATH + "/gvg/loadInitialData", function (request, response) {
             }];
         db.insert(countries);
         console.log("DB CREATE ");
+        response.sendStatus(201);
     } else {
         console.log('INFO: DB has ' + gvg.length + ' countries ');
     }
