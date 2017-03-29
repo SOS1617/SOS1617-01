@@ -9,7 +9,7 @@ var DataStore = require('nedb');
 var MongoClient=require("mongodb").MongoClient;
 
 var mdbURL="mongodb://bearuirei2:us33ak7x@ds137360.mlab.com:37360/sos161701";
-var publicFolder=path.join(__dirname,'public');
+var publicFolder=path.join(__dirname,'public/');
 
 var port = (process.env.PORT || 10000);
 var BASE_API_PATH = "/api/v1";
@@ -40,7 +40,7 @@ MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
 
 var app = express();
 app.use("/api/v1/",express.static(path.join('public')));
-app.use("/api/v1/test",express.static(path.join('public')));
+//app.use("/api/v1/test",express.static(path.join('public')));
 app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security
 
