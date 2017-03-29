@@ -238,26 +238,29 @@ app.put(BASE_API_PATH + "/gvg/:country", function (request, response) {
             });
         }
     }
+    //prueba
 });
 
 
 //DELETE over a collection
 app.delete(BASE_API_PATH + "/gvg", function (request, response) {
     console.log("INFO: New DELETE request to /gvg");
-    db.remove({}, {multi: true}, function (err, numRemoved) {
-        var num = JSON.parse(numRemoved);
+    db.drop({}, {multi: true}, function (err, result) {
+        var numRemoved = JSON.parse(result);
         if (err) {
             console.error('WARNING: Error removing data from DB');
             response.sendStatus(500); // internal server error
         } else {
-            if (num.n > 0) {
-                console.log("INFO: All the datas (" + numRemoved + ") have been succesfully deleted, sending 204...");
+            if (numRemoved.n > 0) {
+                console.log("INFO: All countries (" + numRemoved + ") have been succesfully deleted, sending 204...");
                 response.sendStatus(204); // no content
             } else {
-                console.log("WARNING: There are no datas to delete");
+                console.log("WARNING: There are no countries to delete");
                 response.sendStatus(404); // not found
             }
+               
         }
+       
     });
 });
 
@@ -552,13 +555,13 @@ app.get(BASE_API_PATH + "/youthunemploymentstats/loadInitialData", function (req
                 "female_unemployment_ratio":5.5
             },
             {
-                "country":"spain",
+                "country":"germany",
                 "year":2017,
                 "male_unemployment_ratio":42.2,
                 "female_unemployment_ratio":42.3
             },
             {
-                "country":"italy",
+                "country":"germany",
                 "year":2017,
                 "male_unemployment_ratio":35.4,
                 "female_unemployment_ratio":40.5
@@ -684,19 +687,17 @@ app.put(BASE_API_PATH + "/youthunemploymentstats/:country", function (request, r
     } else {
         console.log("INFO: New PUT request to /youthunemploymentstats/" + country + " with data " + JSON.stringify(updatedCountry, 2, null));
         if (!updatedCountry.country || !updatedCountry.male_unemployment_ratio || !updatedCountry.female_unemployment_ratio || !updatedCountry.year) {
-            console.log("WARNING: The country " + JSON.stringify(updatedCountry, 2, null) + " is not well-formed, sending 422...");
+            //console.log("WARNING: The country " + JSON.stringify(updatedCountry, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
             
             dba.find({country:updatedCountry.country}).toArray(function (err, paises) {
-                var numRemoved = JSON.parse(paises);
-
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
                 } else {
                 
-                    if (numRemoved.n > 0) {
+                    if (paises.length > 0) {
                         dba.update({country: updatedCountry.country}, updatedCountry);
                         console.log("INFO: Modifying country with name " + country + " with data " + JSON.stringify(updatedCountry, 2, null));
                         response.send(updatedCountry); // return the updated contact
@@ -715,13 +716,11 @@ app.put(BASE_API_PATH + "/youthunemploymentstats/:country", function (request, r
 app.delete(BASE_API_PATH + "/youthunemploymentstats", function (request, response) {
     console.log("INFO: New DELETE request to /youthunemploymentstats");
     dba.remove({}, function (err, numRemoved) {
-            var num = JSON.parse(numRemoved);
-
         if (err) {
             console.error('WARNING: Error removing data from DB');
             response.sendStatus(500); // internal server error
         } else {
-            if (num.n > 0) {
+            if (numRemoved) {
                 console.log("INFO: All the countries (" + numRemoved + ") have been succesfully deleted, sending 204...");
                 response.sendStatus(204); // no content
             } else {
@@ -742,14 +741,12 @@ app.delete(BASE_API_PATH + "/youthunemploymentstats/:country", function (request
     } else {
         console.log("INFO: New DELETE request to /youthunemploymentstats/" + country);
         dba.remove({country: country}, function (err, numRemoved) {
-                var num = JSON.parse(numRemoved);
-
             if (err) {
                 console.error('WARNING: Error removing data from DB');
                 response.sendStatus(500); // internal server error
             } else {
                 console.log("INFO: country removed: " + numRemoved);
-                if (num.n>0) {
+                if (numRemoved) {
                     console.log("INFO: The country with name " + country + " has been succesfully deleted, sending 204...");
                     response.sendStatus(204); // no content
                 } else {
