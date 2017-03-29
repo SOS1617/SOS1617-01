@@ -9,10 +9,11 @@ var DataStore = require('nedb');
 var MongoClient=require("mongodb").MongoClient;
 
 var mdbURL="mongodb://bearuirei2:us33ak7x@ds137360.mlab.com:37360/sos161701";
-
+var publicFolder=path.join(__dirname,'public');
 
 var port = (process.env.PORT || 10000);
 var BASE_API_PATH = "/api/v1";
+
 
 var db;
 var db2;
@@ -43,7 +44,9 @@ app.use("/api/v1/test",express.static(path.join('public')));
 app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security
 
-
+app.get(BASE_API_PATH+"/test",function(request, response) {
+    response.sendfile(publicFolder+"botones.html");
+})
 app.get(BASE_API_PATH + "/gvg/loadInitialData", function (request, response) {
     console.log("INFO: New GET request to /gvg when BD is empty");
    
