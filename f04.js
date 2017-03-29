@@ -407,15 +407,15 @@ app.post(BASE_API_PATH + "/startups-stats", function (request, response) {
             console.log("WARNING: The contact " + JSON.stringify(newData, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
-            db2.find({}, function (err, datas) {
+            db2.find({country:newData.country}).toArray(function (err, datas) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
                 } else {
-                    var countriesBeforeInsertion = datas.filter((contact) => {
-                        return (contact.country.localeCompare(newData.country, "en", {'sensitivity': 'base'}) === 0);
-                    });
-                    if (countriesBeforeInsertion.length > 0) {
+                    //var countriesBeforeInsertion = datas.filter((contact) => {
+                     //   return (contact.country.localeCompare(newData.country, "en", {'sensitivity': 'base'}) === 0);
+                    //});
+                    if (datas.length > 0) {
                         console.log("WARNING: The data " + JSON.stringify(newData, 2, null) + " already extis, sending 409...");
                         response.sendStatus(409); // conflict
                     } else {
@@ -472,7 +472,7 @@ app.put(BASE_API_PATH + "/startups-stats/:country", function (request, response)
                         db2.update({country: country}, updatedData);
                         console.log("INFO: Modifying contact with name " + country + " with data " + JSON.stringify(updatedData, 2, null));
                         response.send(updatedData); // return the updated contact
-                        response.sendStatus(200);
+                    //    response.sendStatus(200);
                     } else {
                         console.log("WARNING: There are not any contact with name " + country);
                         response.sendStatus(404); // not found
@@ -651,6 +651,7 @@ app.post(BASE_API_PATH + "/youthunemploymentstats", function (request, response)
                         console.log("WARNING: The contact " + JSON.stringify(newData, 2, null) + " already extis, sending 409...");
                         response.sendStatus(409); // conflict
                     } else {
+                        console.log(paises.length);
                         console.log("INFO: Adding contact " + JSON.stringify(newData, 2, null));
                         dba.insert(newData);
                         response.sendStatus(201); // created
