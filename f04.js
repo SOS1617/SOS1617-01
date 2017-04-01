@@ -686,9 +686,9 @@ app.put(BASE_API_PATH + "/youthunemploymentstats/:country", function (request, r
     var updatedCountry = request.body;
     var country = request.params.country;
     // compare that body has the same country than request
-    var bodyCountry = JSON.parse(updatedCountry).country;
+   // var bodyCountry = JSON.parse(updatedCountry).country;
 
-    if (!updatedCountry || bodyCountry != country) {
+    if (!updatedCountry ) {
         console.log("WARNING: New PUT request to /youthunemploymentstats/ without country, sending 400...");
         response.sendStatus(400); // bad request
     } else {
