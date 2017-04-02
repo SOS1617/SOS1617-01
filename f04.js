@@ -9,10 +9,11 @@ var DataStore = require('nedb');
 var MongoClient=require("mongodb").MongoClient;
 
 var mdbURL="mongodb://bearuirei2:us33ak7x@ds137360.mlab.com:37360/sos161701";
-
+var publicFolder=path.join(__dirname,'public');
 
 var port = (process.env.PORT || 10000);
 var BASE_API_PATH = "/api/v1";
+
 
 var db;
 var db2;
@@ -43,7 +44,9 @@ app.use("/api/v1/test",express.static(path.join('public')));
 app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security
 
-
+app.get(BASE_API_PATH+"/test",function(request, response) {
+    response.sendfile(publicFolder+"botones.html");
+})
 app.get(BASE_API_PATH + "/gvg/loadInitialData", function (request, response) {
     console.log("INFO: New GET request to /gvg when BD is empty");
    
@@ -229,7 +232,7 @@ app.put(BASE_API_PATH + "/gvg/:country", function (request, response) {
                         db.update({country: country}, updatedCountry);
                         console.log("INFO: Modifying country with name " + country + " with data " + JSON.stringify(updatedCountry, 2, null));
                         response.send(updatedCountry); 
-                        response.sendStatus(200)// return the updated contact
+                        // return the updated contact
                     } else {
                         console.log("WARNING: There are not any country called " + country);
                         response.sendStatus(404); // not found
@@ -555,13 +558,13 @@ app.get(BASE_API_PATH + "/youthunemploymentstats/loadInitialData", function (req
                 "female_unemployment_ratio":5.5
             },
             {
-                "country":"germany",
+                "country":"spain",
                 "year":2017,
                 "male_unemployment_ratio":42.2,
                 "female_unemployment_ratio":42.3
             },
             {
-                "country":"germany",
+                "country":"italy",
                 "year":2017,
                 "male_unemployment_ratio":35.4,
                 "female_unemployment_ratio":40.5
@@ -682,7 +685,10 @@ app.put(BASE_API_PATH + "/youthunemploymentstats", function (request, response) 
 app.put(BASE_API_PATH + "/youthunemploymentstats/:country", function (request, response) {
     var updatedCountry = request.body;
     var country = request.params.country;
-    if (!updatedCountry) {
+    // compare that body has the same country than request
+   // var bodyCountry = JSON.parse(updatedCountry).country;
+
+    if (!updatedCountry ) {
         console.log("WARNING: New PUT request to /youthunemploymentstats/ without country, sending 400...");
         response.sendStatus(400); // bad request
     } else {
@@ -716,12 +722,14 @@ app.put(BASE_API_PATH + "/youthunemploymentstats/:country", function (request, r
 //DELETE over a collection
 app.delete(BASE_API_PATH + "/youthunemploymentstats", function (request, response) {
     console.log("INFO: New DELETE request to /youthunemploymentstats");
-    dba.remove({}, function (err, numRemoved) {
+    dba.remove({}, function (err, result) {
+        var numRemoved = JSON.parse(result);
+
         if (err) {
             console.error('WARNING: Error removing data from DB');
             response.sendStatus(500); // internal server error
         } else {
-            if (numRemoved) {
+            if (numRemoved.n > 0) {
                 console.log("INFO: All the countries (" + numRemoved + ") have been succesfully deleted, sending 204...");
                 response.sendStatus(204); // no content
             } else {
@@ -741,13 +749,15 @@ app.delete(BASE_API_PATH + "/youthunemploymentstats/:country", function (request
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New DELETE request to /youthunemploymentstats/" + country);
-        dba.remove({country: country}, function (err, numRemoved) {
+        dba.remove({country: country}, function (err, result) {
+                    var numRemoved = JSON.parse(result);
+
             if (err) {
                 console.error('WARNING: Error removing data from DB');
                 response.sendStatus(500); // internal server error
             } else {
                 console.log("INFO: country removed: " + numRemoved);
-                if (numRemoved) {
+                if (numRemoved.n ===1) {
                     console.log("INFO: The country with name " + country + " has been succesfully deleted, sending 204...");
                     response.sendStatus(204); // no content
                 } else {
