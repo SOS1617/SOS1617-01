@@ -8,17 +8,37 @@ var path = require('path');
 var DataStore = require('nedb');
 var MongoClient=require("mongodb").MongoClient;
 
+
 var mdbURL="mongodb://bearuirei2:us33ak7x@ds137360.mlab.com:37360/sos161701";
 var publicFolder=path.join(__dirname,'public/');
 
 var port = (process.env.PORT || 10000);
 var BASE_API_PATH = "/api/v1";
 
-
 var db;
 var db2;
 var dba;
 //var dbFileName = path.join(__dirname, 'gvg.db');
+
+var myModule=require("./module.js");
+
+var apikey="sos161701";
+
+var ApikeyFunction= function(req,resp){
+       if(!req.query.apikey){
+        console.log("Apikey is empty");
+        resp.sendStatus(401);
+        return false;
+    }
+    if(req.query.apikey !==apikey){
+        console.error("Apikey incorrect!!");
+        resp.sendStatus(403);
+        return false;
+        
+    }
+    
+};
+
 MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
     
     if(err){
@@ -46,9 +66,11 @@ app.use(helmet()); //improve security
 
 app.get(BASE_API_PATH+"/test",function(request, response) {
     response.sendfile(publicFolder+"botones.html");
-})
-app.get(BASE_API_PATH + "/gvg/loadInitialData", function (request, response) {
+});
+app.get(BASE_API_PATH + "/gvg/loadInitialData/", function (request, response) {
     console.log("INFO: New GET request to /gvg when BD is empty");
+   
+   if(!ApikeyFunction(request,response))return;
    
    db.find({}).toArray(function (err, gvg) {
     console.log('INFO: Initialiting DB...');
@@ -57,42 +79,47 @@ app.get(BASE_API_PATH + "/gvg/loadInitialData", function (request, response) {
         console.error('WARNING: Error while getting initial data from DB');
         return 0;
     }
-
-
+  
     if (gvg.length === 0) {
         console.log('INFO: Empty DB, loading initial data');
 
         var countries = [{
+               
                 "country":"Alemania",
                 "year":"2016",
                 "income_million":"4000",
                 "income_ratio":"8.5"
             },
             {
+               
                 "country":"Reino Unido",
                 "year":"2016",
                 "income_million":"3800",
                 "income_ratio":"8.5"
             },
             {
+           
                 "country":"Francia",
                 "year":"2016",
                 "income_million":"2700",
                 "income_ratio":"8.5"
             },
             {
+                
                 "country":"Asia",
                 "year":"2016",
                 "income_million":"46600",
                 "income_ratio":"10.7"
             },
             {
+               
                 "country":"Africa",
                 "year":"2016",
                 "income_million":"3200",
                 "income_ratio":"26.2"
             },
             {
+              
                 "country":"LatinoAmerica",
                 "year":"2016",
                 "income_million":"4100",
@@ -119,11 +146,14 @@ app.get("/", function (request, response) {
 // GET a collection
 app.get(BASE_API_PATH + "/gvg", function (request, response) {
     console.log("INFO: New GET request to /gvg");
+
+  if(!ApikeyFunction(request,response))return;
     db.find({}).toArray(function (err, gvg) {
         if (err) {
             console.error('WARNING: Error getting data from DB');
             response.sendStatus(500); // internal server error
         } else {
+            
             console.log("INFO: Sending countries: " + JSON.stringify(gvg, 2, null));
             response.send(gvg);
         }
@@ -132,13 +162,22 @@ app.get(BASE_API_PATH + "/gvg", function (request, response) {
 
 
 // GET a single resource
-app.get(BASE_API_PATH + "/gvg/:country", function (request, response) {
+app.get(BASE_API_PATH + "/gvg/:country/:apikey", function (request, response) {
     var country = request.params.country;
+    var key=request.params.apikey;
     if (!country) {
         console.log("WARNING: New GET request to /gvg/:country without country, sending 400...");
         response.sendStatus(400); // bad request
-    } else {
-        console.log("INFO: New GET request to /gvg/" + country);
+    } else if(!key) {
+        console.log("Apikey is empty!!");
+        response.sendStatus(401);
+ 
+    }else if(key!==apikey){
+        response.sendStatus(403);
+        console.error("INCORRECT APIKEY!!!");
+        
+    }else{
+               console.log("INFO: New GET request to /gvg/" + country);
         db.find({"country":country}).toArray(function (err, filteredCountries) {
             if (err) {
                 console.error('WARNING: Error getting data from DB');
@@ -155,6 +194,7 @@ app.get(BASE_API_PATH + "/gvg/:country", function (request, response) {
                 }
             }
         });
+        
     }
 });
 
@@ -768,3 +808,5 @@ app.delete(BASE_API_PATH + "/youthunemploymentstats/:country", function (request
         });
     }
 });
+
+
