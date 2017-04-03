@@ -1,11 +1,10 @@
-"use strict";
-/* global __dirname */
+
+
 
 var express = require("express");
 var bodyParser = require("body-parser");
 var helmet = require("helmet");
 var path = require('path');
-var DataStore = require('nedb');
 var MongoClient=require("mongodb").MongoClient;
 
 
@@ -18,11 +17,10 @@ var BASE_API_PATH = "/api/v1";
 var db;
 var db2;
 var dba;
-//var dbFileName = path.join(__dirname, 'gvg.db');
 
-var myModule=require("./module.js");
-
+var APIgvg=require("./apis/gvg.js");
 var apikey="sos161701";
+
 
 var ApikeyFunction= function(req,resp){
        if(!req.query.apikey){
@@ -48,6 +46,8 @@ MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
        db= database.collection("gvg");
        db2 = database.collection("startups-stats");
        dba = database.collection("youthunemploymentstats");
+       
+       APIgvg.initial(app, db, BASE_API_PATH, ApikeyFunction);
 
        app.listen(port,()=>{
            console.log("Magic is happening on port " + port);
@@ -60,123 +60,25 @@ MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
 
 var app = express();
 app.use("/api/v1/",express.static(path.join('public')));
-//app.use("/api/v1/test",express.static(path.join('public')));
 app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security
 
 app.get(BASE_API_PATH+"/test",function(request, response) {
     response.sendfile(publicFolder+"botones.html");
 });
-app.get(BASE_API_PATH + "/gvg/loadInitialData/", function (request, response) {
-    console.log("INFO: New GET request to /gvg when BD is empty");
-   
-   if(!ApikeyFunction(request,response))return;
-   
-   db.find({}).toArray(function (err, gvg) {
-    console.log('INFO: Initialiting DB...');
-
-    if (err) {
-        console.error('WARNING: Error while getting initial data from DB');
-        return 0;
-    }
-  
-    if (gvg.length === 0) {
-        console.log('INFO: Empty DB, loading initial data');
-
-        var countries = [{
-               
-                "country":"Alemania",
-                "year":"2016",
-                "income_million":"4000",
-                "income_ratio":"8.5"
-            },
-            {
-               
-                "country":"Reino Unido",
-                "year":"2016",
-                "income_million":"3800",
-                "income_ratio":"8.5"
-            },
-            {
-           
-                "country":"Francia",
-                "year":"2016",
-                "income_million":"2700",
-                "income_ratio":"8.5"
-            },
-            {
-                
-                "country":"Asia",
-                "year":"2016",
-                "income_million":"46600",
-                "income_ratio":"10.7"
-            },
-            {
-               
-                "country":"Africa",
-                "year":"2016",
-                "income_million":"3200",
-                "income_ratio":"26.2"
-            },
-            {
-              
-                "country":"LatinoAmerica",
-                "year":"2016",
-                "income_million":"4100",
-                "income_ratio":"20.1"
-            }];
-        db.insert(countries);
-        console.log("DB CREATE ");
-        response.sendStatus(201);
-    } else {
-        console.log('INFO: DB has ' + gvg.length + ' countries ');
-    }
-});
-   
-});
 
 
-/*// Base GET
-app.get("/", function (request, response) {
-    console.log("INFO: Redirecting to /gvg");
-    response.redirect(301, BASE_API_PATH + "/gvg");
-});
-*/
 
-// GET a collection
-app.get(BASE_API_PATH + "/gvg", function (request, response) {
-    console.log("INFO: New GET request to /gvg");
-
-  if(!ApikeyFunction(request,response))return;
-    db.find({}).toArray(function (err, gvg) {
-        if (err) {
-            console.error('WARNING: Error getting data from DB');
-            response.sendStatus(500); // internal server error
-        } else {
-            
-            console.log("INFO: Sending countries: " + JSON.stringify(gvg, 2, null));
-            response.send(gvg);
-        }
-    });
-});
 
 
 // GET a single resource
 app.get(BASE_API_PATH + "/gvg/:country/:apikey", function (request, response) {
     var country = request.params.country;
-    var key=request.params.apikey;
+  
     if (!country) {
         console.log("WARNING: New GET request to /gvg/:country without country, sending 400...");
         response.sendStatus(400); // bad request
-    } else if(!key) {
-        console.log("Apikey is empty!!");
-        response.sendStatus(401);
- 
-    }else if(key!==apikey){
-        response.sendStatus(403);
-        console.error("INCORRECT APIKEY!!!");
-        
-    }else{
+    } else{
                console.log("INFO: New GET request to /gvg/" + country);
         db.find({"country":country}).toArray(function (err, filteredCountries) {
             if (err) {
