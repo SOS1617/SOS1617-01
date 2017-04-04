@@ -26,12 +26,12 @@ var apikey="sos161701";
 
 var ApikeyFunction = function(request, response) {
     if (!request.query.apikey) {
-        console.error('WARNING: No apikey was sent!');
+        console.error('WARNING: apikey is empty!');
         response.sendStatus(401);
         return false;
     }
     if (request.query.apikey !== apikey) {
-        console.error('WARNING: Incorrect apikey was used!');
+        console.error('WARNING: Invalid apikey!');
         response.sendStatus(403);
         return false;
     }
