@@ -66,9 +66,10 @@ app.get(BASE_API_PATH + "/youthunemploymentstats", function (request, response) 
             var from = parseInt(request.query.from);
             var to = parseInt(request.query.to);
             var c = [];
+            var c2=[];
             if (limit && offset>=0) {
              //  
-                dba.find({}).skip(offset).limit(12).toArray(function(err, youthunemploymentstats) {    
+                dba.find({}).toArray(function(err, youthunemploymentstats) {    
                     if (err) {
                         console.error('ERROR from database');
                         response.sendStatus(500); // internal server error
@@ -81,7 +82,8 @@ app.get(BASE_API_PATH + "/youthunemploymentstats", function (request, response) 
 
                            c = search(youthunemploymentstats, c, from, to);
                             if (c.length > 0) {
-                                response.send(c);
+                                c2=c.slice(offset,offset+limit);
+                                response.send(c2);
                             }
                             else {
                                 response.sendStatus(404); 

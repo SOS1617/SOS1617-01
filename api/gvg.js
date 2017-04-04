@@ -85,9 +85,10 @@ app.get(BASE_API_PATH + "/gvg", function (request, response) {
             var from = parseInt(request.query.from);
             var to = parseInt(request.query.to);
             var c = [];
+            var c2=[];
             if (limit>0 && offset>=0) {
              //  
-                db.find({}).skip(offset).limit(12).toArray(function(err, gvg) {    
+                db.find({}).toArray(function(err, gvg) {    
                
                     if (err) {
                         console.error('ERROR from database');
@@ -102,7 +103,8 @@ app.get(BASE_API_PATH + "/gvg", function (request, response) {
 
                            c = search(gvg, c, from, to);
                             if (c.length > 0) {
-                                response.send(c);
+                                c2=c.slice(offset,offset+limit);
+                                response.send(c2);
                             }
                             else {
                                 response.sendStatus(404); 
