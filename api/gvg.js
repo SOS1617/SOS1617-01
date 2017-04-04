@@ -321,8 +321,8 @@ var search = function(recurso, conj, f,t) {
 
 
     for (var j = 0; j < recurso.length; j++) {
-        var anyo = recurso[j].year;
-        if (to >= anyo && from <= anyo) {
+        var valor = recurso[j].income_million;
+        if (to >= valor && from <= valor) {
 
             conj.push(recurso[j]);
         }
