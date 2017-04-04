@@ -328,6 +328,6 @@ var search = function(recurso, conj, f,t) {
         }
     }
 
-    return conjuntoauxiliar;
+    return conj;
 
 };
