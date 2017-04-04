@@ -262,7 +262,7 @@ var search = function(recurso, conj, f,t) {
 
 
     for (var j = 0; j < recurso.length; j++) {
-        var valor = recurso[j].year;
+        var valor = recurso[j].total;
         if (to >= valor && from <= valor) {
 
             conj.push(recurso[j]);
