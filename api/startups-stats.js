@@ -6,6 +6,7 @@ exports.initial=function(app,db2,BASE_API_PATH,ApikeyFunction){
 
 
 app.get(BASE_API_PATH + "/startups-stats/loadInitialData", function (request, response) {
+    if(!ApikeyFunction(request,response))return;
     console.log("INFO: New GET request to /startups-stats when BD is empty");
     db2.find({}).toArray(function (err, datas) { //Callback que devuelve todos los contactos
     console.log('INFO: Initialiting DB...');
@@ -27,14 +28,14 @@ app.get(BASE_API_PATH + "/startups-stats/loadInitialData", function (request, re
                 "investment": "568 millions"
             },
             {
-                "country": "Spain",
+                "country": "Germany",
                 "year": "2015",
                 "total": "2551",
                 "increase": "26%",
                 "investment": "659,4 millions"
             },
             {
-                "country": "Spain",
+                "country": "France",
                 "year": "2014",
                 "total": "1224",
                 "increase": "17%",
@@ -64,6 +65,7 @@ app.get(BASE_API_PATH + "/startups-stats/loadInitialData", function (request, re
 
 // GET a collection
 app.get(BASE_API_PATH + "/startups-stats", function (request, response) {
+    if(!ApikeyFunction(request,response))return;
     console.log("INFO: New GET request to /startups-stats");
     db2.find({}).toArray(function (err, datas) { 
         if (err) {
@@ -79,6 +81,7 @@ app.get(BASE_API_PATH + "/startups-stats", function (request, response) {
 
 // GET a single resource
 app.get(BASE_API_PATH + "/startups-stats/:country", function (request, response) {
+    if(!ApikeyFunction(request,response))return;
     var countryP = request.params.country;
     if (!countryP) {
         console.log("WARNING: New GET request to /startups-stats/:country without country, sending 400...");
@@ -107,6 +110,7 @@ app.get(BASE_API_PATH + "/startups-stats/:country", function (request, response)
 
 //POST over a collection
 app.post(BASE_API_PATH + "/startups-stats", function (request, response) {
+    if(!ApikeyFunction(request,response))return;
     var newData = request.body;
     if (!newData) {
         console.log("WARNING: New POST request to /startups-stats/ without datas, sending 400...");
@@ -142,6 +146,7 @@ app.post(BASE_API_PATH + "/startups-stats", function (request, response) {
 
 //POST over a single resource
 app.post(BASE_API_PATH + "/startups-stats/:country", function (request, response) {
+    if(!ApikeyFunction(request,response))return;
     var country = request.params.country;
     console.log("WARNING: New POST request to /country/" + country + ", sending 405...");
     response.sendStatus(405); // method not allowed
@@ -150,6 +155,7 @@ app.post(BASE_API_PATH + "/startups-stats/:country", function (request, response
 
 //PUT over a collection
 app.put(BASE_API_PATH + "/startups-stats", function (request, response) {
+    if(!ApikeyFunction(request,response))return;
     console.log("WARNING: New PUT request to /contacts, sending 405...");
     response.sendStatus(405); // method not allowed
 });
@@ -158,6 +164,7 @@ app.put(BASE_API_PATH + "/startups-stats", function (request, response) {
 //PUT over a single resource
 
 app.put(BASE_API_PATH + "/startups-stats/:country", function (request, response) {
+    if(!ApikeyFunction(request,response))return;
     var updatedData = request.body;
     var country = request.params.country;
     if (!updatedData || (updatedData.country != country)) {
@@ -196,6 +203,7 @@ app.put(BASE_API_PATH + "/startups-stats/:country", function (request, response)
 
 //DELETE over a collection
 app.delete(BASE_API_PATH + "/startups-stats", function (request, response) {
+    if(!ApikeyFunction(request,response))return;
     console.log("INFO: New DELETE request to /startups-stats");
     db2.remove({}, {multi: true}, function (err, numRemoved) {
         var num = JSON.parse(numRemoved);
@@ -217,6 +225,7 @@ app.delete(BASE_API_PATH + "/startups-stats", function (request, response) {
 
 //DELETE over a single resource
 app.delete(BASE_API_PATH + "/startups-stats/:country", function (request, response) {
+    if(!ApikeyFunction(request,response))return;
     var country = request.params.country;
     console.log(request.params.country);
     if (!country) {
@@ -253,7 +262,7 @@ var search = function(recurso, conj, f,t) {
 
 
     for (var j = 0; j < recurso.length; j++) {
-        var valor = recurso[j].income_million;
+        var valor = recurso[j].year;
         if (to >= valor && from <= valor) {
 
             conj.push(recurso[j]);
