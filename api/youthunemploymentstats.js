@@ -51,28 +51,81 @@ exports.initial=function(app,dba,BASE_API_PATH,ApikeyFunction){
 });
 
 
-/*
-// Base GET
-app.get("/", function (request, response) {
-    console.log("INFO: Redirecting to /youthunemploymentstats");
-    response.redirect(301, BASE_API_PATH + "/youthunemploymentstats");
-});
-*/
+
 
 // GET a collection
+
+
 app.get(BASE_API_PATH + "/youthunemploymentstats", function (request, response) {
-    if(!ApikeyFunction(request,response))return;
+    if (!ApikeyFunction(request, response)) return;
+    
     console.log("INFO: New GET request to /youthunemploymentstats");
-    dba.find({}).toArray(function (err, contacts) {
-        if (err) {
-            console.error('WARNING: Error getting data from DB');
-            response.sendStatus(500); // internal server error
-        } else {
-            console.log("INFO: Sending contacts: " + JSON.stringify(contacts, 2, null));
-            response.send(contacts);
-        }
-    });
+           var limit = parseInt(request.query.limit);
+          var offset = parseInt(request.query.offset);
+
+            var from = parseInt(request.query.from);
+            var to = parseInt(request.query.to);
+            var c = [];
+            if (limit && offset>=0) {
+             //  
+                dba.find({}).skip(offset).limit(limit).toArray(function(err, youthunemploymentstats) {    
+                    if (err) {
+                        console.error('ERROR from database');
+                        response.sendStatus(500); // internal server error
+                    }else {
+                        if (youthunemploymentstats.length === 0) {
+                            response.sendStatus(404);
+
+                        }
+                        if (from && to) {
+
+                           c = search(youthunemploymentstats, c, from, to);
+                            if (c.length > 0) {
+                                response.send(c);
+                            }
+                            else {
+                                response.sendStatus(404); 
+                            }
+                        }else {
+                            response.send(youthunemploymentstats);
+                          console.log("INFO: Sending results: " + JSON.stringify(youthunemploymentstats, 2, null));
+
+                        }
+                    }
+                });
+            } else {
+
+                dba.find({}).toArray(function(err, youthunemploymentstats) {
+                    if (err) {
+                        console.error('ERROR from database');
+                        response.sendStatus(500); // internal server error
+                    }
+                    else {
+                        if (youthunemploymentstats.length === 0) {
+                            response.sendStatus(404);
+                        }
+                        if (from && to) {
+
+                            c = search(youthunemploymentstats, c, from, to);
+                            if (c.length > 0) {
+                                response.send(c);
+                             console.log("INFO: Sending results with from and to but without limit and offset: " + JSON.stringify(youthunemploymentstats, 2, null));
+
+                            }
+                            else {
+                                response.sendStatus(404);
+                            }
+                        }
+                        else {
+                            response.send(youthunemploymentstats);
+                            console.log("INFO: Sending youthunemploymentstats: " + JSON.stringify(youthunemploymentstats, 2, null));
+
+                        }
+                    }
+                });
+            }
 });
+
 
 
 // GET a single resource
@@ -258,7 +311,7 @@ var search = function(recurso, conj, f,t) {
 
 
     for (var j = 0; j < recurso.length; j++) {
-        var valor = recurso[j].total;
+        var valor = recurso[j].year;
         if (to >= valor && from <= valor) {
 
             conj.push(recurso[j]);
