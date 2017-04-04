@@ -28,14 +28,14 @@ app.get(BASE_API_PATH + "/startups-stats/loadInitialData", function (request, re
                 "investment": "568 millions"
             },
             {
-                "country": "Spain",
+                "country": "Germany",
                 "year": "2015",
                 "total": "2551",
                 "increase": "26%",
                 "investment": "659,4 millions"
             },
             {
-                "country": "Spain",
+                "country": "France",
                 "year": "2014",
                 "total": "1224",
                 "increase": "17%",
@@ -262,7 +262,7 @@ var search = function(recurso, conj, f,t) {
 
 
     for (var j = 0; j < recurso.length; j++) {
-        var valor = recurso[j].increase;
+        var valor = recurso[j].year;
         if (to >= valor && from <= valor) {
 
             conj.push(recurso[j]);
