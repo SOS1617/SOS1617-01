@@ -6,6 +6,8 @@ exports.initial=function(app,dba,BASE_API_PATH,ApikeyFunction){
     
     app.get(BASE_API_PATH + "/youthunemploymentstats/loadInitialData", function (request, response) {
     console.log("INFO: New GET request to /youthunemploymentstats when BD is empty");
+    
+    if(!ApikeyFunction(request,response))return;
    
    dba.find({}).toArray(function (err, data) {
     console.log('INFO: Initialiting DB...');
@@ -59,6 +61,7 @@ app.get("/", function (request, response) {
 
 // GET a collection
 app.get(BASE_API_PATH + "/youthunemploymentstats", function (request, response) {
+    if(!ApikeyFunction(request,response))return;
     console.log("INFO: New GET request to /youthunemploymentstats");
     dba.find({}).toArray(function (err, contacts) {
         if (err) {
@@ -75,6 +78,7 @@ app.get(BASE_API_PATH + "/youthunemploymentstats", function (request, response) 
 // GET a single resource
 app.get(BASE_API_PATH + "/youthunemploymentstats/:country", function (request, response) {
     var country = request.params.country;
+    if(!ApikeyFunction(request,response))return;
     if (!country) {
         console.log("WARNING: New GET request to /youthunemploymentstats/:country without country, sending 400...");
         response.sendStatus(400); // bad request
@@ -103,6 +107,7 @@ app.get(BASE_API_PATH + "/youthunemploymentstats/:country", function (request, r
 //POST over a collection
 app.post(BASE_API_PATH + "/youthunemploymentstats", function (request, response) {
     var newData = request.body;
+    if(!ApikeyFunction(request,response))return;
     if (!newData) {
         console.log("WARNING: New POST request to /youthunemploymentstats/ without country, sending 400...");
         response.sendStatus(400); // bad request
@@ -137,6 +142,7 @@ app.post(BASE_API_PATH + "/youthunemploymentstats", function (request, response)
 //POST over a single resource
 app.post(BASE_API_PATH + "/youthunemploymentstats/:country", function (request, response) {
     var country = request.params.country;
+    if(!ApikeyFunction(request,response))return;
     console.log("WARNING: New POST request to /contacts/" + country + ", sending 405...");
     response.sendStatus(405); // method not allowed
 });
@@ -144,6 +150,7 @@ app.post(BASE_API_PATH + "/youthunemploymentstats/:country", function (request, 
 
 //PUT over a collection
 app.put(BASE_API_PATH + "/youthunemploymentstats", function (request, response) {
+    if(!ApikeyFunction(request,response))return;
     console.log("WARNING: New PUT request to /youthunemploymentstats, sending 405...");
     response.sendStatus(405); // method not allowed
 });
@@ -151,6 +158,7 @@ app.put(BASE_API_PATH + "/youthunemploymentstats", function (request, response) 
 
 //PUT over a single resource
 app.put(BASE_API_PATH + "/youthunemploymentstats/:country", function (request, response) {
+    if(!ApikeyFunction(request,response))return;
     var updatedCountry = request.body;
     var country = request.params.country;
     // compare that body has the same country than request
@@ -189,6 +197,7 @@ app.put(BASE_API_PATH + "/youthunemploymentstats/:country", function (request, r
 
 //DELETE over a collection
 app.delete(BASE_API_PATH + "/youthunemploymentstats", function (request, response) {
+    if(!ApikeyFunction(request,response))return;
     console.log("INFO: New DELETE request to /youthunemploymentstats");
     dba.remove({}, function (err, result) {
         var numRemoved = JSON.parse(result);
@@ -211,6 +220,7 @@ app.delete(BASE_API_PATH + "/youthunemploymentstats", function (request, respons
 
 //DELETE over a single resource
 app.delete(BASE_API_PATH + "/youthunemploymentstats/:country", function (request, response) {
+    if(!ApikeyFunction(request,response))return;
     var country = request.params.country;
     if (!country) {
         console.log("WARNING: New DELETE request to /youthunemploymentstats/:country without country, sending 400...");
@@ -240,3 +250,21 @@ app.delete(BASE_API_PATH + "/youthunemploymentstats/:country", function (request
     
     
 }
+
+var search = function(recurso, conj, f,t) {
+
+    var from = parseInt(f);
+    var to = parseInt(t);
+
+
+    for (var j = 0; j < recurso.length; j++) {
+        var valor = recurso[j].total;
+        if (to >= valor && from <= valor) {
+
+            conj.push(recurso[j]);
+        }
+    }
+
+    return conj;
+
+};

@@ -245,3 +245,21 @@ app.delete(BASE_API_PATH + "/startups-stats/:country", function (request, respon
 
     
 }
+
+var search = function(recurso, conj, f,t) {
+
+    var from = parseInt(f);
+    var to = parseInt(t);
+
+
+    for (var j = 0; j < recurso.length; j++) {
+        var valor = recurso[j].income_million;
+        if (to >= valor && from <= valor) {
+
+            conj.push(recurso[j]);
+        }
+    }
+
+    return conj;
+
+};
