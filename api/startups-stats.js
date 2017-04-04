@@ -65,17 +65,65 @@ app.get(BASE_API_PATH + "/startups-stats/loadInitialData", function (request, re
 
 // GET a collection
 app.get(BASE_API_PATH + "/startups-stats", function (request, response) {
-    if(!ApikeyFunction(request,response))return;
-    console.log("INFO: New GET request to /startups-stats");
-    db2.find({}).toArray(function (err, datas) { 
-        if (err) {
-            console.error('WARNING: Error getting data from DB');
-            response.sendStatus(500); // internal server error
-        } else {
-            console.log("INFO: Sending datas: " + JSON.stringify(datas, 2, null));
-            response.send(datas);
-        }
-    });
+    if (!ApikeyFunction(request, response)) return;
+    
+    var limit = parseInt(request.query.limit);
+    var offset = parseInt(request.query.offset);
+    var from = parseInt(request.query.from);
+    var to = parseInt(request.query.to);
+    var c = [];
+    if (limit && offset>=0) {
+        db2.find({}).skip(offset).limit(limit).toArray(function(err, ss) {    
+            if (err) {
+                console.error('ERROR from database');
+                response.sendStatus(500); // internal server error
+            }else {
+                if (ss.length === 0) {
+                    response.sendStatus(404);
+                }
+                if (from && to) {
+                    c = search(ss, c, from, to);
+                        if (c.length > 0) {
+                            response.send(c);
+                        }
+                        else {
+                            response.sendStatus(404); 
+                        }
+                        }else {
+                            response.send(ss);
+                            console.log("INFO: Sending results: " + JSON.stringify(ss, 2, null));
+                        }
+                    }
+                });
+                
+            } else {
+                db2.find({}).toArray(function(err, ss) {
+                    if (err) {
+                        console.error('ERROR from database');
+                        response.sendStatus(500); // internal server error
+                    }
+                    else{
+                        if (ss.length === 0) {
+                            response.sendStatus(404);
+                        }
+                        if (from && to) {
+                            c = search(ss, c, from, to);
+                            if (c.length > 0) {
+                            response.send(c);
+                            console.log("INFO: Sending results with from and to but without limit and offset: " + JSON.stringify(ss, 2, null));
+                            }
+                            else {
+                                response.sendStatus(404);
+                            }
+                        }
+                        else {
+                            response.send(ss);
+                            console.log("INFO: Sending gvg: " + JSON.stringify(ss, 2, null));
+
+                        }
+                    }
+                });
+            }
 });
 
 
