@@ -44,7 +44,6 @@ exports.initial=function(app,dba,BASE_API_PATH,ApikeyFunction){
     } else {
         console.log('INFO: DB has ' + dba.length + ' countries ');
     }
-        response.redirect(301, BASE_API_PATH + "/youthunemploymentstats");
 
 });
    
