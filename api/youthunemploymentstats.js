@@ -68,7 +68,7 @@ app.get(BASE_API_PATH + "/youthunemploymentstats", function (request, response) 
             var c = [];
             if (limit && offset>=0) {
              //  
-                dba.find({}).skip(offset).limit(limit).toArray(function(err, youthunemploymentstats) {    
+                dba.find({}).skip(offset).limit(12).toArray(function(err, youthunemploymentstats) {    
                     if (err) {
                         console.error('ERROR from database');
                         response.sendStatus(500); // internal server error

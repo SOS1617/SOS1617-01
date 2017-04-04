@@ -73,7 +73,7 @@ app.get(BASE_API_PATH + "/startups-stats", function (request, response) {
     var to = parseInt(request.query.to);
     var c = [];
     if (limit && offset>=0) {
-        db2.find({}).skip(offset).limit(limit).toArray(function(err, ss) {    
+        db2.find({}).skip(offset).limit(12).toArray(function(err, ss) {    
             if (err) {
                 console.error('ERROR from database');
                 response.sendStatus(500); // internal server error
