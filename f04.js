@@ -18,25 +18,24 @@ var db;
 var db2;
 var dba;
 
-var APIgvg=require("./apis/gvg.js");
-var APIstartups=require("./apis/startups-stats.js");
-var APIyouthunemploymentstats=require("./apis/youthunemploymentstats.js");
+var APIgvg=require("./api/gvg.js");
+var APIstartups=require("./api/startups-stats.js");
+var APIyouthunemploymentstats=require("./api/youthunemploymentstats.js");
 var apikey="sos161701";
 
 
-var ApikeyFunction= function(req,resp){
-       if(!req.query.apikey){
-        console.log("Apikey is empty");
-        resp.sendStatus(401);
+var ApikeyFunction = function(request, response) {
+    if (!request.query.apikey) {
+        console.error('WARNING: No apikey was sent!');
+        response.sendStatus(401);
         return false;
     }
-    if(req.query.apikey !==apikey){
-        console.error("Apikey incorrect!!");
-        resp.sendStatus(403);
+    if (request.query.apikey !== apikey) {
+        console.error('WARNING: Incorrect apikey was used!');
+        response.sendStatus(403);
         return false;
-        
     }
-    
+    return true;
 };
 
 MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
