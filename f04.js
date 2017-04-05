@@ -59,7 +59,7 @@ MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
     
 });
 
-//hgf
+
 
 
 app.use("/",express.static(path.join('public')));
