@@ -41,10 +41,11 @@ exports.initial=function(app,dba,BASE_API_PATH,ApikeyFunction){
             }];
         dba.insert(countries);
         console.log("DB CREATE ");
+        response.sendStatus(201);
+
     } else {
-        console.log('INFO: DB has ' + dba.length + ' countries ');
+        console.log('INFO: DB has ' + data.length + ' countries ');
     }
-        response.redirect(301, BASE_API_PATH + "/youthunemploymentstats");
 
 });
    
