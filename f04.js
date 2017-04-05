@@ -66,6 +66,6 @@ app.use("/api/v1/",express.static(path.join('public')));
 app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security
 
-app.get(BASE_API_PATH+"/test",function(request, response) {
+app.get("/test",function(request, response) {
     response.sendfile(publicFolder+"botones.html");
 });
