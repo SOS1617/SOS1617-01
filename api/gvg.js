@@ -72,7 +72,7 @@ exports.initial=function(app,db,BASE_API_PATH,ApikeyFunction){
 });
    
 });
-//sjdfahsf
+
 // GET a collection
 
 app.get(BASE_API_PATH + "/gvg", function (request, response) {
