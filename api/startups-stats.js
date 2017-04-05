@@ -49,6 +49,7 @@ app.get(BASE_API_PATH + "/startups-stats/loadInitialData", function (request, re
                 "investment": "182 millions"
             }];
         db2.insert(datasD);  //Mete un array o un objeto dentro de la base de datos
+        response.sendStatus(201);
     } else {
         console.log('INFO: DB has ' + datas.length + ' datas ');
     }
