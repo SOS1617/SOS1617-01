@@ -267,7 +267,7 @@ app.put(BASE_API_PATH + "/gvg/:country", function (request, response) {
 app.delete(BASE_API_PATH + "/gvg", function (request, response) {
     if(!ApikeyFunction(request,response))return;
     console.log("INFO: New DELETE request to /gvg");
-    db.drop({}, {multi: true}, function (err, result) {
+    db.remove({}, {multi: true}, function (err, result) {
         var numRemoved = JSON.parse(result);
         if (err) {
             console.error('WARNING: Error removing data from DB');
