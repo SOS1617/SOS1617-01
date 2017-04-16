@@ -1,0 +1,98 @@
+<html ng-app="Sos161701App">
+    <head>
+        <title>My app</title>
+        <link 
+            rel="stylesheet" 
+            href="/bower_components/bootstrap/dist/css/bootstrap.min.css" 
+            type="text/css" />
+        <link 
+            rel="stylesheet" 
+            href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" 
+            type="text/css" />
+        <script 
+            type="text/javascript" 
+            src="/bower_components/jquery/dist/jquery.min.js"></script>    
+        <script 
+            type="text/javascript" 
+            src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>    
+        <script 
+            type="text/javascript" 
+            src="/bower_components/angular/angular.min.js"></script>  
+            
+            
+        <script type="text/javascript" src="/sos161701-app.js"></script>
+        <script type="text/javascript" src="/list-ctrl.js"></script>
+       
+    </head>
+    <body>
+        <div ng-controller="ListCtrl">
+              <h2>Growth videoGames</h2>
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th>Country</th>
+                          <th>year</th>
+                          <th>income million</th>
+                          <th>income ratio</th>
+                          <th>Action</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      
+                    
+                       <tr>
+                            <td><input class="form-control" ng-model="updateCountry.country"/></td>
+                            <td><input class="form-control" ng-model="updateCountry.year"/></td>
+                            <td><input class="form-control" ng-model="updateCountry.income_million"/></td>
+                            <td><input class="form-control" ng-model="updateCountry.income_ratio"/></td>
+                            <td><buton class="btn btn-primary" ng-click="editCountry()"/>Edit</td>
+                          
+                      </tr>
+                      <tr>
+                            <td><input class="form-control" ng-model="newCountry.country"/></td>
+                            <td><input class="form-control" ng-model="newCountry.year"/></td>
+                            <td><input class="form-control" ng-model="newCountry.income_million"/></td>
+                            <td><input class="form-control" ng-model="newCountry.income_ratio"/></td>
+                            <td><buton class="btn btn-primary" ng-click="addCountry()"/>Add</td>
+                          
+                      </tr>
+                         <tr>
+                            <td><h3>Press to Remove all</h3></td>
+                            <td><buton class="btn btn-primary" ng-click="removeAll()"/>Remove All</td>
+                          
+                      </tr>
+                        <tr>
+                            <td><input class="form-control" ng-model="gvg.country"/></td>
+                          
+                            <td><buton class="btn btn-primary" ng-click="removeOne(gvg.country)"/>Remove One</td>
+                          
+                      </tr>
+                       <tr>
+                                <td><h3>Press to show All</h3></td>
+                                <td><buton class="btn btn-primary" ng-click="listCountry()"/>List</td>
+                          
+                      </tr>
+                      
+                        <tr>
+                          <th>Country</th>
+                          <th>year</th>
+                          <th>income million</th>
+                          <th>income ratio</th>
+                        
+                      </tr>
+                        
+                      <tr ng-repeat="country in gvg">
+                          <td>{{country.country}}</td>
+                          <td>{{country.year}}</td>
+                          <td>{{country.income_million}}</td>
+                          <td>{{country.income_ratio}}</td>
+                          <td>&nbsp;</td>
+                      </tr>
+                  </tbody>
+              </table>
+            
+        </div>
+      
+       
+    </body>
+</html>
