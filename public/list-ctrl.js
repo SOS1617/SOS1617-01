@@ -10,9 +10,10 @@
                 $http
                 .get($scope.url+"?apikey=sos161701")
                 .then(function (response){
+                 
                     $scope.gvg=response.data;
                     console.log("GET 200 ok");
-                
+                    
                     
                       });
             };
