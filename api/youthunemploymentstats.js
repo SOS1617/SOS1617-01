@@ -78,7 +78,7 @@ app.get(BASE_API_PATH + "/youthunemploymentstats", function (request, response) 
                         if (youthunemploymentstats.length === 0) {
                             response.sendStatus(404);
 
-                        }
+                        }else{
                         if (from && to) {
 
                            c = search(youthunemploymentstats, c, from, to);
@@ -94,6 +94,7 @@ app.get(BASE_API_PATH + "/youthunemploymentstats", function (request, response) 
                           console.log("INFO: Sending results: " + JSON.stringify(youthunemploymentstats, 2, null));
 
                         }
+                        }
                     }
                 });
             } else {
@@ -106,7 +107,7 @@ app.get(BASE_API_PATH + "/youthunemploymentstats", function (request, response) 
                     else {
                         if (youthunemploymentstats.length === 0) {
                             response.sendStatus(404);
-                        }
+                        }else{
                         if (from && to) {
 
                             c = search(youthunemploymentstats, c, from, to);
@@ -123,6 +124,7 @@ app.get(BASE_API_PATH + "/youthunemploymentstats", function (request, response) 
                             response.send(youthunemploymentstats);
                             console.log("INFO: Sending youthunemploymentstats: " + JSON.stringify(youthunemploymentstats, 2, null));
 
+                        }
                         }
                     }
                 });

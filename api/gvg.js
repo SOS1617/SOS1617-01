@@ -97,7 +97,7 @@ app.get(BASE_API_PATH + "/gvg", function (request, response) {
                         if (gvg.length === 0) {
                             response.sendStatus(404);
 
-                        }
+                        }else{
                       
                        if (from && to) {
 
@@ -115,6 +115,7 @@ app.get(BASE_API_PATH + "/gvg", function (request, response) {
 
                       }
                     }
+                    }
                 });
             } else {
 
@@ -126,7 +127,7 @@ app.get(BASE_API_PATH + "/gvg", function (request, response) {
                     else {
                         if (gvg.length === 0) {
                             response.sendStatus(404);
-                        }
+                        }else{
                         if (from && to) {
 
                             c = search(gvg, c, from, to);
@@ -144,6 +145,7 @@ app.get(BASE_API_PATH + "/gvg", function (request, response) {
                             console.log("INFO: Sending gvg: " + JSON.stringify(gvg, 2, null));
 
                         }
+                    }
                     }
                 });
             }

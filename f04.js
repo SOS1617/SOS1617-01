@@ -72,3 +72,6 @@ app.get(BASE_API_PATH+"/test",function(request, response) {
 app.get(BASE_API_PATH+"/RestClientGvg", function(request, response){
     response.sendfile(publicFolder + "index2.html");
 });
+app.get(BASE_API_PATH+"/RestClientYUS", function(request, response){
+    response.sendfile(publicFolder + "indexalb.html");
+});

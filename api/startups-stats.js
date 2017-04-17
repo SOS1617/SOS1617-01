@@ -82,7 +82,7 @@ app.get(BASE_API_PATH + "/startups-stats", function (request, response) {
             }else {
                 if (ss.length === 0) {
                     response.sendStatus(404);
-                }
+                }else{
                 if (from && to) {
                     c = search(ss, c, from, to);
                         if (c.length > 0) {
@@ -97,6 +97,7 @@ app.get(BASE_API_PATH + "/startups-stats", function (request, response) {
                             console.log("INFO: Sending results: " + JSON.stringify(ss, 2, null));
                         }
                     }
+                    }
                 });
                 
             } else {
@@ -108,7 +109,7 @@ app.get(BASE_API_PATH + "/startups-stats", function (request, response) {
                     else{
                         if (ss.length === 0) {
                             response.sendStatus(404);
-                        }
+                        }else{
                         if (from && to) {
                             c = search(ss, c, from, to);
                             if (c.length > 0) {
@@ -123,6 +124,7 @@ app.get(BASE_API_PATH + "/startups-stats", function (request, response) {
                             response.send(ss);
                             console.log("INFO: Sending gvg: " + JSON.stringify(ss, 2, null));
 
+                        }
                         }
                     }
                 });
