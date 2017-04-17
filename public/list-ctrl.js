@@ -16,6 +16,7 @@
                     
                       });
             };
+            
             $scope.editCountry=function(){
                 $http.put($scope.url+"/$scope.updateCountry.country?apikey=sos161701",$scope.updateCountry)
                 .then(function(){
@@ -34,7 +35,7 @@
                     
                 }; 
                $scope.removeAll=function(){
-                   $http.delete($scope.url+"/gvg?apikey=sos161701")
+                   $http.delete($scope.url+"?apikey=sos161701")
                         .then(function(){
                             console.log("REMOVE 200 ok");
                             refresh();
