@@ -5,6 +5,14 @@
             $scope.url="/api/v2/gvg";
             function refresh(){}
             
+            $scope.loadinitial=function(){
+                $http
+                .get($scope.url+"/loadInitialData?apikey=sos161701")
+                .then(function(response){
+                    console.log("LOADINITIAL 200 ok");
+                });
+            };
+            
             $scope.listCountry= function(){
                     
                 $http
