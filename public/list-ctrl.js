@@ -13,8 +13,7 @@
                     console.log("LOADINITIAL 200 ok");
                 });
             };
-            
-            $scope.listCountry= function(){
+             $scope.paginacion= function(){
                     
                 $http
                 .get($scope.url+"?apikey="+$scope.apikey+"&from="+$scope.from+"&to="+$scope.to+"&limit="+$scope.limit+"&offset="+$scope.offset)
@@ -25,6 +24,32 @@
                     
                       });
             };
+            
+            $scope.listCountry= function(){
+                    
+                $http
+                .get($scope.url+"?apikey="+$scope.apikey)
+                .then(function (response){
+                    $scope.gvg=response.data;
+                    console.log("GET 200 ok");
+                    
+                    
+                      });
+            };
+                $scope.busqueda= function(){
+                    
+                $http
+                .get($scope.url+"/"+$scope.searchCountry.country+"?apikey="+$scope.apikey)
+                .then(function (response){
+                   
+                     $scope.gvg=response.country;
+                      console.log("SEARCH 200 ok");
+                    
+                    
+                    
+                      });
+            };
+          
             
             $scope.editCountry=function(){
                 $http.put($scope.url+"/$scope.updateCountry.country?apikey="+$scope.apikey,$scope.updateCountry)
