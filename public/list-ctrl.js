@@ -17,30 +17,15 @@
             $scope.listCountry= function(){
                     
                 $http
-                .get($scope.url+"?apikey="+$scope.apikey+"&limit="+$scope.limit+"&offset="+$scope.offset)
+                .get($scope.url+"?apikey="+$scope.apikey+"&from="+$scope.from+"&to="+$scope.to+"&limit="+$scope.limit+"&offset="+$scope.offset)
                 .then(function (response){
-                    $scope.data = JSON.stringify(response.data, null, 2);
                     $scope.gvg=response.data;
                     console.log("GET 200 ok");
                     
                     
                       });
             };
-             $scope.paginacion= function(){
-                    
-                $http
-                .get($scope.url+"?apikey="+$scope.apikey+"&limit="+$scope.limit+"&offset="+$scope.offset)
-                .then(function (response){
-                 for(var i=$scope.limit;i<=$scope.offset;i++){
-                     $scope.gvg=response.data;
-                     $scope.gvg[i];
-                 }
-                    
-                    console.log("GET 200 ok");
-                    
-                    
-                      });
-            };
+            
             $scope.editCountry=function(){
                 $http.put($scope.url+"/$scope.updateCountry.country?apikey="+$scope.apikey,$scope.updateCountry)
                 .then(function(){
