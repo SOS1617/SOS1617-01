@@ -75,3 +75,4 @@ app.get(BASE_API_PATH+"/RestClientGvg", function(request, response){
 app.get(BASE_API_PATH+"/RestClientYUS", function(request, response){
     response.sendfile(publicFolder + "indexalb.html");
 });
+
