@@ -1,0 +1,88 @@
+angular.module("SSApp")   //Nos pasa dicho módulo que ya hemos creado.
+.controller("ListController",["$scope","$http",function($scope,$http){      //En este array están los paquetes que queremos que cargue nuestro controlador. El último elemento del array tiene que ser un callback que debe tener todos los módulos anteriores.
+    $scope.url = "/api/v2/startups-stats";
+    $scope.apikey="?apikey=";
+    function refresh(){
+       $http
+              .get($scope.url+$scope.apikey+$scope.key)
+              .then(function (response){
+                    console.log("Data received:"+ JSON.stringify(response.data,null,2));
+                    $scope.datas = response.data;
+              });
+    }
+    $scope.loadinitial=function(){
+        $http
+            .get($scope.url+"/loadInitialData"+$scope.apikey+$scope.key)
+            .then(function(response){
+            console.log("LOADINITIAL 200 ok");
+            refresh();
+            });
+    };
+    $scope.addData= function(){
+        $http.post($scope.url+$scope.apikey+$scope.key,$scope.newData).then(function(response){
+            console.log("POST finished");
+            refresh();
+        });
+    };
+    $scope.editData=function(){
+        $http.put($scope.url+"/$scope.editData.country"+$scope.apikey+$scope.key,$scope.editData.country)
+            .then(function(){
+                console.log("PUT finished");
+                refresh();
+            });
+    };
+   $scope.deleteData=function(data2){
+        $http.delete($scope.url+"/"+data2+$scope.apikey+$scope.key)
+            .then(function(response){
+                console.log("DELETE ONE 200 ok");
+                refresh();
+            });
+    };
+    $scope.loadData=function(data3){
+        $http.get($scope.url+"/"+data3+$scope.apikey+$scope.key)
+            .then(function(response){
+                console.log("GET 200 ok");
+                $scope.load = response.data;
+                refresh();
+                
+            });
+    };
+    $scope.removeAll=function(){
+        $http.delete($scope.url+$scope.apikey+$scope.key)
+            .then(function(){
+                console.log("REMOVE All ok");
+            });
+    };
+         
+         
+    $scope.listCountry= function(){
+        $http
+            .get($scope.url+"?apikey="+$scope.apikey+$scope.key+"&limit="+$scope.limit+"&offset="+$scope.offset)
+            .then(function (response){
+            $scope.data = JSON.stringify(response.data, null, 2);
+            $scope.datas=response.data;
+            console.log("GET 200 ok"); 
+            });
+    };
+    
+    $scope.paginacion= function(){  
+            $http
+                .get($scope.url+$scope.apikey+$scope.key+"&limit="+$scope.limit+"&offset="+$scope.offset)
+                .then(function (response){
+                 for(var i=$scope.limit;i<=$scope.offset;i++){
+                     $scope.datas2=response.data2;
+                     $scope.datas2[i];
+                     
+                }
+                    console.log("GET 200 ok");
+                });
+    };
+    
+    
+           
+}]);
+
+
+    /* Para añadir un parámetro al modelo tenemos que añadirlo así: ng-model="nombreCualquiera". 
+        Y para visualizar en el mismo html eso podemos poner en cualquier parte {{nombreCualquiera}} y veremos lo guardado en dicho modelo 
+        Si lo metemos en <pre></pre> nos respetará tabulaciones y demás */
