@@ -46,6 +46,13 @@
                         <th class="text-center"><button class="btn-primary" ng-click="busqueda(searchCountry.country)">Busqueda</button></th>
                     </tr>
                     </tr>
+                      <tr>
+                        <td>{{gvg2.country}}</td>
+                        <td>{{gvg2.year}}</td>
+                        <td>{{gvg2.income_million}}</td>
+                        <td>{{gvg2.income_ratio}}</td>
+                       
+                    </tr>
                     <tr>
                         <th><input class="form-control" ng-model="limit">Limit</th>
                         <th><input class="form-control" ng-model="offset">Offset</th>
@@ -108,6 +115,7 @@
                           <td>{{country.income_ratio}}</td>
                           <td>&nbsp;</td>
                       </tr>
+                    
                   </tbody>
               </table>
             

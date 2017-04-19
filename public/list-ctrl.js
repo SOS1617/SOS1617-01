@@ -36,16 +36,14 @@
                     
                       });
             };
-                $scope.busqueda= function(){
+                $scope.busqueda= function(country){
                     
                 $http
-                .get($scope.url+"/"+$scope.searchCountry.country+"?apikey="+$scope.apikey)
+                .get($scope.url+"/"+country+"?apikey="+$scope.apikey)
                 .then(function (response){
                    
-                     $scope.gvg=response.country;
+                     $scope.gvg2=response.data;
                       console.log("SEARCH 200 ok");
-                    
-                    
                     
                       });
             };
