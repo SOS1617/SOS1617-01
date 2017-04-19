@@ -1,7 +1,7 @@
 angular.module("SSApp")   //Nos pasa dicho módulo que ya hemos creado.
 .controller("ListController",["$scope","$http",function($scope,$http){      //En este array están los paquetes que queremos que cargue nuestro controlador. El último elemento del array tiene que ser un callback que debe tener todos los módulos anteriores.
     $scope.url = "/api/v2/startups-stats";
-    $scope.apikey="?apikey=";
+   $scope.apikey="?apikey=";
     function refresh(){
        $http
               .get($scope.url+$scope.apikey+$scope.key)
@@ -25,7 +25,11 @@ angular.module("SSApp")   //Nos pasa dicho módulo que ya hemos creado.
         });
     };
     $scope.editData=function(){
-        $http.put($scope.url+"/$scope.editData.country"+$scope.apikey+$scope.key,$scope.editData.country)
+        var url=$scope.url+"/"+$scope.edit.country+$scope.apikey+$scope.key;
+        console.log("Dato url "+url);
+        var coun=JSON.stringify($scope.edit);
+        console.log(("Country->"+coun));
+        $http.put(url,coun)
             .then(function(){
                 console.log("PUT finished");
                 refresh();

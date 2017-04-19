@@ -220,7 +220,8 @@ app.put(BASE_API_PATH + "/startups-stats/:country", function (request, response)
     if(!ApikeyFunction(request,response))return;
     var updatedData = request.body;
     var country = request.params.country;
-    if (!updatedData || (updatedData.country != country)) {
+    if (!updatedData ) {
+        console.log("updatedData->"+updatedData);
         console.log("WARNING: New PUT request to /startups-stats/ without data, sending 400...");
         response.sendStatus(400); // bad request
     } else {
