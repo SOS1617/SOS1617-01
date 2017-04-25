@@ -126,7 +126,7 @@ app.get(BASE_API_PATH + "/gvg", function (request, response) {
                     }
                     else {
                         if (gvg.length === 0) {
-                            response.sendStatus(404);
+                            response.send(gvg);
                         }else{
                         if (from && to) {
 
@@ -319,6 +319,7 @@ app.delete(BASE_API_PATH + "/gvg/:country", function (request, response) {
 });
 
 
+
 };
 
 var search = function(recurso, conj, f,t) {
@@ -337,3 +338,4 @@ var search = function(recurso, conj, f,t) {
 
     return conj;
 };
+

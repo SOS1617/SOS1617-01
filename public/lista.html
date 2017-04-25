@@ -1,32 +1,4 @@
-<html ng-app="Sos161701App">
-    <head>
-        <title>My app</title>
-        <link 
-            rel="stylesheet" 
-            href="/bower_components/bootstrap/dist/css/bootstrap.min.css" 
-            type="text/css" />
-        <link 
-            rel="stylesheet" 
-            href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" 
-            type="text/css" />
-        <script 
-            type="text/javascript" 
-            src="/bower_components/jquery/dist/jquery.min.js"></script>    
-        <script 
-            type="text/javascript" 
-            src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>    
-        <script 
-            type="text/javascript" 
-            src="/bower_components/angular/angular.min.js"></script>  
-            
-            
-        <script type="text/javascript" src="/sos161701-app.js"></script>
-        <script type="text/javascript" src="/list-ctrl.js"></script>
-       
-    </head>
-    <body>
-        <div ng-controller="ListCtrl">
-              <h2>Growth videoGames</h2>
+  <h2>Growth videoGames List</h2>
               <table class="table">
                   <thead>
                       <tr>
@@ -40,62 +12,68 @@
                   <tbody>
                        <tr>
                         <th><input class="form-control" ng-model="apikey"></th>
-                        <th class="text-center"><button class="btn-primary" ng-click="listCountry()">Apikey</button></th>
+                        <th class="text-center"><button class="btn-primary" ng-click="load()">Apikey</button></th>
                            <tr>
-                        <th><input type=search class="form-control" ng-model="searchCountry.country"></th>
+                        <th><input type=search class="form-control" ng-model="searchCountry.country">country</th>
                         <th class="text-center"><button class="btn-primary" ng-click="busqueda(searchCountry.country)">Busqueda</button></th>
                     </tr>
-                    </tr>
-                      <tr>
+                       <tr>
                         <td>{{gvg2.country}}</td>
                         <td>{{gvg2.year}}</td>
                         <td>{{gvg2.income_million}}</td>
                         <td>{{gvg2.income_ratio}}</td>
                        
                     </tr>
+                    
+                      <tr>
+                          <td>{{gvg.country}}</td>
+                          <td>{{gvg.year}}</td>
+                          <td>{{gvg.income_million}}</td>
+                          <td>{{gvg.income_ratio}}</td>
+                        
+                      </tr>
+                     </tr>
+
+                        </tr>
+                    
+                    </tr>
+                   
                     <tr>
                         <th><input class="form-control" ng-model="limit">Limit</th>
                         <th><input class="form-control" ng-model="offset">Offset</th>
                         <th><input class="form-control" ng-model="from">From</th>
                         <th><input class="form-control" ng-model="to">To</th>
-                        <th class="text-center"><button class="btn-primary" ng-click="paginacion()">Paginación</button></th>
+                        <th class="text-center"><button class="btn-primary" ng-click="paginacion()">Paginación y busqueda</button></th>
                     </tr>
                     
-                       <tr>
-                            <td><input class="form-control" ng-model="updateCountry.country"/></td>
-                            <td><input class="form-control" ng-model="updateCountry.year"/></td>
-                            <td><input class="form-control" ng-model="updateCountry.income_million"/></td>
-                            <td><input class="form-control" ng-model="updateCountry.income_ratio"/></td>
-                            <td><buton class="btn btn-primary" ng-click="editCountry()"/>Edit</td>
-                          
-                      </tr>
+                      
                       <tr>
                             <td><input class="form-control" ng-model="newCountry.country"/></td>
                             <td><input class="form-control" ng-model="newCountry.year"/></td>
                             <td><input class="form-control" ng-model="newCountry.income_million"/></td>
                             <td><input class="form-control" ng-model="newCountry.income_ratio"/></td>
-                            <td><buton class="btn btn-primary" ng-click="addCountry()"/>Add</td>
+                            <th><button class="btn-primary" ng-click="addCountry()">Add</button></th>
                           
                       </tr>
                          <tr>
                             <td><h3>Press to Remove all</h3></td>
-                            <td><buton class="btn btn-primary" ng-click="removeAll()"/>Remove All</td>
+                            <td><button class="btn-primary" ng-click="removeAll()">Remove All</td>
                           
                       </tr>
                         <tr>
                             <td><input class="form-control" ng-model="gvg.country"/></td>
                           
-                            <td><buton class="btn btn-primary" ng-click="removeOne(gvg.country)"/>Remove One</td>
+                            <td><button class="btn-primary" ng-click="removeOne(gvg.country)">Remove One</button></td>
                           
                       </tr>
                       <tr>
                                 <td><h3>LoadInitialData</h3></td>
-                                <td><buton class="btn btn-primary" ng-click="loadinitial()"/>LoadInitial</td>
+                                <td><button class="btn-primary" ng-click="loadinitial()">LoadInitial</button></td>
                           
                       </tr>
                        <tr>
                                 <td><h3>Press to show All</h3></td>
-                                <td><buton class="btn btn-primary" ng-click="listCountry()"/>List</td>
+                                <td><button class="btn-primary" ng-click="load()">List</button></td>
                           
                       </tr>
                       
@@ -109,7 +87,7 @@
                       </tr>
                         
                       <tr ng-repeat="country in gvg">
-                          <td>{{country.country}}</td>
+                          <td><a href="#!/gvg/{{country.country}}" >{{country.country}}</a></td>
                           <td>{{country.year}}</td>
                           <td>{{country.income_million}}</td>
                           <td>{{country.income_ratio}}</td>
@@ -118,9 +96,3 @@
                     
                   </tbody>
               </table>
-            
-        </div>
-      
-       
-    </body>
-</html>

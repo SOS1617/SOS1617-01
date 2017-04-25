@@ -9,7 +9,7 @@ angular
               .get($scope.url+$scope.apikey)
               .then(function (response){
                     console.log("Data received:"+ JSON.stringify(response.data,null,2));
-                    $scope.countries = response.data;
+                  $scope.countries = response.data;
               });
          }
          $scope.addCountry= function(){
