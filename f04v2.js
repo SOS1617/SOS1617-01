@@ -77,5 +77,5 @@ app.get(BASE_API_PATH+"/RestClientYUS", function(request, response){
     response.sendfile(publicFolder + "indexalb.html");
 });
 app.get(BASE_API_PATH+"/RestClientSS", function(request, response){
-    response.sendfile(publicFolder + "indexirene.html");
+    response.sendFile(publicFolder + "indexirene.html");
 });
