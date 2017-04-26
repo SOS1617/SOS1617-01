@@ -25,13 +25,7 @@
                        
                     </tr>
                     
-                      <tr>
-                          <td>{{gvg.country}}</td>
-                          <td>{{gvg.year}}</td>
-                          <td>{{gvg.income_million}}</td>
-                          <td>{{gvg.income_ratio}}</td>
-                        
-                      </tr>
+                    
                      </tr>
 
                         </tr>
@@ -96,3 +90,17 @@
                     
                   </tbody>
               </table>
+               <ul class = "pagination">
+              <li><a><button type="button" ng-disabled = "offset = 0" ng-click = "paginacion()">anterior</button></a></li>
+              <li><a><button type="button" ng-disabled = "offset > datas.length" ng-click = "paginacion2()">siguiente</button></a></li>
+            </ul>
+            <table class="table table-striped">
+            <tr>
+                        <td>{{load.country}}</td>
+                        <td>{{load.year}}</td>
+                        <td>{{load.income_million}}</td>
+                        <td>{{load.income_ratio}}</td>
+                        
+                        
+                </tr>
+            </table>

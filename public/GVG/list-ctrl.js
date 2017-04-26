@@ -9,7 +9,10 @@
                 $http
                 .get($scope.url+"?apikey=sos161701")
                 .then(function (response){
-                     $scope.gvg=response.data;
+                  
+                         $scope.gvg=response.data;
+                  
+                    
                     sweetAlert("GET 200 ok!!");
                    
                       },function error(response){
@@ -152,9 +155,75 @@
                     
                };
                 
+                
+         $scope.paginacion2= function(){   //siguiente
+        
+         //   $scope.offset = $scope.offset+4;
+       $scope.limit=4;
+       $scope.offset=0;
+            $http
+                .get($scope.url+"?apikey=sos161701&limit="+$scope.limit+"&offset="+$scope.offset + "&from=1000&to=20000")
+                .then(function (response){
+                    for(var i=5;i<12;i++){
+                          $scope.gvg=response.data[i];
+                    }
+                   
+                    console.log("GET 200 ok");
+                    //refresh();
+                });
+    };
+    
+    $scope.paginacion= function(){  //anterior
+       
+            $scope.offset = 0;
+            $scope.limit=4;
+            
+            $http
+                .get($scope.url+"?apikey=sos161701&limit="+$scope.limit+"&offset="+$scope.offset+ "&from=1000&to=20000")
+                .then(function (response){
+                     for(var i=0;i<5;i++){
+                          $scope.gvg=response.data[i];
+                     }
+                    console.log("GET 200 ok");
+                    //refresh();
+                });
+    };
+    
+    
+    
+     $scope.configPages = function() {
+        $scope.pages.length = 0;
+        var ini = $scope.currentPage - 4;
+        var fin = $scope.currentPage + 5;
+        if (ini < 1) {
+          ini = 1;
+          if (Math.ceil($scope.gvg.length / $scope.pageSize) > 10)
+            fin = 10;
+          else
+            fin = Math.ceil($scope.gvg.length / $scope.pageSize);
+        } else {
+          if (ini >= Math.ceil($scope.gvg.length / $scope.pageSize) - 10) {
+            ini = Math.ceil($scope.gvg.length / $scope.pageSize) - 10;
+            fin = Math.ceil($scope.gvg.length / $scope.pageSize);
+          }
+        }
+        if (ini < 1) ini = 1;
+        for (var i = ini; i <= fin; i++) {
+          $scope.pages.push({
+            no: i
+          });
+        }
+
+        if ($scope.currentPage >= $scope.pages.length)
+          $scope.currentPage = $scope.pages.length - 1;
+      };
+
+      $scope.setPage = function(index) {
+        $scope.currentPage = index - 1;
+      };
+   
+            
+        
     
             }]);
             
-            
-            
-        

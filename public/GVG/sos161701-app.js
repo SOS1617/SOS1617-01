@@ -4,11 +4,11 @@ angular.module("Sos161701App",["ngRoute"])
  $routeProvider
  .when("/",{
   
-  templateUrl:"/lista.html",
+  templateUrl:"/GVG/lista.html",
   controller:"ListCtrl"
  })
  .when("/gvg/:country",{
-  templateUrl:"/edit.html",
+  templateUrl:"/GVG/edit.html",
   controller:"EditCtrl"
  });
  console.log("App initialized");
