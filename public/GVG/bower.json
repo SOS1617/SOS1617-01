@@ -1,0 +1,24 @@
+{
+  "name": "public",
+  "homepage": "https://github.com/SOS1617/SOS1617-01",
+  "authors": [
+    "SOS1617_brr <ruizbeatriz53@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-route": "^1.6.4",
+    "angular": "^1.6.4",
+    "bootstrap": "^3.3.7",
+    "ng-tour": "ng-route#*"
+  }
+}

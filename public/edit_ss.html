@@ -1,0 +1,92 @@
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Startups Stats Edit</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><button type="button" class="btn btn-danger" ng-click = "removeAll()">Delete all datas</button></li>
+            <li><button type="button" class="btn btn-info" ng-click = "loadinitial()">Load initial data</button></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <div class="form-group has-warning has-feedback">
+              <input type="text" class="form-control" ng-model="key2" id="inputWarning2" aria-describedby="inputWarning2Status" placeholder = "Introduce the Apikey" > 
+              <span class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
+              <span id="inputWarning2Status" class="sr-only">(warning)</span>
+            </div>
+            <buttom type="button" class="btn btn-info" ng-click = "check()">Check</buttom>
+            <a>&nbsp;</a>
+            <a>&nbsp;</a>
+            <a>&nbsp;</a>
+            <a>&nbsp;</a>
+            <input type="text" class="form-control" ng-model="data.countryL" placeholder="Search one country...">
+            <button type="button" class="btn btn-info" ng-click = "loadData(data.countryL)">Load</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+  
+    <div class="container-fluid" >
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li>&nbsp;</li>
+            <li>&nbsp;</li>
+            <li>&nbsp;</li>
+            <li class="active"><a href="#">All Resources <span class="sr-only">(current)</span></a></li>
+            <li><a href="#!/edit">Edit Resources</a></li>
+            <li><a href="#">Delete Resources</a></li>
+            
+          </ul>
+          
+        </div>
+       
+
+          <h2 class="sub-header">Section title</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Country</th>
+                  <th>Year</th>
+                  <th>Total</th>
+                  <th>Increase</th>
+                  <th>Investment</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="edit in datas">
+                        <td>{{edit.country}}</td>
+                        <td><input class="active" ng-model = "edit.year"/></td>
+                        <td><input class="active" ng-model = "edit.total"/></td>
+                        <td><input class="active" ng-model = "edit.increase"/></td>
+                        <td><input class="active" ng-model = "edit.investment"/></td>
+                        <td><button type="button" class="btn btn-primary btn-xs" ng-click = "editData()">Edit</button></td>
+                    </tr>
+              </tbody>
+            </table>
+            
+            <table class="table table-striped">
+            <tr>
+                        <td>{{load.country}}</td>
+                        <td>{{load.year}}</td>
+                        <td>{{load.total}}</td>
+                        <td>{{load.increase}}</td>
+                        <td>{{load.investment}}</td>
+                        
+                </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>

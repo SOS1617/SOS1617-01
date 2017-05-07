@@ -80,8 +80,11 @@ app.get(BASE_API_PATH + "/startups-stats", function (request, response) {
                 console.error('ERROR from database');
                 response.sendStatus(500); // internal server error
             }else {
+                
                 if (ss.length === 0) {
-                    response.sendStatus(404);
+                    
+                    response.send(ss);
+                    
                 }else{
                 if (from && to) {
                     c = search(ss, c, from, to);

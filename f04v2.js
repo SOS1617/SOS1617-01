@@ -11,6 +11,7 @@ var app = express();
 var mdbURL="mongodb://bearuirei2:us33ak7x@ds137360.mlab.com:37360/sos161701";
 var publicFolder=path.join(__dirname,'public/');
 
+
 var port = (process.env.PORT || 10000);
 var BASE_API_PATH = "/api/v2";
 
@@ -70,11 +71,11 @@ app.get(BASE_API_PATH+"/test",function(request, response) {
     response.sendfile(publicFolder+"botones.html");
 });
 app.get(BASE_API_PATH+"/RestClientGvg", function(request, response){
-    response.sendfile(publicFolder + "index2.html");
+    response.sendFile(publicFolder + "indexbea.html");
 });
 app.get(BASE_API_PATH+"/RestClientYUS", function(request, response){
     response.sendfile(publicFolder + "indexalb.html");
 });
 app.get(BASE_API_PATH+"/RestClientSS", function(request, response){
-    response.sendfile(publicFolder + "indexirene.html");
+    response.sendFile(publicFolder + "indexirene.html");
 });
