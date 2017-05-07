@@ -1,0 +1,21 @@
+<h2>Updated country</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Country</th>
+            <th>Year</th>
+            <th>Male unemployment ratio</th>
+            <th>Female_unemployment ratio</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{updateCountry.country}}</td>
+            <td><input class="form-control" ng-model="updateCountry.year" /></td>
+            <td><input class="form-control" ng-model="updateCountry.male_unemployment_ratio" /></td>
+            <td><input class="form-control" ng-model="updateCountry.female_unemployment_ratio" /></td>
+            <td><button class="btn btn-warning" ng-click="editCountry()">Edit</button></td>
+            <td><a href="#!/">Cancel</a></td>
+        </tr>
+    </tbody>
+</table>
