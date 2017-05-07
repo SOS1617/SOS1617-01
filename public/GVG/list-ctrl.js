@@ -1,41 +1,140 @@
+
+
   angular
   .module("Sos161701App")
   .controller("ListCtrl",["$scope","$http",function ($scope,$http){
                 console.log("List Controller initialized");
             $scope.url="/api/v2/gvg";
-   
+  
+  
+    $scope.gvg = {};
+    var datos = {};
+    $scope.actual = 1;
+    $scope.max = 1;
+    $scope.paginas = [];
+    $scope.izq = [];
+    $scope.centro = [];
+    $scope.der = [];
+
+
+
+    var elementsPerPage = 4;
+
+    function pagination() {
+        var pagesNearby = 2;
+        $scope.izq = [];
+        $scope.centro = [];
+        $scope.der = [];
+        if ($scope.max <= pagesNearby * 2) {
+            for (var i = 1; i <= $scope.max; i++) $scope.izq.push(i);
+        }
+        else if ($scope.actual >= 0 && $scope.actual <= pagesNearby) {
+            for (var i = 1; i <= pagesNearby; i++) $scope.izq.push(i);
+            for (i = $scope.max - pagesNearby + 1; i <= $scope.max; i++) $scope.centro.push(i);
+        }
+        else if ($scope.actual >= $scope.max - pagesNearby + 1 && $scope.actual <= $scope.max) {
+            for (var i = 1; i <= pagesNearby; i++) $scope.centro.push(i);
+            for (i = $scope.max - pagesNearby + 1; i <= $scope.max; i++) $scope.der.push(i);
+        }
+        else {
+            
+            for (var i = 1; i <= pagesNearby; i++) $scope.izq.push(i);
+            for (var i = Math.max($scope.actual - 1, pagesNearby + 1); i <= Math.min($scope.actual + 1, $scope.max - pagesNearby); i++) $scope.centro.push(i);
+            for (i = $scope.max - pagesNearby + 1; i <= $scope.max; i++) $scope.der.push(i);
+            if (($scope.izq[$scope.izq.length - 1] == $scope.centro[0] - 1) && ($scope.centro[$scope.centro.length - 1] == $scope.der[0] - 1)) {
+                $scope.centro = $scope.centro.concat($scope.der);
+                $scope.izq = $scope.izq.concat($scope.centro);
+                $scope.centro = [];
+                $scope.der = [];
+            }
+            else if ($scope.izq[$scope.izq.length - 1] == $scope.centro[0] - 1) {
+                $scope.izq = $scope.izq.concat($scope.centro);
+                $scope.centro = [];
+            }
+            else if ($scope.centro[$scope.centro.length - 1] == $scope.der[0] - 1) {
+                $scope.der = $scope.centro.concat($scope.der);
+                $scope.centro = [];
+            }
+        }
+    }
+
+
+    $scope.cambio = function(page) {
+        $scope.actual = page;
+        $scope.refrescar();
+    };
+
+    $scope.anterior = function() {
+        $scope.actual--;
+        $scope.refrescar();
+    };
+
+    $scope.siguiente = function() {
+        $scope.actual++;
+        $scope.refrescar();
+    };
+
+    $scope.refrescar = function() {
+        if ($scope.actual <= 0) $scope.actual = 1;
+        if ($scope.actual > $scope.max) $scope.actual = $scope.max;
+        pagination();
+        if (datos.length > elementsPerPage) {
+            $scope.gvg = datos.slice(Number(($scope.actual - 1) * elementsPerPage), Number(($scope.actual) * elementsPerPage));
+        }
+        else {
+            $scope.gvg = datos;
+        }
+    };
     $scope.load=function(){
                     
                 $http
-                .get($scope.url+"?apikey=sos161701")
-                .then(function (response){
-                  
-                         $scope.gvg=response.data;
-                  
+                .get($scope.url +"?" + "apikey=" + $scope.apikey )
+                 .then(function(response) {
+                $scope.max = Math.max(Math.ceil(response.data.length / elementsPerPage), 1);
+
+                     datos = response.data;
+                     $scope.refrescar();
                     
-                    sweetAlert("GET 200 ok!!");
+                   sweetAlert("200 OK!!");
                    
                       },function error(response){
+                           $scope.max = 1;
+                         datos = {};
+                          $scope.refrescar();
                           if(response.apikey!=$scope.apikey&response.status==403){
+                              datos = {};
+                            $scope.refrescar();
                               sweetAlert("Incorrect apikey!!! ->Error "+response.status);
                           }else if(response.status==401){
+                                datos = {};
+                            $scope.refrescar();
                           sweetAlert("Empty apikey!!! ->Error "+response.status);
                           }else if(response.status==404){
+                                datos = {};
+                            $scope.refrescar();
                                 sweetAlert("Empty Resource but CORRECT APIKEY!!! ->Error "+response.status);
                           }else if(response.status==200){
+                                datos = {};
+                            $scope.refrescar();
                               sweetAlert("CORRECT apikey!! "+response.status);
                           }
                       });
+                   
                  
             };
           
                $scope.load();
+
             $scope.loadinitial=function(){
                 $http
                 .get($scope.url+"/loadInitialData?apikey="+$scope.apikey)
                 .then(function(response){
+                      $scope.max = Math.max(Math.ceil(response.data.length / elementsPerPage), 1);
+
+                     $scope.gvg= response.data;
+                     $scope.refrescar();
                     sweetAlert("LOADINITIAL 200 ok and CORRECT APIKEY!!");
-                  $scope.load();
+                  //$scope.load();
                 },function error(response){
                      if(response.apikey!=$scope.apikey&response.status==403){
                               sweetAlert("Incorrect apikey!!! ->Error "+response.status);
@@ -91,7 +190,7 @@
          
           
             
-         /*   $scope.editCountry=function(){
+            $scope.editCountry=function(){
                 $http.put($scope.url+"/$scope.updateCountry.country?apikey="+$scope.apikey,$scope.updateCountry)
                 .then(function(){
                      console.log("PUT 200 ok");
@@ -106,7 +205,7 @@
                     }
                 });
                     $scope.load();
-            };*/
+            };
                $scope.addCountry= function(){
                 $http.post($scope.url+"?apikey="+$scope.apikey,$scope.newCountry)
                 .then(function(response){
@@ -156,74 +255,8 @@
                };
                 
                 
-         $scope.paginacion2= function(){   //siguiente
-        
-         //   $scope.offset = $scope.offset+4;
-       $scope.limit=4;
-       $scope.offset=0;
-            $http
-                .get($scope.url+"?apikey=sos161701&limit="+$scope.limit+"&offset="+$scope.offset + "&from=1000&to=20000")
-                .then(function (response){
-                    for(var i=5;i<12;i++){
-                          $scope.gvg=response.data[i];
-                    }
-                   
-                    console.log("GET 200 ok");
-                    //refresh();
-                });
-    };
-    
-    $scope.paginacion= function(){  //anterior
-       
-            $scope.offset = 0;
-            $scope.limit=4;
-            
-            $http
-                .get($scope.url+"?apikey=sos161701&limit="+$scope.limit+"&offset="+$scope.offset+ "&from=1000&to=20000")
-                .then(function (response){
-                     for(var i=0;i<5;i++){
-                          $scope.gvg=response.data[i];
-                     }
-                    console.log("GET 200 ok");
-                    //refresh();
-                });
-    };
-    
-    
-    
-     $scope.configPages = function() {
-        $scope.pages.length = 0;
-        var ini = $scope.currentPage - 4;
-        var fin = $scope.currentPage + 5;
-        if (ini < 1) {
-          ini = 1;
-          if (Math.ceil($scope.gvg.length / $scope.pageSize) > 10)
-            fin = 10;
-          else
-            fin = Math.ceil($scope.gvg.length / $scope.pageSize);
-        } else {
-          if (ini >= Math.ceil($scope.gvg.length / $scope.pageSize) - 10) {
-            ini = Math.ceil($scope.gvg.length / $scope.pageSize) - 10;
-            fin = Math.ceil($scope.gvg.length / $scope.pageSize);
-          }
-        }
-        if (ini < 1) ini = 1;
-        for (var i = ini; i <= fin; i++) {
-          $scope.pages.push({
-            no: i
-          });
-        }
-
-        if ($scope.currentPage >= $scope.pages.length)
-          $scope.currentPage = $scope.pages.length - 1;
-      };
-
-      $scope.setPage = function(index) {
-        $scope.currentPage = index - 1;
-      };
-   
-            
-        
+     
+ 
     
             }]);
             
