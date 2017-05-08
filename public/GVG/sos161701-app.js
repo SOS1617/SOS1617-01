@@ -10,6 +10,11 @@ angular.module("Sos161701App",["ngRoute"])
  .when("/gvg/:country",{
   templateUrl:"/GVG/edit.html",
   controller:"EditCtrl"
+ })
+ .when("/analytics",{
+  templateUrl:"/GVG/chart.html",
+  controller:"lisChartCtrl"
+  
  });
  console.log("App initialized");
 });

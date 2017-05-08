@@ -1,0 +1,86 @@
+<html ng-app="Sos161701App">
+
+<head>
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script>
+        angular
+            .module("Sos161701App", [])
+            .controller("lisChartCtrl", ["$http", function($http) {
+                console.log("Controller chart intialized");
+                $http
+                    .get("/api/v2/gvg?apikey=sos161701")
+                    .then(function(res) {
+                      
+   Highcharts.chart('chart', {
+        chart: {
+            type: 'column',
+            options3d: {
+            enabled: true,
+            alpha: 10,
+            beta: 25,
+            depth: 70
+        }
+    },
+    title: {
+        text: 'Highcharts'
+    },
+    subtitle: {
+        text: 'Income Ratio per Country'
+    },
+    plotOptions: {
+        column: {
+            depth: 25
+        }
+    },
+    xAxis: {
+        categories: res.data.map(function(d) {
+            return d.country;
+        })
+    },
+    yAxis: {
+        title: {
+            text: null
+        }
+    },
+    series: [{
+        name: 'Income %',
+        data: res.data.map(function(d){
+            return Number(d.income_ratio);
+        })
+    }]
+});
+                      
+                        google.charts.load('current', {
+                            'packages': ['geochart']
+                        });
+                        google.charts.setOnLoadCallback(drawRegionsMap);
+                        function drawRegionsMap() {
+                            var myData = [['Country','income_million']];
+                         res.data.forEach(function (d){
+                                myData.push([d.country,Number(d.income_million)]);
+                                
+                            });
+                            var data = google
+                                            .visualization
+                                            .arrayToDataTable(myData);
+                            var options = {colorAxis: {colors: ['pink','pink']}};
+                            var chart = new google.visualization.GeoChart(
+                                        document.getElementById('regions_div'));
+                            chart.draw(data, options);
+                        }
+                    });
+            }]);
+    </script>
+</head>
+
+<body ng-controller="lisChartCtrl">
+    <h1>Highcharts</h1>
+    <div id="chart"></div>
+   
+    <h1>GeoChart</h1>
+    <div id="regions_div" style="width: 900px; height: 500px;"></div>
+</body>
+
+</html>

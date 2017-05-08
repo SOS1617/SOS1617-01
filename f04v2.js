@@ -71,11 +71,31 @@ app.get(BASE_API_PATH+"/test",function(request, response) {
     response.sendfile(publicFolder+"botones.html");
 });
 app.get(BASE_API_PATH+"/RestClientGvg", function(request, response){
-    response.sendFile(publicFolder + "indexbea.html");
+    response.sendFile(publicFolder + "GVG/indexbea.html");
 });
 app.get(BASE_API_PATH+"/RestClientYUS", function(request, response){
     response.sendfile(publicFolder + "indexalb.html");
 });
 app.get(BASE_API_PATH+"/RestClientSS", function(request, response){
     response.sendFile(publicFolder + "indexirene.html");
+});
+app.get(BASE_API_PATH+"/chartBea", function(request, response){
+    response.sendFile(publicFolder + "GVG/chart.html");
+});
+app.get("/analytics", (req, res) => {
+    var from = 2000;
+    var to = 2017;
+    var serie = [];
+  
+    
+    for(var year=from; year<=to; year++){
+        serie.push({
+            country:res.data.country,
+            year: year,
+            income_million:res.data.income_million,
+            income_ratio:res.data.income_ratio
+        });
+    }
+
+    res.send(serie);
 });

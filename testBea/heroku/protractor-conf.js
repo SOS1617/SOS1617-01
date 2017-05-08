@@ -1,7 +1,7 @@
 exports.config = {   
     seleniumAddress: 'http://localhost:9515',
 
-    specs: ['ng-test.js','addContact.js'],
+    specs: ['T01-LoadResources.js','T02-AddResource.js'],
 
     capabilities: {
         'browserName': 'phantomjs'
