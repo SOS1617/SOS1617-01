@@ -21,7 +21,7 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
-    "helmet": "^3.5.0",
+    "helmet": "^3.6.0",
     "heroku": "^0.2.0",
     "highcharts": "^5.0.11",
     "http": "0.0.0",
