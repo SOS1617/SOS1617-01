@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Startups Stats</a>
+          <a class="navbar-brand" href="#">Startups Stats Edit</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -65,32 +65,17 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="data in datas">
-                        <td>{{data.country}}</td>
-                        <td>{{data.year}}</td>
-                        <td>{{data.total}}</td>
-                        <td>{{data.increase}}</td>
-                        <td>{{data.investment}}</td>
-                        <td><button type="button" class="btn btn-danger btn-xs" ng-click = "deleteData(data.country)">Delete</button></td>
-                        <td>&nbsp;</td>
-                </tr>
-                
-                <tr class="warning">
-                        <td><input class="info" ng-model = "newData.country"/></td>
-                        <td><input class="info" ng-model = "newData.year"/></td>
-                        <td><input class="info" ng-model = "newData.total"/></td>
-                        <td><input class="info" ng-model = "newData.increase"/></td>
-                        <td><input class="info" ng-model = "newData.investment"/></td>
-                        <td><button type="button" class="btn btn-success" ng-click = "addData()">Add</button></td>
+                <tr >
+                        <td>{{edit2.country}}</td>
+                        <td><input class="active" ng-model = "edit2.year"/></td>
+                        <td><input class="active" ng-model = "edit2.total"/></td>
+                        <td><input class="active" ng-model = "edit2.increase"/></td>
+                        <td><input class="active" ng-model = "edit2.investment"/></td>
+                        <td><button type="button" class="btn btn-primary btn-xs" ng-click = "editData()">Edit</button></td>
                     </tr>
               </tbody>
             </table>
             
-            
-            <ul class = "pagination">
-              <li><a><button type="button" ng-disabled = "offset = 0" ng-click = "paginacion()">anterior</button></a></li>
-              <li><a><button type="button" ng-disabled = "offset > datas.length" ng-click = "paginacion2()">siguiente</button></a></li>
-            </ul>
             <table class="table table-striped">
             <tr>
                         <td>{{load.country}}</td>
@@ -101,15 +86,6 @@
                         
                 </tr>
             </table>
-            <!--
-            <div class='btn-group'>
-              <button type='button' class='btn btn-default' ng-disabled='currentPage == 0' ng-click='currentPage = currentPage - 1'>&laquo;</button>
-              <button type='button' class='btn btn-default' ng-disabled='currentPage == page.no - 1' ng-click='setPage(page.no)' ng-repeat='page in pages'>{{page.no}}</button>
-              <button type='button' class='btn btn-default' ng-disabled='currentPage >= usuarios.length/pageSize - 1' , ng-click='currentPage = currentPage + 1'>&raquo;</button>
-            </div>
-            -->
-            
-            
           </div>
         </div>
       </div>
