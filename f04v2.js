@@ -7,7 +7,7 @@ var helmet = require("helmet");
 var path = require('path');
 var MongoClient=require("mongodb").MongoClient;
 var app = express();
-var angular=require("angular");
+
 
 var mdbURL="mongodb://bearuirei2:us33ak7x@ds137360.mlab.com:37360/sos161701";
 var publicFolder=path.join(__dirname,'public/');
@@ -83,20 +83,4 @@ app.get(BASE_API_PATH+"/RestClientSS", function(request, response){
 app.get(BASE_API_PATH+"/chartBea", function(request, response){
     response.sendFile(publicFolder + "GVG/chart.html");
 });
-app.get("/analytics", (req, res) => {
-    var from = 2000;
-    var to = 2017;
-    var serie = [];
-  
-    
-    for(var year=from; year<=to; year++){
-        serie.push({
-            country:res.data.country,
-            year: year,
-            income_million:res.data.income_million,
-            income_ratio:res.data.income_ratio
-        });
-    }
 
-    res.send(serie);
-});
