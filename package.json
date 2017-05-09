@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/SOS1617/SOS1617-01#readme",
   "dependencies": {
+    "angular": "^1.6.4",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "helmet": "^3.6.0",
@@ -27,6 +28,7 @@
     "http": "0.0.0",
     "mongodb": "^2.2.26",
     "nedb": "^1.8.0",
-    "time": "^0.11.4"
+    "time": "^0.11.4",
+    "window": "^3.1.6"
   }
 }
