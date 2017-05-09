@@ -5,9 +5,13 @@ angular.module("SSApp")   //Nos pasa dicho módulo que ya hemos creado.
     $scope.limit = 4;
     $scope.offset = 0;
     
-    $scope.currentPage = 0;
-    $scope.pageSize = 10;
-    $scope.pages = [];
+    $scope.actual = 1;
+    $scope.max = 1;
+    $scope.paginas = [];
+    $scope.izq = [];
+    $scope.centro = [];
+    $scope.der = [];
+    var elementsPerPage = 4;
     
    refresh();
     function refresh(){
@@ -143,7 +147,7 @@ angular.module("SSApp")   //Nos pasa dicho módulo que ya hemos creado.
         }
     };
     
-    
+    /*
     $scope.paginacion2= function(){   //siguiente
         
             $scope.offset = $scope.offset+4;
@@ -169,7 +173,62 @@ angular.module("SSApp")   //Nos pasa dicho módulo que ya hemos creado.
                     //refresh();
                 });
     };
+    */
     
+    
+    function pagination() {
+        var pagesNearby = 2;
+        $scope.izq = [];
+        $scope.centro = [];
+        $scope.der = [];
+        if ($scope.max <= pagesNearby * 2) {
+            for (var i = 1; i <= $scope.max; i++) $scope.izq.push(i);
+        }
+        else if ($scope.actual >= 0 && $scope.actual <= pagesNearby) {
+            for (var i = 1; i <= pagesNearby; i++) $scope.izq.push(i);
+            for (i = $scope.max - pagesNearby + 1; i <= $scope.max; i++) $scope.centro.push(i);
+        }
+        else if ($scope.actual >= $scope.max - pagesNearby + 1 && $scope.actual <= $scope.max) {
+            for (var i = 1; i <= pagesNearby; i++) $scope.centro.push(i);
+            for (i = $scope.max - pagesNearby + 1; i <= $scope.max; i++) $scope.der.push(i);
+        }
+        else {
+            
+            for (var i = 1; i <= pagesNearby; i++) $scope.izq.push(i);
+            for (var i = Math.max($scope.actual - 1, pagesNearby + 1); i <= Math.min($scope.actual + 1, $scope.max - pagesNearby); i++) $scope.centro.push(i);
+            for (i = $scope.max - pagesNearby + 1; i <= $scope.max; i++) $scope.der.push(i);
+            if (($scope.izq[$scope.izq.length - 1] == $scope.centro[0] - 1) && ($scope.centro[$scope.centro.length - 1] == $scope.der[0] - 1)) {
+                $scope.centro = $scope.centro.concat($scope.der);
+                $scope.izq = $scope.izq.concat($scope.centro);
+                $scope.centro = [];
+                $scope.der = [];
+            }
+            else if ($scope.izq[$scope.izq.length - 1] == $scope.centro[0] - 1) {
+                $scope.izq = $scope.izq.concat($scope.centro);
+                $scope.centro = [];
+            }
+            else if ($scope.centro[$scope.centro.length - 1] == $scope.der[0] - 1) {
+                $scope.der = $scope.centro.concat($scope.der);
+                $scope.centro = [];
+            }
+        }
+    }
+
+
+    $scope.cambio = function(page) {
+        $scope.actual = page;
+        $scope.refrescar();
+    };
+
+    $scope.anterior = function() {
+        $scope.actual--;
+        $scope.refrescar();
+    };
+
+    $scope.siguiente = function() {
+        $scope.actual++;
+        $scope.refrescar();
+    };
     
     
      $scope.configPages = function() {

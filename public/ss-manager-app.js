@@ -1,7 +1,7 @@
 angular.module("SSApp",["ngRoute"]).config(function($routeProvider){
     $routeProvider
     .when("/", {
-      templateUrl : "list_ss.html",
+      templateUrl : "/SS/list_ss.html",
       controller: "ListController"
   })
   
