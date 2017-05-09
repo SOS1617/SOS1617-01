@@ -5,13 +5,6 @@ angular.module("SSApp")   //Nos pasa dicho módulo que ya hemos creado.
     $scope.limit = 4;
     $scope.offset = 0;
     
-    $scope.actual = 1;
-    $scope.max = 1;
-    $scope.paginas = [];
-    $scope.izq = [];
-    $scope.centro = [];
-    $scope.der = [];
-    var elementsPerPage = 4;
     
    refresh();
     function refresh(){
@@ -147,127 +140,49 @@ angular.module("SSApp")   //Nos pasa dicho módulo que ya hemos creado.
         }
     };
     
-    /*
-    $scope.paginacion2= function(){   //siguiente
-        
-            $scope.offset = $scope.offset+4;
-       
+    
+     $scope.siguiente = function() {
+            $scope.offset = $scope.offset + 1;
+
+            $scope.paginacion();
+        };
+        $scope.anterior = function() {
+            if($scope.offset>0){
+            $scope.offset = $scope.offset - 1;
+            }
+            $scope.paginacion();
+        };
+
+
+        $scope.paginacion = function() {
+            $scope.datas = {};
+
             $http
-                .get($scope.url+$scope.apikey+"sos161701&limit="+$scope.limit+"&offset="+$scope.offset + "&from=10&to=3000")
-                .then(function (response){
-                     $scope.datas=response.data;
+                .get($scope.url + "?apikey=" + $scope.key + "&from=10&to=10000&limit=" + $scope.limit + "&offset=" + $scope.offset)
+                .then(function(response) {
+                    console.log("offset" + $scope.offset);
+                    console.log("limit" + $scope.limit);
+                    $scope.datas = response.data;
                     console.log("GET 200 ok");
-                    //refresh();
+                }, function error(response) {
+                    if (response.apikey != $scope.key & response.status == 403) {
+                        console.log("Incorrect apikey. Error ->" + response.status);
+                    }
+                    else if (response.status == 200) {
+                        console.log("Correct Apikey." + response.status);
+                    }
+                    else if (response.status == 401) {
+                        console.log("Empty Apikey. Error ->" + response.status);
+                    }
+
                 });
-    };
-    
-    $scope.paginacion= function(){  //anterior
-       
-            $scope.offset = 0;
+        };
         
-            $http
-                .get($scope.url+$scope.apikey+"sos161701&limit="+$scope.limit+"&offset="+$scope.offset+ "&from=10&to=3000")
-                .then(function (response){
-                    $scope.datas=response.data;
-                    console.log("GET 200 ok");
-                    //refresh();
-                });
-    };
-    */
+}]);
     
     
-    function pagination() {
-        var pagesNearby = 2;
-        $scope.izq = [];
-        $scope.centro = [];
-        $scope.der = [];
-        if ($scope.max <= pagesNearby * 2) {
-            for (var i = 1; i <= $scope.max; i++) $scope.izq.push(i);
-        }
-        else if ($scope.actual >= 0 && $scope.actual <= pagesNearby) {
-            for (var i = 1; i <= pagesNearby; i++) $scope.izq.push(i);
-            for (i = $scope.max - pagesNearby + 1; i <= $scope.max; i++) $scope.centro.push(i);
-        }
-        else if ($scope.actual >= $scope.max - pagesNearby + 1 && $scope.actual <= $scope.max) {
-            for (var i = 1; i <= pagesNearby; i++) $scope.centro.push(i);
-            for (i = $scope.max - pagesNearby + 1; i <= $scope.max; i++) $scope.der.push(i);
-        }
-        else {
-            
-            for (var i = 1; i <= pagesNearby; i++) $scope.izq.push(i);
-            for (var i = Math.max($scope.actual - 1, pagesNearby + 1); i <= Math.min($scope.actual + 1, $scope.max - pagesNearby); i++) $scope.centro.push(i);
-            for (i = $scope.max - pagesNearby + 1; i <= $scope.max; i++) $scope.der.push(i);
-            if (($scope.izq[$scope.izq.length - 1] == $scope.centro[0] - 1) && ($scope.centro[$scope.centro.length - 1] == $scope.der[0] - 1)) {
-                $scope.centro = $scope.centro.concat($scope.der);
-                $scope.izq = $scope.izq.concat($scope.centro);
-                $scope.centro = [];
-                $scope.der = [];
-            }
-            else if ($scope.izq[$scope.izq.length - 1] == $scope.centro[0] - 1) {
-                $scope.izq = $scope.izq.concat($scope.centro);
-                $scope.centro = [];
-            }
-            else if ($scope.centro[$scope.centro.length - 1] == $scope.der[0] - 1) {
-                $scope.der = $scope.centro.concat($scope.der);
-                $scope.centro = [];
-            }
-        }
-    }
 
-
-    $scope.cambio = function(page) {
-        $scope.actual = page;
-        $scope.refrescar();
-    };
-
-    $scope.anterior = function() {
-        $scope.actual--;
-        $scope.refrescar();
-    };
-
-    $scope.siguiente = function() {
-        $scope.actual++;
-        $scope.refrescar();
-    };
-    
-    
-     $scope.configPages = function() {
-        $scope.pages.length = 0;
-        var ini = $scope.currentPage - 4;
-        var fin = $scope.currentPage + 5;
-        if (ini < 1) {
-          ini = 1;
-          if (Math.ceil($scope.datas.length / $scope.pageSize) > 10)
-            fin = 10;
-          else
-            fin = Math.ceil($scope.datas.length / $scope.pageSize);
-        } else {
-          if (ini >= Math.ceil($scope.datas.length / $scope.pageSize) - 10) {
-            ini = Math.ceil($scope.datas.length / $scope.pageSize) - 10;
-            fin = Math.ceil($scope.datas.length / $scope.pageSize);
-          }
-        }
-        if (ini < 1) ini = 1;
-        for (var i = ini; i <= fin; i++) {
-          $scope.pages.push({
-            no: i
-          });
-        }
-
-        if ($scope.currentPage >= $scope.pages.length)
-          $scope.currentPage = $scope.pages.length - 1;
-      };
-
-      $scope.setPage = function(index) {
-        $scope.currentPage = index - 1;
-      };
-    }
-  ])
-    
-           
-;
-
-
-    /* Para añadir un parámetro al modelo tenemos que añadirlo así: ng-model="nombreCualquiera". 
+/*
+     Para añadir un parámetro al modelo tenemos que añadirlo así: ng-model="nombreCualquiera". 
         Y para visualizar en el mismo html eso podemos poner en cualquier parte {{nombreCualquiera}} y veremos lo guardado en dicho modelo 
         Si lo metemos en <pre></pre> nos respetará tabulaciones y demás */

@@ -12,5 +12,10 @@ angular.module("SSApp",["ngRoute"]).config(function($routeProvider){
   .when("/:country", {
       templateUrl : "/SS/country-ss.html",
       controller: "CountryController"
+  })
+  .when("/analytics/irene", {
+      templateUrl : "/SS/chart.html",
+      controller: "ChartCtrl"
+      
   });
 });

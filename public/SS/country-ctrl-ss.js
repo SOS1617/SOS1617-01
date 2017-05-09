@@ -16,6 +16,7 @@ angular.module("SSApp")   //Nos pasa dicho módulo que ya hemos creado.
                     $scope.edit2.investment = response.data.investment;
               });
     }
+    refresh();
     $scope.loadinitial=function(){
         $http
             .get($scope.url+"/loadInitialData"+$scope.apikey+$scope.key)
@@ -33,7 +34,7 @@ angular.module("SSApp")   //Nos pasa dicho módulo que ya hemos creado.
     $scope.editData=function(){
         var url=$scope.url+"/"+$routeParams.country+$scope.apikey+$scope.key;
         console.log("Dato url "+url);
-        var coun=JSON.stringify($scope.edit);
+        var coun=JSON.stringify($scope.edit2);
         console.log(("Country->"+coun));
         $http.put(url,coun)
             .then(function(){
@@ -75,18 +76,6 @@ angular.module("SSApp")   //Nos pasa dicho módulo que ya hemos creado.
             });
     };
     
-    $scope.paginacion= function(){  
-            $http
-                .get($scope.url+$scope.apikey+$scope.key+"&limit="+$scope.limit+"&offset="+$scope.offset)
-                .then(function (response){
-                 for(var i=$scope.limit;i<=$scope.offset;i++){
-                     $scope.datas2=response.data2;
-                     $scope.datas2[i];
-                     
-                }
-                    console.log("GET 200 ok");
-                });
-    };
     
     $scope.check = function(){
         if($scope.key2 === "sos161701"){
