@@ -1,0 +1,15 @@
+{
+  "name": "phantom",
+  "homepage": "https://github.com/ariya/phantomjs",
+  "version": "2.1.1",
+  "_release": "2.1.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.1.1",
+    "commit": "aa3ad87976bff67dcc1abd4b7820fcbab56e06a9"
+  },
+  "_source": "https://github.com/ariya/phantomjs.git",
+  "_target": "^2.1.1",
+  "_originalSource": "phantom",
+  "_direct": true
+}

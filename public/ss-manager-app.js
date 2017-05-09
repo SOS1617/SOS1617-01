@@ -15,7 +15,7 @@ angular.module("SSApp",["ngRoute"]).config(function($routeProvider){
   })
   .when("/analytics/irene", {
       templateUrl : "/SS/chart.html",
-      controller: "ChartCtrl"
+      
       
   });
 });

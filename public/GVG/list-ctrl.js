@@ -88,7 +88,7 @@
     $scope.load=function(){
                     
                 $http
-                .get($scope.url +"?" + "apikey=" + $scope.apikey )
+                .get($scope.url +"?" + "apikey=sos161701")
                  .then(function(response) {
                 $scope.max = Math.max(Math.ceil(response.data.length / elementsPerPage), 1);
 
@@ -207,7 +207,7 @@
                     $scope.load();
             };
                $scope.addCountry= function(){
-                $http.post($scope.url+"?apikey="+$scope.apikey,$scope.newCountry)
+                $http.post($scope.url+"?apikey=sos161701",$scope.newCountry)
                 .then(function(response){
                   sweetAlert("POST 200 ok");
                 $scope.load();
@@ -219,7 +219,7 @@
                           }
                  });
                    
-                    
+                   
                 }; 
                $scope.removeAll=function(){
                    $http.delete($scope.url+"?apikey="+$scope.apikey)
