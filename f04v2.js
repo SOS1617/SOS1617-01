@@ -7,7 +7,7 @@ var helmet = require("helmet");
 var path = require('path');
 var MongoClient=require("mongodb").MongoClient;
 var app = express();
-var angular=require("angular");
+//var angular=require("angular");
 
 var mdbURL="mongodb://bearuirei2:us33ak7x@ds137360.mlab.com:37360/sos161701";
 var publicFolder=path.join(__dirname,'public/');

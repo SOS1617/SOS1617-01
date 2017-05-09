@@ -1,16 +1,16 @@
 angular.module("SSApp",["ngRoute"]).config(function($routeProvider){
     $routeProvider
     .when("/", {
-      templateUrl : "/list_ss.html",
+      templateUrl : "list_ss.html",
       controller: "ListController"
   })
   
   .when("/edit", {
-      templateUrl : "/edit_ss.html",
+      templateUrl : "/SS/edit_ss.html",
       controller: "EditController"
   })
   .when("/:country", {
-      templateUrl : "/country-ss.html",
+      templateUrl : "/SS/country-ss.html",
       controller: "CountryController"
   });
 });
