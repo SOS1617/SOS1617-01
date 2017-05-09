@@ -80,7 +80,7 @@ app.get(BASE_API_PATH+"/RestClientYUS", function(request, response){
 app.get(BASE_API_PATH+"/RestClientSS", function(request, response){
     response.sendFile(publicFolder + "SS/indexirene.html");
 });
-app.get(BASE_API_PATH+"/chartBea", function(request, response){
+app.get("/chartBea", function(request, response){
     response.sendFile(publicFolder + "GVG/chart.html");
 });
 

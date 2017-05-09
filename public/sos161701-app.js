@@ -11,7 +11,7 @@ angular.module("Sos161701App",["ngRoute"])
   templateUrl:"/GVG/edit.html",
   controller:"EditCtrl"
  })
- .when("/analytics",{
+ .when("/analyticsBea",{
   templateUrl:"/GVG/chart.html",
   controller:"lisChartCtrl"
   
