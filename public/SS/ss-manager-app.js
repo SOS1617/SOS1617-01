@@ -8,5 +8,9 @@ angular.module("SSApp",["ngRoute"]).config(function($routeProvider){
   .when("/edit", {
       templateUrl : "/edit_ss.html",
       controller: "EditController"
+  })
+  .when("/:country", {
+      templateUrl : "/country-ss.html",
+      controller: "CountryController"
   });
 });

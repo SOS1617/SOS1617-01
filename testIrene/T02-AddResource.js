@@ -1,6 +1,6 @@
 describe ('Add Data', function(){
     it('Should add a new data',function(){
-        browser.get('http://localhost:8080');
+        browser.get('https://sos1617-01-ipf-sandbox-sos161701ipf.c9users.io/api/v2/startups-stats?apikey=sos161701');
         
         element.all(by.repeater('data in datas')).then(function(initialData){
             browser.driver.sleep(2000);

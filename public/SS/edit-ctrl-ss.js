@@ -1,5 +1,5 @@
 angular.module("SSApp")   //Nos pasa dicho módulo que ya hemos creado.
-.controller("EditController",["$scope","$http",function($scope,$http){      //En este array están los paquetes que queremos que cargue nuestro controlador. El último elemento del array tiene que ser un callback que debe tener todos los módulos anteriores.
+.controller("EditController",["$scope","$http","$location","$routeParams",function($scope,$http,$location,$routeParams){      //En este array están los paquetes que queremos que cargue nuestro controlador. El último elemento del array tiene que ser un callback que debe tener todos los módulos anteriores.
     $scope.url = "/api/v2/startups-stats";
    $scope.apikey="?apikey=";
    refresh();
