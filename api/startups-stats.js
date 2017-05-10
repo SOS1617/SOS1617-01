@@ -24,29 +24,29 @@ app.get(BASE_API_PATH + "/startups-stats/loadInitialData", function (request, re
                 "country": "Spain",
                 "year": "2016",
                 "total": "2663",
-                "increase": "1%",
-                "investment": "568 millions"
+                "increase": "1",
+                "investment": "568"
             },
             {
                 "country": "Germany",
                 "year": "2015",
                 "total": "2551",
-                "increase": "26%",
-                "investment": "659,4 millions"
+                "increase": "26",
+                "investment": "659"
             },
             {
                 "country": "France",
                 "year": "2014",
                 "total": "1224",
-                "increase": "17%",
-                "investment": "89 millions"
+                "increase": "17",
+                "investment": "89"
             },
             {
                 "country": "Italy",
                 "year": "2016",
                 "total": "2420",
-                "increase": "24%",
-                "investment": "182 millions"
+                "increase": "24",
+                "investment": "182"
             }];
         db2.insert(datasD);  //Mete un array o un objeto dentro de la base de datos
         response.sendStatus(201);
