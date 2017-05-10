@@ -1,23 +1,29 @@
+describe ('Add Data', function(){
+    it('Should add a new data',function(){
+        browser.get('https://sos1617-01-brr-sandbox-sos161701brr.c9users.io/#!/gvg');
+        
+        
+     
 
-describe('Add contact',function() {
-    it('should add a new contact',function(){
-    
-    	browser.get('http://localhost:8080/api/v2/RestClientGvg');
-    	
-    	
-    	element.all(by.repeater('country in gvg')).then(function(initialCountry){
-    		browser.driver.sleep(2000);
-    		
-    		element(by.model('newCountry.country')).sendKeys('Oceania');
-    		element(by.model('newCountry.year')).sendKeys('2017');
-    		element(by.model('newCountry.income_million')).sendKeys('15200');
-    		element(by.model('newCountry.income_ratio')).sendKeys('7.5');
-    		
-    		element(by.buttonText('Add')).click().then(function(){
-    			element.all(by.repeater('country in gvg')).then(function(gvg){
-    				expect(gvg.length).toEqual(gvg.length+1);
-    			});
+        element.all(by.repeater('country in gvg')).then(function(initialData){
+            browser.driver.sleep(2000);
+            
+            
+             
+
+            
+            element(by.model('newCountry.country')).sendKeys('japan');
+            element(by.model('newCountry.year')).sendKeys('2017');
+            element(by.model('newCountry.income_million')).sendKeys('6000');
+            element(by.model('newCountry.income_ratio')).sendKeys('6.3');
+        
+            
+            element(by.buttonText('Add')).click().then(function(){
+                element.all(by.repeater('country in gvg')).then(function(c){
+                    expect(c.length).toEqual(initialData.length+1);
+                });
             });
         });
+          
     });
-});
+})
