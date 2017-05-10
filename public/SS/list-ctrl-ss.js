@@ -31,7 +31,7 @@ angular.module("Sos161701App")   //Nos pasa dicho módulo que ya hemos creado.
             });
     };
     $scope.addData= function(){
-        $http.post($scope.url+$scope.apikey+$scope.key,$scope.newData)
+        $http.post($scope.url+$scope.apikey+"sos161701",$scope.newData)
         .then(function(response){
             console.log("POST finished");
             swal({
