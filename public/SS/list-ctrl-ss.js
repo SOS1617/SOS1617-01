@@ -1,13 +1,10 @@
-angular.module("SSApp")   //Nos pasa dicho módulo que ya hemos creado.
+angular.module("Sos161701App")   //Nos pasa dicho módulo que ya hemos creado.
 .controller("ListController",["$scope","$http","$location",function($scope,$http,$location){      //En este array están los paquetes que queremos que cargue nuestro controlador. El último elemento del array tiene que ser un callback que debe tener todos los módulos anteriores.
     $scope.url = "/api/v2/startups-stats";
     $scope.apikey="?apikey=";
     $scope.limit = 4;
     $scope.offset = 0;
     
-    $scope.currentPage = 0;
-    $scope.pageSize = 10;
-    $scope.pages = [];
     
    refresh();
     function refresh(){
@@ -144,71 +141,48 @@ angular.module("SSApp")   //Nos pasa dicho módulo que ya hemos creado.
     };
     
     
-    $scope.paginacion2= function(){   //siguiente
-        
-            $scope.offset = $scope.offset+4;
-       
+     $scope.siguiente = function() {
+            $scope.offset = $scope.offset + 1;
+
+            $scope.paginacion();
+        };
+        $scope.anterior = function() {
+            if($scope.offset>0){
+            $scope.offset = $scope.offset - 1;
+            }
+            $scope.paginacion();
+        };
+
+
+        $scope.paginacion = function() {
+            $scope.datas = {};
+
             $http
-                .get($scope.url+$scope.apikey+"sos161701&limit="+$scope.limit+"&offset="+$scope.offset + "&from=10&to=3000")
-                .then(function (response){
-                     $scope.datas=response.data;
+                .get($scope.url + "?apikey=" + $scope.key + "&from=10&to=10000&limit=" + $scope.limit + "&offset=" + $scope.offset)
+                .then(function(response) {
+                    console.log("offset" + $scope.offset);
+                    console.log("limit" + $scope.limit);
+                    $scope.datas = response.data;
                     console.log("GET 200 ok");
-                    //refresh();
+                }, function error(response) {
+                    if (response.apikey != $scope.key & response.status == 403) {
+                        console.log("Incorrect apikey. Error ->" + response.status);
+                    }
+                    else if (response.status == 200) {
+                        console.log("Correct Apikey." + response.status);
+                    }
+                    else if (response.status == 401) {
+                        console.log("Empty Apikey. Error ->" + response.status);
+                    }
+
                 });
-    };
-    
-    $scope.paginacion= function(){  //anterior
-       
-            $scope.offset = 0;
+        };
         
-            $http
-                .get($scope.url+$scope.apikey+"sos161701&limit="+$scope.limit+"&offset="+$scope.offset+ "&from=10&to=3000")
-                .then(function (response){
-                    $scope.datas=response.data;
-                    console.log("GET 200 ok");
-                    //refresh();
-                });
-    };
+}]);
     
     
-    
-     $scope.configPages = function() {
-        $scope.pages.length = 0;
-        var ini = $scope.currentPage - 4;
-        var fin = $scope.currentPage + 5;
-        if (ini < 1) {
-          ini = 1;
-          if (Math.ceil($scope.datas.length / $scope.pageSize) > 10)
-            fin = 10;
-          else
-            fin = Math.ceil($scope.datas.length / $scope.pageSize);
-        } else {
-          if (ini >= Math.ceil($scope.datas.length / $scope.pageSize) - 10) {
-            ini = Math.ceil($scope.datas.length / $scope.pageSize) - 10;
-            fin = Math.ceil($scope.datas.length / $scope.pageSize);
-          }
-        }
-        if (ini < 1) ini = 1;
-        for (var i = ini; i <= fin; i++) {
-          $scope.pages.push({
-            no: i
-          });
-        }
 
-        if ($scope.currentPage >= $scope.pages.length)
-          $scope.currentPage = $scope.pages.length - 1;
-      };
-
-      $scope.setPage = function(index) {
-        $scope.currentPage = index - 1;
-      };
-    }
-  ])
-    
-           
-;
-
-
-    /* Para añadir un parámetro al modelo tenemos que añadirlo así: ng-model="nombreCualquiera". 
+/*
+     Para añadir un parámetro al modelo tenemos que añadirlo así: ng-model="nombreCualquiera". 
         Y para visualizar en el mismo html eso podemos poner en cualquier parte {{nombreCualquiera}} y veremos lo guardado en dicho modelo 
         Si lo metemos en <pre></pre> nos respetará tabulaciones y demás */

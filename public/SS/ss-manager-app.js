@@ -1,7 +1,7 @@
 angular.module("SSApp",["ngRoute"]).config(function($routeProvider){
     $routeProvider
     .when("/", {
-      templateUrl : "list_ss.html",
+      templateUrl : "/SS/list_ss.html",
       controller: "ListController"
   })
   
@@ -12,5 +12,10 @@ angular.module("SSApp",["ngRoute"]).config(function($routeProvider){
   .when("/:country", {
       templateUrl : "/SS/country-ss.html",
       controller: "CountryController"
+  })
+  .when("/analytics/irene", {
+      templateUrl : "/SS/chart.html",
+      controller: "ChartCtrl"
+      
   });
 });

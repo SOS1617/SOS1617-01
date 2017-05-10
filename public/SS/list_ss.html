@@ -103,15 +103,17 @@
                 </tr>
             </table>
             
-            
-            <div class='btn-group'>
-              <button type='button' class='btn btn-default' ng-disabled='currentPage == 0' ng-click='currentPage = currentPage - 1'>&laquo;</button>
-              <button type='button' class='btn btn-default' ng-disabled='currentPage == page.no - 1' ng-click='setPage(page.no)' ng-repeat='page in pages'>{{page.no}}</button>
-              <button type='button' class='btn btn-default' ng-disabled='currentPage >= usuarios.length/pageSize - 1' , ng-click='currentPage = currentPage + 1'>&raquo;</button>
-            </div>
-            
-            
-            
+            <tr>
+            <th>Limit<input class="form-control" id="ex1" ng-model="limit"></th>
+            <th class="text-center"><button class="btn btn-success btn-xs" ng-click="paginacion(0)">Paginación</button></th>
+
+        </tr>
+
+        <tr>
+            <th class="text-center"><button class="btn btn-success" ng-click="anterior()">Anterior</button></th>
+            <th class="text-center"><button class="btn btn-success" ng-click="siguiente()">Siguiente</button></th>
+
+        </tr>
             
           </div>
         </div>
