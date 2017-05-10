@@ -18,7 +18,7 @@
 
 
 
-    var elementsPerPage = 4;
+    var elementsPerPage = 6;
 
     function pagination() {
         var pagesNearby = 2;
@@ -88,14 +88,14 @@
     $scope.load=function(){
                     
                 $http
-                .get($scope.url +"?" + "apikey=sos161701")
+                .get($scope.url +"?" + "apikey="+$scope.apikey)
                  .then(function(response) {
                 $scope.max = Math.max(Math.ceil(response.data.length / elementsPerPage), 1);
 
                      datos = response.data;
                      $scope.refrescar();
                     
-                   sweetAlert("200 OK!!");
+                 //  sweetAlert("200 OK!!");
                    
                       },function error(response){
                            $scope.max = 1;
@@ -104,11 +104,11 @@
                           if(response.apikey!=$scope.apikey&response.status==403){
                               datos = {};
                             $scope.refrescar();
-                              sweetAlert("Incorrect apikey!!! ->Error "+response.status);
+                            //  sweetAlert("Incorrect apikey!!! ->Error "+response.status);
                           }else if(response.status==401){
                                 datos = {};
                             $scope.refrescar();
-                          sweetAlert("Empty apikey!!! ->Error "+response.status);
+                         // sweetAlert("Empty apikey!!! ->Error "+response.status);
                           }else if(response.status==404){
                                 datos = {};
                             $scope.refrescar();
@@ -116,7 +116,7 @@
                           }else if(response.status==200){
                                 datos = {};
                             $scope.refrescar();
-                              sweetAlert("CORRECT apikey!! "+response.status);
+                             // sweetAlert("CORRECT apikey!! "+response.status);
                           }
                       });
                    
@@ -151,7 +151,7 @@
                 .get($scope.url+"?apikey="+$scope.apikey+"&from="+$scope.from+"&to="+$scope.to+"&limit="+$scope.limit+"&offset="+$scope.offset)
                 .then(function (response){
                     $scope.gvg=response.data;
-                    sweetAlert("GET 200 ok");
+                 //   sweetAlert("GET 200 ok");
                  
                       },function error(response){
                            if(response.apikey!=$scope.apikey&response.status==403){
@@ -159,7 +159,7 @@
                           }else if(response.status==401){
                           sweetAlert("Empty apikey!!! ->Error "+response.status);
                           }else if(response.status==200){
-                              sweetAlert("CORRECT apikey!! "+response.status);
+                            //  sweetAlert("CORRECT apikey!! "+response.status);
                           }
                           
                       });
@@ -209,13 +209,15 @@
                $scope.addCountry= function(){
                 $http.post($scope.url+"?apikey=sos161701",$scope.newCountry)
                 .then(function(response){
-                  sweetAlert("POST 200 ok");
+                //  sweetAlert("POST 200 ok");
                 $scope.load();
                  },function error(response){
                       if(response.apikey!=$scope.apikey&response.status==403){
                               sweetAlert("Incorrect apikey!!! ->Error "+response.status);
                           }else if(response.status==401){
                           sweetAlert("Empty apikey!!! ->Error "+response.status);
+                          }else if(response.status==409){
+                              sweetAlert("El país ya existe!!! ->Error "+response.status);
                           }
                  });
                    

@@ -3,14 +3,13 @@ describe ('Add Data', function(){
         browser.get('https://sos1617-01-brr-sos161701brr.c9users.io/#!/gvg');
         
         
-     
+       
+        element(by.model('apikey')).sendKeys('sos161701');
+            element(by.buttonText('Apikey')).click().then(function(){
+                            browser.driver.sleep(2000);
 
         element.all(by.repeater('country in gvg')).then(function(initialData){
             browser.driver.sleep(2000);
-            
-            
-             
-
             
             element(by.model('newCountry.country')).sendKeys('japan');
             element(by.model('newCountry.year')).sendKeys('2017');
@@ -25,6 +24,6 @@ describe ('Add Data', function(){
                 });
             });
         });
-          
+            });
     });
 })

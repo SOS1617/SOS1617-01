@@ -11,6 +11,6 @@ describe('Data is loaded',function(){
         browser.get('https://sos1617-01.herokuapp.com/#!/gvg');
         var datas = element.all(by.repeater('country in gvg'));
       
-        expect(datas.count()).toBeGreaterThan(3);
+        expect(datas.count()).toBeGreaterThan(2);
     });
 })

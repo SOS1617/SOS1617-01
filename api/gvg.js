@@ -42,27 +42,8 @@ exports.initial=function(app,db,BASE_API_PATH,ApikeyFunction){
                 "income_million":"2700",
                 "income_ratio":"8.5"
             },
-            {
-                
-                "country":"Asia",
-                "year":"2016",
-                "income_million":"46600",
-                "income_ratio":"10.7"
-            },
-            {
-               
-                "country":"Africa",
-                "year":"2016",
-                "income_million":"3200",
-                "income_ratio":"26.2"
-            },
-            {
-              
-                "country":"LatinoAmerica",
-                "year":"2016",
-                "income_million":"4100",
-                "income_ratio":"20.1"
-            }];
+            
+        ];
         db.insert(countries);
         console.log("DB CREATE ");
         response.sendStatus(201);
