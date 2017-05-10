@@ -8,9 +8,9 @@ function writeScreenShot(data,filename){
 
 describe('Data is loaded',function(){
     it('It should show a bunch of datas', function(){
-        browser.get('https://sos1617-01-brr-sos161701brr.c9users.io/#!/gvg');
+        browser.get('https://sos1617-01.herokuapp.com/#!/gvg');
         var datas = element.all(by.repeater('country in gvg'));
       
-        expect(datas.count()).toBeGreaterThan(3);
+        expect(datas.count()).toBeGreaterThan(2);
     });
 })
