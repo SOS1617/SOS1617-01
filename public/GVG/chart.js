@@ -46,26 +46,32 @@
         })
     }]
 });
-                      
-                        google.charts.load('current', {
+                       google.charts.load('current', {
                             'packages': ['geochart']
                         });
                         google.charts.setOnLoadCallback(drawRegionsMap);
+
                         function drawRegionsMap() {
-                            var myData = [['Country','income_million']];
-                         res.data.forEach(function (d){
-                                myData.push([d.country,Number(d.income_million)]);
-                                
+                            var myData = [
+                                ['Country', 'income_million']
+                            ];
+                            res.data.forEach(function(d) {
+                                myData.push([d.country, Number(d.income_million)]);
+
                             });
                             var data = google
-                                            .visualization
-                                            .arrayToDataTable(myData);
-                            var options = {colorAxis: {colors: ['pink','pink']}};
+                                .visualization
+                                .arrayToDataTable(myData);
+                            var options = {
+                                colorAxis: {
+                                    colors: ['pink', 'pink']
+                                }
+                            };
                             var chart = new google.visualization.GeoChart(
-                                        document.getElementById('regions_div'));
+                                document.getElementById('regions_div'));
                             chart.draw(data, options);
                         }
-                        
+
                         
    //MORRIS
    
