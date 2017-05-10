@@ -8,7 +8,7 @@ function writeScreenShot(data,filename){
 
 describe('Data is loaded',function(){
     it('It should show a bunch of datas', function(){
-        browser.get('https://sos1617-01-ipf-sandbox-sos161701ipf.c9users.io/api/v2/RestClientSS#!/');
+        browser.get('https://sos1617-01-ipf-sandbox-sos161701ipf.c9users.io/#!/ss');
         var datas = element.all(by.repeater('data in datas'));
         expect(datas.count()).toBeGreaterThan(3);
     });

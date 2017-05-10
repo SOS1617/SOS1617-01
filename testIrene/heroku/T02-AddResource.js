@@ -1,6 +1,6 @@
 describe ('Add Data', function(){
     it('Should add a new data',function(){
-        browser.get('https://sos1617-01-ipf-sandbox-sos161701ipf.c9users.io/api/v2/RestClientSS#!/');
+        browser.get('https://sos1617-01-ipf-sandbox-sos161701ipf.c9users.io/#!/ss');
         
         element.all(by.repeater('data in datas')).then(function(initialData){
             browser.driver.sleep(2000);
