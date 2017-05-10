@@ -1,67 +1,51 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <tittle>SOS 16/17 Grupo 1</tittle>
-        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
-        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" type="text/css" />
-        <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    </head>
-    <body>
-        <h1>Team</h1>
-        </br>
-        <h4>-Irene Pavón Fernández-</h4>
-        <dl class="dl-horizontal">
-          <dt>Resource</dt>
-          <dd>The level of start-ups</dd>
-          <dt>GitHub link</dt>
-          <dd><A href = https://github.com/1993irene>https://github.com/1993irene</A></dd>
-          <dt>Heroku link</dt>
-          <dd><a href=https://sos1617-01.herokuapp.com/api/v2/startups-stats?apikey=sos161701>Level of starts-ups</a></dd>
-          <dt>My app</dt>
-          <dd><a href=http://sos1617-01.herokuapp.com/api/v2/RestClientSS>RestClientSS</a></dd>
-        </dl>
-        
-        <h4>-Alberto Rodríguez González-</h4>
-        <dl class="dl-horizontal">
-          <dt>Resource</dt>
-          <dd>Level of youth unemployment</dd>
-          <dt>GitHub link</dt>
-          <dd><a href=https://github.com/AlbertoAxel>https://github.com/AlbertoAxel</a></dd>
-          <dt>Heroku link</dt>
-          <dd><a href=https://sos1617-01.herokuapp.com/api/v2/youthunemploymentstats?apikey=sos161701>Level of youth unemployment</a></dd>
-          <dt>My app</dt>
-          <dd><a href=http://sos1617-01.herokuapp.com/api/v2/RestClientYUS>RestClientYUS</a></dd>
-        </dl>
-        
-        <h4>-Beatriz  Ruiz Reina-</h4>
-        <dl class="dl-horizontal">
-          <dt>Resource</dt>
-          <dd>Growth of the market of videogames</dd>
-          <dt>GitHub link</dt>
-          <dd><a href=https://github.com/bearuirei2>https://github.com/bearuirei2</a></dd>
-          <dt>Heroku link</dt>
-          <dd><a href=https://sos1617-01.herokuapp.com/api/v2/gvg?apikey=sos161701>Growth of the market of videogames</a></dd>
-          <dt>My app</dt>
-          <dd><a href=http://sos1617-01.herokuapp.com/api/v2/RestClientGvg>RestClientGvg</a></dd>
-        </dl>
-        
-        </br>
-        <dl>
-            <dt>Project description:</dt>
-            <dd>Analysis of the market of videogames,youth unemployment and the level of startups</dd>
-            <dt>Repository:</dt>
-            <dd><a href=https://github.com/SOS1617/SOS1617-01>Link Team GitHub</a></dd>
-            <dt>URL:</dt>
-            <dd><a href=https://sos1617-01.herokuapp.com>https://sos1617-01.herokuapp.com</a></dd>
-            <dt>POSTMAN Test:</dt>
-            <dd><a href=https://sos1617-01.herokuapp.com/api/v2/test/>Postman test</a></dd>
-        </dl>
-        <dl>
-            <dt>Analytics</dt>
-           
-            <dd><a href="sos1617-01.herokuapp.com/analytics"1>Analytics</a></dd>
-         
-        </dl>
-    </body>
-    
+<html ng-app="Sos161701App">
+
+<head>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" type="text/css" />
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-route/angular-route.min.js"></script>
+
+
+    <script type="text/javascript" src="sos161701-app.js"></script>
+    <script type="text/javascript" src="/YUS/list-ctrl-yus.js"></script>
+    <script type="text/javascript" src="/YUS/edit-yus-ctrl.js"></script>
+    <script type="text/javascript" src="/GVG/list-ctrl.js"></script>
+    <script type="text/javascript" src="/GVG/edit-ctrl.js"></script>
+    <script type="text/javascript" src="/SS/list-ctrl-ss.js"></script>
+    <script type="text/javascript" src="/SS/edit-ctrl-ss.js"></script>
+    <script type="text/javascript" src="/SS/country-ctrl-ss.js"></script>
+
+    <script src="/bower_components/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/bower_components/sweetalert/dist/sweetalert.css">
+
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <link rel="stylesheet" href="bower_components/chartist/dist/chartist.min.css">
+    <script src="bower_components/chartist/dist/chartist.min.js"></script>
+
+    <script src="/GVG/chart.js"></script>
+    <script src="/YUS/chart.js"></script>
+    <script src="/SS/chart.js"></script>
+
+
+
+
+</head>
+
+<body>
+    <div ng-view>
+    </div>
+</body>
+
 </html>
