@@ -7,12 +7,9 @@ function writeScreenShot(data,filename){
 }
 
 describe('Data is loaded',function(){
-    if('It should show a bunch of datas', function(){
-        browser.get('http://localhost:8080');
+    it('It should show a bunch of datas', function(){
+        browser.get('https://sos1617-01-ipf-sandbox-sos161701ipf.c9users.io/api/v2/RestClientSS#!/');
         var datas = element.all(by.repeater('data in datas'));
-        browser.takeScreenShot().then(function(png){
-            writeScreenShot(png,'ng-test.png');
-        });
         expect(datas.count()).toBeGreaterThan(3);
     });
 })
