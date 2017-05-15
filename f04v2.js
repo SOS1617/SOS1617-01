@@ -6,14 +6,14 @@ var bodyParser = require("body-parser");
 var helmet = require("helmet");
 var path = require('path');
 var MongoClient=require("mongodb").MongoClient;
-var cors = require('cors'); 
+//var cors = require('cors'); 
 var app = express();
 
 
 var mdbURL="mongodb://bearuirei2:us33ak7x@ds137360.mlab.com:37360/sos161701";
 var publicFolder=path.join(__dirname,'public/');
 
-app.use(cors());  //Permite que de manera externa se pueda acceder a nuestro servidor
+//app.use(cors());  //Permite que de manera externa se pueda acceder a nuestro servidor
 //Para poder acceder a otro servidores estos tienen que tener implementado cors
 
 var port = (process.env.PORT || 10000);
