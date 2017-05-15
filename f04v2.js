@@ -12,6 +12,8 @@ var app = express();
 var mdbURL="mongodb://bearuirei2:us33ak7x@ds137360.mlab.com:37360/sos161701";
 var publicFolder=path.join(__dirname,'public/');
 
+//app.use(cors());  //Permite que de manera externa se pueda acceder a nuestro servidor
+//Para poder acceder a otro servidores estos tienen que tener implementado cors
 
 var port = (process.env.PORT || 10000);
 var BASE_API_PATH = "/api/v2";
@@ -67,10 +69,41 @@ MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
 app.use("/",express.static(path.join('public')));
 app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security
+app.use(cors());
 
 app.get(BASE_API_PATH+"/test",function(request, response) {
     response.sendfile(publicFolder+"botones.html");
 });
+
+app.get(BASE_API_PATH+"/test",function(request, response) {
+    response.sendfile(publicFolder+"botones.html");
+});
+
+app.get("/proxyirene", (req, res)=>{
+    var http = require('http');
+    
+    var options = {
+        host: 'sos1617-09.herokuapp.com',
+        path: '/api/v2/internetandphones-stats?apikey=internetstats'
+    };
+    
+    callback = function(response){
+        var str = '';
+        
+        response.on('data',function(chunk){
+            str += chunk;
+        })
+        
+        response.on('end', function(){
+            res.send(str);
+        });
+    }
+    
+    http.request(options,callback).end();
+})
+=========
+    response.sendfile(publicFolder+"botones.html");
+>>>>>>>>> local version
 
 
 
@@ -79,7 +112,7 @@ app.get(BASE_API_PATH+"/test",function(request, response) {
                  var http=require("http");
                 var options={
                     host:"sos1617-02.herokuapp.com",
-                    path:'api/v1/smi-stats?apikey=rXD8D2b1vP'
+                    path:''
                 }
             
               callback=function(response){

@@ -1,6 +1,6 @@
 describe ('Add Data', function(){
     it('Should add a new data',function(){
-        browser.get('https://sos1617-01-brr-sos161701brr.c9users.io/#!/gvg');
+        browser.get('https://sos1617-01.herokuapp.com/#!/gvg');
         
         
        
