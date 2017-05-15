@@ -75,6 +75,29 @@ app.get(BASE_API_PATH+"/test",function(request, response) {
     response.sendfile(publicFolder+"botones.html");
 });
 
+app.get("/proxyirene", (req, res)=>{
+    var http = require('http');
+    
+    var options = {
+        host: 'sos1617-09.herokuapp.com',
+        path: '/api/v2/internetandphones-stats?apikey=internetstats'
+    };
+    
+    callback = function(response){
+        var str = '';
+        
+        response.on('data',function(chunk){
+            str += chunk;
+        })
+        
+        response.on('end', function(){
+            res.send(str);
+        });
+    }
+    
+    http.request(options,callback).end();
+})
+
 
 
 

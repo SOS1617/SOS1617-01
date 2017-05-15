@@ -49,6 +49,11 @@ angular.module("Sos161701App", ["ngRoute"])
   .when("/analytics/irene", {
       templateUrl : "/SS/chart.html",
       controller: "ChartCtrl"
+   })
+   
+   .when("/serieirene",{
+      templateUrl : "/SS/proxyirene.html",
+      controller: "ProxyIreneCtrl"
    });
   console.log("App initialized");
  });
