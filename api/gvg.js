@@ -40,7 +40,7 @@ exports.initial=function(app,db,BASE_API_PATH,ApikeyFunction){
                 "country":"Francia",
                 "year":"2016",
                 "income_million":"2700",
-                "income_ratio":"8.5"
+                "income_ratio":"4.2"
             },
             
         ];

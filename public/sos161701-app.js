@@ -49,6 +49,12 @@ angular.module("Sos161701App", ["ngRoute"])
   .when("/analytics/irene", {
       templateUrl : "/SS/chart.html",
       controller: "ChartCtrl"
+   })
+   .when("/corsBea",{
+    templateUrl:"/GVG/cors.html",
+    controller:"corsCtrl"
+    
    });
+  
   console.log("App initialized");
  });

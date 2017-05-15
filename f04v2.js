@@ -75,3 +75,21 @@ app.get(BASE_API_PATH+"/test",function(request, response) {
 
 
 
+ app.get("/proxy/B1",(req,res)=>{
+                 var http=require("http");
+                var options={
+                    host:"sos1617-02.herokuapp.com",
+                    path:'api/v1/smi-stats?apikey=rXD8D2b1vP'
+                }
+            
+              callback=function(response){
+                  var str='';
+                  response.on('data',function(chunk){
+                      str+=chunk;
+                  });
+                  response.on('end',function(){
+                     res.send(str);
+                  })
+              }
+              http.request(options,callback).end();
+ });
