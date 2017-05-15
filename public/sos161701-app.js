@@ -50,10 +50,18 @@ angular.module("Sos161701App", ["ngRoute"])
       templateUrl : "/SS/chart.html",
       controller: "ChartCtrl"
    })
+
+   .when("/corsBea",{
+    templateUrl:"/GVG/cors.html",
+    controller:"corsCtrl"
+    
+})
    
    .when("/serieirene",{
       templateUrl : "/SS/proxyirene.html",
       controller: "ProxyIreneCtrl"
+
    });
+  
   console.log("App initialized");
  });

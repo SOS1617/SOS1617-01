@@ -64,7 +64,7 @@
                                 .arrayToDataTable(myData);
                             var options = {
                                 colorAxis: {
-                                    colors: ['red', 'red']
+                                    colors: ['pink', 'pink']
                                 }
                             };
                             var chart = new google.visualization.GeoChart(

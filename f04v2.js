@@ -6,7 +6,6 @@ var bodyParser = require("body-parser");
 var helmet = require("helmet");
 var path = require('path');
 var MongoClient=require("mongodb").MongoClient;
-//var cors = require('cors'); 
 var app = express();
 
 
@@ -70,6 +69,11 @@ MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
 app.use("/",express.static(path.join('public')));
 app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security
+app.use(cors());
+
+app.get(BASE_API_PATH+"/test",function(request, response) {
+    response.sendfile(publicFolder+"botones.html");
+});
 
 app.get(BASE_API_PATH+"/test",function(request, response) {
     response.sendfile(publicFolder+"botones.html");
@@ -97,7 +101,28 @@ app.get("/proxyirene", (req, res)=>{
     
     http.request(options,callback).end();
 })
+=========
+    response.sendfile(publicFolder+"botones.html");
+>>>>>>>>> local version
 
 
 
 
+ app.get("/proxy/B1",(req,res)=>{
+                 var http=require("http");
+                var options={
+                    host:"sos1617-02.herokuapp.com",
+                    path:''
+                }
+            
+              callback=function(response){
+                  var str='';
+                  response.on('data',function(chunk){
+                      str+=chunk;
+                  });
+                  response.on('end',function(){
+                     res.send(str);
+                  })
+              }
+              http.request(options,callback).end();
+ });
