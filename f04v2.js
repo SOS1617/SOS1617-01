@@ -5,6 +5,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var helmet = require("helmet");
 var path = require('path');
+var cors=require("cors");
 var MongoClient=require("mongodb").MongoClient;
 var app = express();
 
@@ -100,19 +101,14 @@ app.get("/proxyirene", (req, res)=>{
     }
     
     http.request(options,callback).end();
-})
-=========
-    response.sendfile(publicFolder+"botones.html");
->>>>>>>>> local version
+});
 
-
-
-
- app.get("/proxy/B1",(req,res)=>{
+    
+ app.get("/proxyBea",(req,res)=>{
                  var http=require("http");
                 var options={
-                    host:"sos1617-02.herokuapp.com",
-                    path:''
+                    host:"sos1617-07.herokuapp.com",
+                    path:'/api/v1/birthRateStats/?apikey=sos07'
                 }
             
               callback=function(response){

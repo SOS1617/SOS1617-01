@@ -55,7 +55,11 @@ angular.module("Sos161701App", ["ngRoute"])
     templateUrl:"/GVG/cors.html",
     controller:"corsCtrl"
     
-})
+  })
+  .when("/proxyBea",{
+   templateUrl:"/GVG/proxyBea.html",
+   controller:"proxyCtrl"
+  })
    
    .when("/serieirene",{
       templateUrl : "/SS/proxyirene.html",

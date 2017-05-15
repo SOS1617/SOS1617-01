@@ -24,7 +24,7 @@ angular
              console.log("Sus datos: "+JSON.stringify(dat2,2,null));
           
             
-              Highcharts.chart('proxy', {
+              Highcharts.chart('cors', {
         chart: {
             type: 'line',
             options3d: {
