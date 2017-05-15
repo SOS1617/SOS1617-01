@@ -3,46 +3,112 @@ angular
     .controller("ProxyIreneCtrl", ["$http","$scope", function($http,$scope) {
         console.log("Controller chart intialized");
             $http
-                .get("/proxyirene")
-                .then(function(res) {
+                .get("/proxyirene", "/api/v2/startups-stats?apikey=sos161701")
+                .then(function(res, res2) {
+                    $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=analytics.csv&callback=?', function (csv) {
+
                     Highcharts.chart('container3', {
-                        chart: {
-                            type: 'column',
-                            options3d: {
-                            enabled: true,
-                            alpha: 10,
-                            beta: 25,
-                            depth: 70
-                            
-                        }
-                    },
-                    title: {
-                        text: 'Highcharts'
-                    },
-                    subtitle: {
-                        text: 'Income Ratio per Country'
-                    },
-                    plotOptions: {
-                        column: {
-                            depth: 25
-                        }
-                    },
-                    xAxis: {
-                        categories: res.data.map(function(d) {
-                            return d.country;
-                        })
-                    },
-                    yAxis: {
+                
+                        data: {
+                            csv: csv
+                        },
+                
                         title: {
-                            text: null
-                        }
-                    },
-                    series: [{
-                        name: 'usageinternet',
-                        data: res.data.map(function(d){
-                            return Number(d.usageinternet);
-                        })
-                    }]
+                            text: 'Daily visits at www.highcharts.com'
+                        },
+                
+                        subtitle: {
+                            text: 'Source: Google Analytics'
+                        },
+                
+                        xAxis: {
+                            tickInterval: 7 * 24 * 3600 * 1000, // one week
+                            tickWidth: 0,
+                            gridLineWidth: 1,
+                            labels: {
+                                align: 'left',
+                                x: 3,
+                                y: -3
+                            }
+                        },
+                        
+                
+                        yAxis: [{ // left y axis
+                            
+                            title: {
+                                text: null
+                            },
+                            labels: {
+                                align: 'left',
+                                x: 3,
+                                y: 16,
+                                format: '{value:.,0f}'
+                            },
+                            showFirstLabel: false
+                        }, { // right y axis
+                            linkedTo: 0,
+                            gridLineWidth: 0,
+                            opposite: true,
+                            title: {
+                                text: null
+                            },
+                            labels: {
+                                align: 'right',
+                                x: -3,
+                                y: 16,
+                                format: '{value:.,0f}'
+                            },
+                            showFirstLabel: false
+                        }],
+                
+                        legend: {
+                            align: 'left',
+                            verticalAlign: 'top',
+                            y: 20,
+                            floating: true,
+                            borderWidth: 0
+                        },
+                
+                        tooltip: {
+                            shared: true,
+                            crosshairs: true
+                        },
+                
+                        plotOptions: {
+                            series: {
+                                cursor: 'pointer',
+                                point: {
+                                    events: {
+                                        click: function (e) {
+                                            hs.htmlExpand(null, {
+                                                pageOrigin: {
+                                                    x: e.pageX || e.clientX,
+                                                    y: e.pageY || e.clientY
+                                                },
+                                                headingText: this.series.name,
+                                                maincontentText: Highcharts.dateFormat('%A, %b %e, %Y', this.x) + ':<br/> ' +
+                                                    this.y + ' visits',
+                                                width: 200
+                                            });
+                                        }
+                                    }
+                                },
+                                marker: {
+                                    lineWidth: 1
+                                }
+                            }
+                        },
+                
+                        series: [{
+                            name: 'All visits',
+                            lineWidth: 4,
+                            marker: {
+                                radius: 4
+                            }
+                        }, {
+                            name: 'New visitors'
+                        }]
+                    });
                 });
                 
                 
