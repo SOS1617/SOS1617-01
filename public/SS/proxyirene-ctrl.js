@@ -1,117 +1,118 @@
+/*global angular*/
+/*global Highcharts*/
+/*global $*/
 angular
     .module("Sos161701App")
     .controller("ProxyIreneCtrl", ["$http","$scope", function($http,$scope) {
-        console.log("Controller chart intialized");
+        
+        
+        var dato1 = [];
+        var dato2 = [];
+        var total = [];
+        
             $http
-                .get("/proxyirene", "/api/v2/startups-stats?apikey=sos161701")
-                .then(function(res, res2) {
-                    $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=analytics.csv&callback=?', function (csv) {
-
-                    Highcharts.chart('container3', {
-                
-                        data: {
-                            csv: csv
-                        },
-                
-                        title: {
-                            text: 'Daily visits at www.highcharts.com'
-                        },
-                
-                        subtitle: {
-                            text: 'Source: Google Analytics'
-                        },
-                
-                        xAxis: {
-                            tickInterval: 7 * 24 * 3600 * 1000, // one week
-                            tickWidth: 0,
-                            gridLineWidth: 1,
-                            labels: {
-                                align: 'left',
-                                x: 3,
-                                y: -3
-                            }
-                        },
-                        
-                
-                        yAxis: [{ // left y axis
+                .get("/api/v2/startups-stats?apikey=sos161701")
+                .then(function(res) {
+                    dato1 = funciondatos();
+                    total.push(dato1);
+                     $http
+                        .get("/proxyirene")
+                        .then(function(res) {
+                            dato2 = funciondatos2();
+                            total.push(dato2);
                             
-                            title: {
-                                text: null
-                            },
-                            labels: {
-                                align: 'left',
-                                x: 3,
-                                y: 16,
-                                format: '{value:.,0f}'
-                            },
-                            showFirstLabel: false
-                        }, { // right y axis
-                            linkedTo: 0,
-                            gridLineWidth: 0,
-                            opposite: true,
-                            title: {
-                                text: null
-                            },
-                            labels: {
-                                align: 'right',
-                                x: -3,
-                                y: 16,
-                                format: '{value:.,0f}'
-                            },
-                            showFirstLabel: false
-                        }],
-                
-                        legend: {
-                            align: 'left',
-                            verticalAlign: 'top',
-                            y: 20,
-                            floating: true,
-                            borderWidth: 0
-                        },
-                
-                        tooltip: {
-                            shared: true,
-                            crosshairs: true
-                        },
-                
-                        plotOptions: {
-                            series: {
-                                cursor: 'pointer',
-                                point: {
-                                    events: {
-                                        click: function (e) {
-                                            hs.htmlExpand(null, {
-                                                pageOrigin: {
-                                                    x: e.pageX || e.clientX,
-                                                    y: e.pageY || e.clientY
-                                                },
-                                                headingText: this.series.name,
-                                                maincontentText: Highcharts.dateFormat('%A, %b %e, %Y', this.x) + ':<br/> ' +
-                                                    this.y + ' visits',
-                                                width: 200
-                                            });
-                                        }
-                                    }
-                                },
-                                marker: {
-                                    lineWidth: 1
-                                }
-                            }
-                        },
-                
-                        series: [{
-                            name: 'All visits',
-                            lineWidth: 4,
-                            marker: {
-                                radius: 4
-                            }
-                        }, {
-                            name: 'New visitors'
+                    Highcharts.chart('container3', {
+                        chart: {
+                            type: 'column',
+                            options3d: {
+                            enabled: true,
+                            alpha: 10,
+                            beta: 25,
+                            depth: 70
+                            
+                        }
+                    },
+                    title: {
+                        text: 'Highcharts'
+                    },
+                    subtitle: {
+                        text: 'Comparason between increase of startups and usage of phone lines'
+                    },
+                    plotOptions: {
+                        column: {
+                            depth: 25
+                        }
+                    },
+                    xAxis: {
+                        categories: dato2.map(function(d) {
+                            return d.year;
+                        })
+                    },
+                    yAxis: {
+                        title: {
+                            text: null
+                        }
+                    },
+                    series: [{
+                        name: 'Increase (%)',
+                        data: dato1.map(function(d){
+                            return Number(d.increase);
+                        })
+                    },{
+                        name: 'Usage Phone Lines',
+                        data: dato2.map(function(d){
+                            return Number(d.usagephoneline);
+                        })
                         }]
-                    });
                 });
                 
                 
                 
+                
+                        
+              
+              function funciondatos2(){
+                  var ret=[];
+                  
+                 res.data.forEach(function(d){
+                     res.data.country=d.country;
+                     res.data.year=d.year;
+                     res.data.usageinternet=d.usageinternet;
+                     res.data.usagephoneline=d.usagephoneline;
+                      ret.push({"country":res.data.country,
+                      "year":res.data.year,
+                      "usageinternet":res.data.usageinternet,
+                      "usagephoneline":res.data.usagephoneline
+                      });
+                     
+                      });
+                 
+                  return ret;
+                 
+              }
+                        });
+              function funciondatos(){
+                  var ret=[];
+                  
+                 res.data.forEach(function(d){
+                     res.data.country=d.country;
+                     res.data.year=d.year;
+                     res.data.total=d.total;
+                     res.data.increase=d.increase;
+                     res.data.investment=d.investment;
+                      ret.push({"country":res.data.country,
+                      "year":res.data.year,
+                      "total":res.data.total,
+                      "increase":res.data.increase,
+                      "investment":res.data.investment
+                      });
+                     
+                      });
+                 
+                  return ret;
+                 
+              }
+                        
+                        
                 });
     }]);

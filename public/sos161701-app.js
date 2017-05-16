@@ -61,6 +61,10 @@ angular.module("Sos161701App", ["ngRoute"])
    controller:"proxyCtrl"
   })
    
+   .when("/corsirene",{
+      templateUrl : "/SS/corsirene.html",
+      controller: "CorsIreneCtrl"
+   })
    .when("/serieirene",{
       templateUrl : "/SS/proxyirene.html",
       controller: "ProxyIreneCtrl"
