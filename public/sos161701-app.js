@@ -60,12 +60,17 @@ angular.module("Sos161701App", ["ngRoute"])
    templateUrl:"/GVG/proxyBea.html",
    controller:"proxyCtrl"
   })
-   
    .when("/serieirene",{
       templateUrl : "/SS/proxyirene.html",
       controller: "ProxyIreneCtrl"
 
-   });
+   }).when("/proxyAlb",{
+   templateUrl:"/YUS/proxyalb.html",
+   controller:"proxyCtrlalb"
+  }).when("/corsAlb",{
+   templateUrl:"/YUS/corsalb.html",
+   controller:"CorsCtrlalb"
+  });
   
   console.log("App initialized");
  });
