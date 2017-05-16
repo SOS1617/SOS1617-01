@@ -39,7 +39,7 @@ angular
                     },
                     xAxis: {
                         categories: dato2.map(function(d) {
-                            return d.year;
+                            return d.country;
                         })
                     },
                     yAxis: {
