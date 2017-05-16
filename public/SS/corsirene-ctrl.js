@@ -9,7 +9,7 @@ angular
         var dato1 = [];
         var dato2 = [];
         var total = [];
-        var texto;
+        
         
             $http
                 .get("/api/v2/startups-stats?apikey=sos161701")
@@ -26,13 +26,7 @@ angular
                     Highcharts.chart('container4', {
                         chart: {
                             type: 'areaspline',
-                            options3d: {
-                            enabled: true,
-                            alpha: 10,
-                            beta: 25,
-                            depth: 70
                             
-                        }
                     },
                     title: {
                         text: 'Highcharts'

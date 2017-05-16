@@ -24,13 +24,7 @@ angular
                     Highcharts.chart('container3', {
                         chart: {
                             type: 'column',
-                            options3d: {
-                            enabled: true,
-                            alpha: 10,
-                            beta: 25,
-                            depth: 70
                             
-                        }
                     },
                     title: {
                         text: 'Highcharts'

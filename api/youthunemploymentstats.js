@@ -175,7 +175,7 @@ app.post(BASE_API_PATH + "/youthunemploymentstats", function (request, response)
             console.log("WARNING: The contact " + JSON.stringify(newData, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
-            dba.find({country:newData.country}).toArray(function (err, paises) {
+            dba.find({country:newData.country,year:newData.year}).toArray(function (err, paises) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
