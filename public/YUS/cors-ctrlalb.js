@@ -69,12 +69,12 @@ angular
         name: 'Male unemployment',
         data: dat2.map(function(d){
             return Number(d.male_unemployment_ratio);
-        }),stack:1
+        }),stack:'1'
     },  {
         name: 'RPC Variation',
         data: dat1.map(function(d){
             return Number(d.rpcvariation);
-        }),stack:2
+        }),stack:'2'
     }]
 });
 
