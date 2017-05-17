@@ -27,13 +27,7 @@ angular
               Highcharts.chart('cors', {
         chart: {
             type: 'line',
-            options3d: {
-            enabled: true,
-            alpha: 10,
-            beta: 25,
-            depth: 70
-            
-        }
+       
     },
     title: {
         text: 'Highcharts integrated'
