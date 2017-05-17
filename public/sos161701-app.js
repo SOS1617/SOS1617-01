@@ -55,17 +55,30 @@ angular.module("Sos161701App", ["ngRoute"])
     templateUrl:"/GVG/cors.html",
     controller:"corsCtrl"
     
-})
-.when("/proxyBea",{
- templateUrl:"/GVG/proxyBea.html",
- controller:"proxyCtrl"
-})
+  })
+  .when("/proxyBea",{
+   templateUrl:"/GVG/proxyBea.html",
+   controller:"proxyCtrl"
+  })
+
    
-   .when("/serieirene",{
+   .when("/corsirene",{
+      templateUrl : "/SS/corsirene.html",
+      controller: "CorsIreneCtrl"
+   })
+
+   .when("/proxyirene",{
       templateUrl : "/SS/proxyirene.html",
       controller: "ProxyIreneCtrl"
 
-   });
+   }).when("/proxyAlb",{
+     templateUrl:"/YUS/proxyalb.html",
+     controller:"proxyCtrlalb"
+     
+  }).when("/corsAlb",{
+     templateUrl:"/YUS/corsalb.html",
+     controller:"CorsCtrlalb"
+  });
   
   console.log("App initialized");
  });
