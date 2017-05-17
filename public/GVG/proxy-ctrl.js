@@ -24,7 +24,7 @@ angular
             
    Highcharts.chart('proxy', {
     chart: {
-        type: 'area',
+        type: 'spline',
         inverted: true
     },
     title: {
