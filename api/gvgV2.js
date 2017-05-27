@@ -57,7 +57,7 @@ exports.initial=function(app,db,BASE_API_PATH,ApikeyFunction){
 // GET a collection
 
 app.get(BASE_API_PATH + "/gvg", function (request, response) {
-    
+    console.log(BASE_API_PATH);
     
     console.log("INFO: New GET request to /gvg");
            var limit = parseInt(request.query.limit);
