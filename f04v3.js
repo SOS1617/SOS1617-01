@@ -12,7 +12,7 @@ var app = express();
 var mdbURL="mongodb://bearuirei2:us33ak7x@ds137360.mlab.com:37360/sos161701";
 var publicFolder=path.join(__dirname,'public/');
 
-//app.use(cors());  //Permite que de manera externa se pueda acceder a nuestro servidor
+app.use(cors());  //Permite que de manera externa se pueda acceder a nuestro servidor
 //Para poder acceder a otro servidores estos tienen que tener implementado cors
 
 var port = (process.env.PORT || 10000);
@@ -71,7 +71,7 @@ app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security
 app.use(cors());
 
-/*app.get(BASE_API_PATH+"/test",function(request, response) {
+app.get(BASE_API_PATH+"/test",function(request, response) {
     response.sendfile(publicFolder+"botones.html");
 });
 
@@ -79,7 +79,7 @@ app.get(BASE_API_PATH+"/test",function(request, response) {
     response.sendfile(publicFolder+"botones.html");
 });
 
-app.get("/proxyirene", (req, res)=>{
+/*app.get("/proxyirene", (req, res)=>{
     var http = require('http');
     
     var options = {
