@@ -2,10 +2,10 @@ var exports=module.exports={};
 
 
 
-exports.initial=function(app,db,BASE_API_PATH,ApikeyFunction){
+exports.initial=function(app,db,BASE_API_PATH_2,ApikeyFunction){
     
 //LOADINITIALDATA
-    app.get(BASE_API_PATH + "/gvg/loadInitialData/", function (request, response) {
+    app.get(BASE_API_PATH_2 + "/gvg/loadInitialData/", function (request, response) {
     console.log("INFO: New GET request to /gvg when BD is empty");
    
   // if(!ApikeyFunction(request,response))return;
@@ -56,7 +56,7 @@ exports.initial=function(app,db,BASE_API_PATH,ApikeyFunction){
 
 // GET a collection
 
-app.get(BASE_API_PATH + "/gvg", function (request, response) {
+app.get(BASE_API_PATH_2 + "/gvg", function (request, response) {
    // if (!ApikeyFunction(request, response)) return;
     
     console.log("INFO: New GET request to /gvg");
@@ -134,7 +134,7 @@ app.get(BASE_API_PATH + "/gvg", function (request, response) {
 
 
 // GET a single resource 
-app.get(BASE_API_PATH + "/gvg/:country", function (request, response) {
+app.get(BASE_API_PATH_2 + "/gvg/:country", function (request, response) {
     var country = request.params.country;
  // if(!ApikeyFunction(request,response))return;
     if (!country) {
@@ -164,7 +164,7 @@ app.get(BASE_API_PATH + "/gvg/:country", function (request, response) {
 
 
 //POST over a collection
-app.post(BASE_API_PATH + "/gvg", function (request, response) {
+app.post(BASE_API_PATH_2 + "/gvg", function (request, response) {
     var newData = request.body;
   //  if(!ApikeyFunction(request,response))return;
     if (!newData) {
@@ -198,7 +198,7 @@ app.post(BASE_API_PATH + "/gvg", function (request, response) {
 
 
 //POST over a single resource
-app.post(BASE_API_PATH + "/gvg/:country", function (request, response) {
+app.post(BASE_API_PATH_2 + "/gvg/:country", function (request, response) {
   //  if(!ApikeyFunction(request,response))return;
     var country = request.params.country;
     console.log("WARNING: New POST request to /gvg/" + country + ", sending 405...");
@@ -207,14 +207,14 @@ app.post(BASE_API_PATH + "/gvg/:country", function (request, response) {
 
 
 //PUT over a collection
-app.put(BASE_API_PATH + "/gvg", function (request, response) {
+app.put(BASE_API_PATH_2 + "/gvg", function (request, response) {
   //  if(!ApikeyFunction(request,response))return;
     console.log("WARNING: New PUT request to /gvg, sending 405...");
     response.sendStatus(405); // method not allowed
 });
 
 //PUT over a single resource
-app.put(BASE_API_PATH + "/gvg/:country", function (request, response) {
+app.put(BASE_API_PATH_2 + "/gvg/:country", function (request, response) {
   //  if (!ApikeyFunction(request, response)) return;
     var updatedCountry = request.body;
     var country = request.params.country;
@@ -247,7 +247,7 @@ app.put(BASE_API_PATH + "/gvg/:country", function (request, response) {
 
 
 //DELETE over a collection
-app.delete(BASE_API_PATH + "/gvg", function (request, response) {
+app.delete(BASE_API_PATH_2 + "/gvg", function (request, response) {
    // if(!ApikeyFunction(request,response))return;
     console.log("INFO: New DELETE request to /gvg");
     db.remove({}, {multi: true}, function (err, result) {
@@ -271,7 +271,7 @@ app.delete(BASE_API_PATH + "/gvg", function (request, response) {
 
 
 //DELETE over a single resource
-app.delete(BASE_API_PATH + "/gvg/:country", function (request, response) {
+app.delete(BASE_API_PATH_2 + "/gvg/:country", function (request, response) {
   //  if(!ApikeyFunction(request,response))return;
     var country = request.params.country;
     if (!country) {
