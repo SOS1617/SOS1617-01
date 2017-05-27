@@ -78,7 +78,11 @@ angular.module("Sos161701App", ["ngRoute"])
   }).when("/corsAlb",{
      templateUrl:"/YUS/corsalb.html",
      controller:"CorsCtrlalb"
-  });
+  })
+  .when("/governance",{
+   templateUrl:"governance.html"
+  })
+  ;
   
   console.log("App initialized");
  });
