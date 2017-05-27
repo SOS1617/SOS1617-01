@@ -22,13 +22,13 @@ var db;
 var db2;
 var dba;
 
-var APIgvg=require("./api/gvg.js");
+var APIgvg=require("./api/gvgV2.js");
 var APIstartups=require("./api/startups-stats.js");
 var APIyouthunemploymentstats=require("./api/youthunemploymentstats.js");
-var apikey="sos161701";
+//var apikey="sos161701";
 
 
-var ApikeyFunction = function(request, response) {
+/*var ApikeyFunction = function(request, response) {
     if (!request.query.apikey) {
         console.error('WARNING: apikey is empty!');
         response.sendStatus(401);
@@ -40,7 +40,7 @@ var ApikeyFunction = function(request, response) {
         return false;
     }
     return true;
-};
+};*/
 
 MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
     
@@ -52,9 +52,9 @@ MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
        db2 = database.collection("startups-stats");
        dba = database.collection("youthunemploymentstats");
        
-       APIgvg.initial(app, db, BASE_API_PATH, ApikeyFunction);
-       APIstartups.initial(app,db2,BASE_API_PATH,ApikeyFunction);
-       APIyouthunemploymentstats.initial(app,dba,BASE_API_PATH,ApikeyFunction);
+       APIgvg.initial(app, db, BASE_API_PATH);
+       APIstartups.initial(app,db2,BASE_API_PATH);
+       APIyouthunemploymentstats.initial(app,dba,BASE_API_PATH);
 
        app.listen(port,()=>{
            console.log("Magic is happening on port " + port);
@@ -71,7 +71,7 @@ app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security
 app.use(cors());
 
-app.get(BASE_API_PATH+"/test",function(request, response) {
+/*app.get(BASE_API_PATH+"/test",function(request, response) {
     response.sendfile(publicFolder+"botones.html");
 });
 
@@ -141,4 +141,4 @@ app.get("/proxyirene", (req, res)=>{
     }
     
     http.request(options, callback).end();
-});
+});*/

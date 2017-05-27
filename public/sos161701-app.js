@@ -13,7 +13,7 @@ angular.module("Sos161701App", ["ngRoute"])
     controller: "lisChartCtrlYUS"
 
    })
-   .when("/analytics/bea", {
+   .when("/integrations/bea", {
     templateUrl: "/GVG/chart.html",
     controller: "lisChartCtrl"
    })
@@ -51,12 +51,12 @@ angular.module("Sos161701App", ["ngRoute"])
       controller: "ChartCtrl"
    })
 
-   .when("/corsBea",{
+   .when("/integrations/corsBea",{
     templateUrl:"/GVG/cors.html",
     controller:"corsCtrl"
     
   })
-  .when("/proxyBea",{
+  .when("/integrations/proxyBea",{
    templateUrl:"/GVG/proxyBea.html",
    controller:"proxyCtrl"
   })
