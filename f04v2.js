@@ -18,12 +18,14 @@ var publicFolder=path.join(__dirname,'public/');
 
 var port = (process.env.PORT || 10000);
 var BASE_API_PATH = "/api/v2";
+var BASE_API_PATH_2 = "/api/v3";
 
 var db;
 var db2;
 var dba;
 
 var APIgvg=require("./api/gvg.js");
+var APIgvg2=require("./api/gvg2.js");
 var APIstartups=require("./api/startups-stats.js");
 var APIyouthunemploymentstats=require("./api/youthunemploymentstats.js");
 var apikey="sos161701";
@@ -54,6 +56,7 @@ MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
        dba = database.collection("youthunemploymentstats");
        
        APIgvg.initial(app, db, BASE_API_PATH, ApikeyFunction);
+       APIgvg2.initial(app,db,BASE_API_PATH_2);
        APIstartups.initial(app,db2,BASE_API_PATH,ApikeyFunction);
        APIyouthunemploymentstats.initial(app,dba,BASE_API_PATH,ApikeyFunction);
 
