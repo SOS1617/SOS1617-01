@@ -22,7 +22,7 @@ var db;
 var db2;
 var dba;
 
-var APIgvg=require("./api/gvgV2.js");
+var APIgvg=require("./api/gvg2.js");
 var APIstartups=require("./api/startups-stats.js");
 var APIyouthunemploymentstats=require("./api/youthunemploymentstats.js");
 //var apikey="sos161701";

@@ -4,7 +4,8 @@
   "description": "servidor fecha f02",
   "main": "index.js",
   "scripts": {
-    "start": "node f04v2.js",
+    "start": "node f04v3.js",
+    "start2": "node f04v2.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "git add .; git commit -m 'deploy to heroku';git push heroku"
   },
