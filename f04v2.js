@@ -27,6 +27,7 @@ var dba;
 var APIgvg=require("./api/gvg.js");
 var APIgvg2=require("./api/gvg2.js");
 var APIstartups=require("./api/startups-stats.js");
+var APIstartups2=require("./api/startups-stats2.js");
 var APIyouthunemploymentstats=require("./api/youthunemploymentstats.js");
 var apikey="sos161701";
 
@@ -58,6 +59,7 @@ MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
        APIgvg.initial(app, db, BASE_API_PATH, ApikeyFunction);
        APIgvg2.initial(app,db,BASE_API_PATH_2);
        APIstartups.initial(app,db2,BASE_API_PATH,ApikeyFunction);
+       APIstartups2.initial(app,db2,BASE_API_PATH_2,ApikeyFunction);
        APIyouthunemploymentstats.initial(app,dba,BASE_API_PATH,ApikeyFunction);
 
        app.listen(port,()=>{
