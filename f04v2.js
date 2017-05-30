@@ -29,6 +29,8 @@ var APIgvg2=require("./api/gvg2.js");
 var APIstartups=require("./api/startups-stats.js");
 var APIstartups2=require("./api/startups-stats2.js");
 var APIyouthunemploymentstats=require("./api/youthunemploymentstats.js");
+var APIyouthunemploymentstats2=require("./api/youthunemploymentstats2.js");
+
 var apikey="sos161701";
 
 
@@ -61,6 +63,8 @@ MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
        APIstartups.initial(app,db2,BASE_API_PATH,ApikeyFunction);
        APIstartups2.initial(app,db2,BASE_API_PATH_2,ApikeyFunction);
        APIyouthunemploymentstats.initial(app,dba,BASE_API_PATH,ApikeyFunction);
+       APIyouthunemploymentstats2.initial(app,dba,BASE_API_PATH_2);
+
 
        app.listen(port,()=>{
            console.log("Magic is happening on port " + port);
