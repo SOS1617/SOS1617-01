@@ -244,11 +244,11 @@ app.put(BASE_API_PATH_2 + "/startups-stats/:country", function (request, respons
                     });
                     if (contactsBeforeInsertion.length > 0) {
                         db2.update({country: country}, updatedData);
-                        console.log("INFO: Modifying contact with name " + country + " with data " + JSON.stringify(updatedData, 2, null));
+                        console.log("INFO: Modifying country with name " + country + " with data " + JSON.stringify(updatedData, 2, null));
                         response.send(updatedData); // return the updated contact
                     //    response.sendStatus(200);
                     } else {
-                        console.log("WARNING: There are not any contact with name " + country);
+                        console.log("WARNING: There are not any country with name " + country);
                         response.sendStatus(404); // not found
                     }
                 }
