@@ -1,18 +1,18 @@
 angular
     .module("Sos161701App")
-    .controller('LinkedinCtrl',["$scope","$http",function ($scope, $http){
+    .controller('GithubCtrl',["$scope","$http",function ($scope, $http){
         var dat1=[];
 
 
-        $http.get("https://swapi.co/api/planets/").then(function(res){
+        $http.get("https://api.github.com/users/HackerYou/repos").then(function(res){
             
             dat1=datos();
            console.log("Sus datos: "+JSON.stringify(dat1,2,null));
  
         
-       Highcharts.chart('chartnet3', {
+       Highcharts.chart('chartnet4', {
     chart: {
-        type: 'area',
+        type: 'column',
         options3d: {
             enabled: true,
             alpha: 15,
@@ -23,7 +23,7 @@ angular
     },
 
     title: {
-        text: 'Planets diameter of Star Wars Universe '
+        text: 'Repositories of Github '
     },
 
     xAxis: {
@@ -40,9 +40,9 @@ angular
         }
     },
     series: [{
-        name: 'diameter',
+        name: 'id',
         data: dat1.map(function(d){
-            return Number(d.diameter);
+            return Number(d.id);
         })
     }]
 });
@@ -50,13 +50,13 @@ angular
             
     function datos(){
       var ret=[];
-      for(var d in res.data.results){
+      for(var d in res.data){
       //res.forEach(function(d){
-         res.data.results.name=d.name;
-         res.data.results.diameter=d.diameter;
+         res.data.name=d.name;
+         res.data.id=d.id;
 
-          ret.push({"name":res.data.results.name,
-          "diameter":res.data.results.diameter});
+          ret.push({"name":res.data.name,
+          "id":res.data.id});
          
           }
      

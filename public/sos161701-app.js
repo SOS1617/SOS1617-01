@@ -23,6 +23,11 @@ angular.module("Sos161701App", ["ngRoute"])
     templateUrl:"/group.html",
     controller: "groupCtrl"
    })
+   .when("/about",{
+     templateUrl:"about.html"
+   })
+   
+   
    
    //ALBERTO
    .when("/analytics/alberto", {
@@ -89,8 +94,12 @@ angular.module("Sos161701App", ["ngRoute"])
       controller: "ProxyIreneCtrl"
   })
   .when("/integrations/linkedin",{
-   //templateUrl:"/SS/linkedin.html",
-   controller:"linkedinCtrl"
+   templateUrl:"/SS/linkedin.html",
+   controller:"LinkedinCtrl"
+  })
+  .when("/integrations/github",{
+   templateUrl:"/SS/github.html",
+   controller:"GithubCtrl"
   })
   
   //BEA

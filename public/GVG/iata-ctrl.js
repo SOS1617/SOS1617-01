@@ -82,6 +82,7 @@ array2.push(datos());
       return ret;
      
   }
+  
    
        
              });//fin get propio
