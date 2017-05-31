@@ -58,7 +58,7 @@ angular
                     },{
                         name: 'Math Stats',
                         data: dato2.map(function(d){
-                            var res = d.math + d.reading + d.science;
+                            var res = Number(d.math);
                             return res;
                         })
                         }]
