@@ -20,21 +20,15 @@ angular
                  
              dat1=datos();//GVG
             all.push(dat1);
-            var income=[dat1.forEach(function(d) {
-            return Number(d.income_ratio);
-        })];
-                 console.log("INCOME"+income);
-            dat2=datos2;//SS
+            console.log("DAT1"+dat1);
+                 
+            dat2=datos2();//SS
             all.push(dat2);
-            var inc=[dat2.forEach(function(d) {
-            return Number(d.increase);
-        })];
-                 console.log("INC"+inc);
+            console.log("DAT2"+dat2);
+                 
              dat3=datos3();//YUS
              all.push(dat3);
-             var male=[dat3.forEach(function(d) {
-            return Number(d.male_unemployment_ratio);
-        })];
+             console.log("DAT3"+dat3);
              
              
              Highcharts.chart('group', {
@@ -43,7 +37,7 @@ angular
     },
     xAxis: {
         categories: [all.forEach(function(d){
-            return d.country;
+            return d.income_ratio;
         })]
     },
     labels: {
@@ -59,15 +53,22 @@ angular
     series: [{
         type: 'column',
         name: 'SS',
-        data: [inc]
+        data: dat2.map(function(d) {
+            return Number(d.investment);
+        })
     }, {
         type: 'column',
         name: 'YUS',
-        data: [male]
+        data: dat3.map(function(d) {
+            
+            return Number(d.year);
+        })
     },  {
         type: 'spline',
         name: 'GVG',
-        data: [income],
+        data: dat1.map(function(d) {
+            return Number(d.income_million);
+        }),
         marker: {
             lineWidth: 2,
             lineColor: Highcharts.getOptions().colors[3],
@@ -78,7 +79,7 @@ angular
         name: 'Total consumption',
         data: [{
             name: 'GVG',
-            y: 2015,
+            y: 2016,
             color: Highcharts.getOptions().colors[0] // Jane's color
         }, {
             name: 'SS',
@@ -86,7 +87,7 @@ angular
             color: Highcharts.getOptions().colors[1] // John's color
         }, {
             name: 'YUS',
-            y: 2016,
+            y: 2017,
             color: Highcharts.getOptions().colors[2] // Joe's color
         }],
         center: [100, 80],
