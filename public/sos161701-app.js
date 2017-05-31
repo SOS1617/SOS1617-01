@@ -34,7 +34,28 @@ angular.module("Sos161701App", ["ngRoute"])
     templateUrl: "/YUS/edityus.html",
     controller: "EditCtrlyus"
    })
-   .when("/ss", {
+   
+   .when("/integrations/proxyAlb",{
+     templateUrl:"/YUS/proxyalb.html",
+     controller:"proxyCtrlalb"
+     
+  })
+  .when("/integrations/corsAlb",{
+     templateUrl:"/YUS/corsalb.html",
+     controller:"CorsCtrlalb"
+  })
+  .when("/integrations/netflix",{
+     templateUrl:"/YUS/chartnet.html",
+     controller:"netCtrlalb"
+  })
+   .when("/integrations/quandl",{
+     templateUrl:"/YUS/chartwb.html",
+     controller:"wbCtrlalb"
+  })
+ 
+  
+  //IRENE
+  .when("/ss", {
       templateUrl : "/SS/list_ss.html",
       controller: "ListController"
   })
@@ -49,32 +70,23 @@ angular.module("Sos161701App", ["ngRoute"])
  
   
    })
-   .when("/proxyAlb",{
-     templateUrl:"/YUS/proxyalb.html",
-     controller:"proxyCtrlalb"
-     
-  })
-  .when("/corsAlb",{
-     templateUrl:"/YUS/corsalb.html",
-     controller:"CorsCtrlalb"
-  })
- 
-  
-  //IRENE
   
   .when("/analytics/irene", {
       templateUrl : "/SS/chart.html",
       controller: "ChartCtrl"
    })
-
-   .when("/corsirene",{
+   .when("/integrations/corsirene",{
       templateUrl : "/SS/corsirene.html",
       controller: "CorsIreneCtrl"
    })
 
-   .when("/proxyirene",{
+   .when("/integrations/proxyirene",{
       templateUrl : "/SS/proxyirene.html",
       controller: "ProxyIreneCtrl"
+  })
+  .when("/integrations/linkedin",{
+   //templateUrl:"/SS/linkedin.html",
+   controller:"linkedinCtrl"
   })
   
   //BEA
@@ -87,11 +99,12 @@ angular.module("Sos161701App", ["ngRoute"])
    templateUrl:"/GVG/iata.html",
    controller:"iataCtrl"
   })
+
    .when("/analytics/bea", {
     templateUrl: "/GVG/chart.html",
     controller: "lisChartCtrl"
    })
- .when("/integrations/proxyBea",{
+  .when("/integrations/proxyBea",{
    templateUrl:"/GVG/proxyBea.html",
    controller:"proxyCtrl"
   })
