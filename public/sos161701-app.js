@@ -85,6 +85,10 @@ angular.module("Sos161701App", ["ngRoute"])
    templateUrl:"/SS/linkedin.html",
    controller:"LinkedinCtrl"
   })
+  .when("/integrations/github",{
+   templateUrl:"/SS/github.html",
+   controller:"GithubCtrl"
+  })
   
   //BEA
   
