@@ -16,6 +16,9 @@ angular.module("Sos161701App", ["ngRoute"])
    .when("/integrations",{
     templateUrl:"integrations.html"
    })
+   .when("/about",{
+    templateUrl:"about.html"
+   })
    
    //ALBERTO
    .when("/analytics/alberto", {
