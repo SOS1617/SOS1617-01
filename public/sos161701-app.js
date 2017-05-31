@@ -31,7 +31,20 @@ angular.module("Sos161701App", ["ngRoute"])
     templateUrl: "/YUS/edityus.html",
     controller: "EditCtrlyus"
    })
-   .when("/ss", {
+   
+   .when("/proxyAlb",{
+     templateUrl:"/YUS/proxyalb.html",
+     controller:"proxyCtrlalb"
+     
+  })
+  .when("/corsAlb",{
+     templateUrl:"/YUS/corsalb.html",
+     controller:"CorsCtrlalb"
+  })
+ 
+  
+  //IRENE
+  .when("/ss", {
       templateUrl : "/SS/list_ss.html",
       controller: "ListController"
   })
@@ -46,40 +59,12 @@ angular.module("Sos161701App", ["ngRoute"])
  
   
    })
-   .when("/proxyAlb",{
-     templateUrl:"/YUS/proxyalb.html",
-     controller:"proxyCtrlalb"
-     
-  })
-  .when("/corsAlb",{
-     templateUrl:"/YUS/corsalb.html",
-     controller:"CorsCtrlalb"
-  })
- 
-  
-  //IRENE
   
   .when("/analytics/irene", {
       templateUrl : "/SS/chart.html",
       controller: "ChartCtrl"
    })
-
-<<<<<<< HEAD
-   .when("/integrations/corsBea",{
-    templateUrl:"/GVG/cors.html",
-    controller:"corsCtrl"
-    
-  })
-  .when("/integrations/proxyBea",{
-   templateUrl:"/GVG/proxyBea.html",
-   controller:"proxyCtrl"
-  })
-
-   
    .when("/integrations/corsirene",{
-=======
-   .when("/corsirene",{
->>>>>>> 908bf8fc42bf1016191d2d6cd39579e7fafa9241
       templateUrl : "/SS/corsirene.html",
       controller: "CorsIreneCtrl"
    })
@@ -87,6 +72,10 @@ angular.module("Sos161701App", ["ngRoute"])
    .when("/integrations/proxyirene",{
       templateUrl : "/SS/proxyirene.html",
       controller: "ProxyIreneCtrl"
+  })
+  .when("/integrations/linkedin",{
+   //templateUrl:"/SS/linkedin.html",
+   controller:"linkedinCtrl"
   })
   
   //BEA
@@ -99,17 +88,11 @@ angular.module("Sos161701App", ["ngRoute"])
    templateUrl:"/GVG/iata.html",
    controller:"iataCtrl"
   })
-<<<<<<< HEAD
-  .when("/integrations/linkedin",{
-   //templateUrl:"/SS/linkedin.html",
-   controller:"linkedinCtrl"
-  })
-=======
-   .when("/integrations/chart", {
+  .when("/integrations/chart", {
     templateUrl: "/GVG/chart.html",
     controller: "lisChartCtrl"
    })
- .when("/integrations/proxyBea",{
+  .when("/integrations/proxyBea",{
    templateUrl:"/GVG/proxyBea.html",
    controller:"proxyCtrl"
   })
@@ -126,7 +109,6 @@ angular.module("Sos161701App", ["ngRoute"])
     templateUrl: "/GVG/edit.html",
     controller: "EditCtrl"
    })
->>>>>>> 908bf8fc42bf1016191d2d6cd39579e7fafa9241
   ;
   
   console.log("App initialized");
