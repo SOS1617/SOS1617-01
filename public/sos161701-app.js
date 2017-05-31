@@ -19,6 +19,10 @@ angular.module("Sos161701App", ["ngRoute"])
    .when("/about",{
     templateUrl:"/videos.thml"
    })
+   .when("/analytics/group",{
+    templateUrl:"/group.html",
+    controller: "groupCtrl"
+   })
    
    //ALBERTO
    .when("/analytics/alberto", {
