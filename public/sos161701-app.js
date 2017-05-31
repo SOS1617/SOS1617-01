@@ -74,8 +74,8 @@ angular.module("Sos161701App", ["ngRoute"])
       controller: "ProxyIreneCtrl"
   })
   .when("/integrations/linkedin",{
-   //templateUrl:"/SS/linkedin.html",
-   controller:"linkedinCtrl"
+   templateUrl:"/SS/linkedin.html",
+   controller:"LinkedinCtrl"
   })
   
   //BEA
