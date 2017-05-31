@@ -26,9 +26,7 @@ array2.push(datos());
     array2.push(res.data[3]);
     array2.push(res.data[4]);
     array2.push(res.data[5]);
-    array2.push(res.data[6]);
-    array2.push(res.data[7]);
-    array2.push(res.data[8]);
+ 
     
 
 

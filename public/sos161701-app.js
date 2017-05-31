@@ -2,28 +2,26 @@ angular.module("Sos161701App", ["ngRoute"])
  .config(function($routeProvider) {
 
   $routeProvider
+  
+  //TODOS
    .when("/", {
     templateUrl: "readme.html"
    })
+    .when("/governance",{
+   templateUrl:"governance.html"
+  })
    .when("/analytics", {
     templateUrl: "analytics.html"
    })
+   .when("/integrations",{
+    templateUrl:"integrations.html"
+   })
+   
+   //ALBERTO
    .when("/analytics/alberto", {
     templateUrl: "/YUS/chartalberto.html",
     controller: "lisChartCtrlYUS"
 
-   })
-   .when("/integrations/bea", {
-    templateUrl: "/GVG/chart.html",
-    controller: "lisChartCtrl"
-   })
-   .when("/gvg", {
-    templateUrl: "/GVG/lista.html",
-    controller: "ListCtrl"
-   })
-   .when("/gvg/:country", {
-    templateUrl: "/GVG/edit.html",
-    controller: "EditCtrl"
    })
    .when("/yuscountries", {
     templateUrl: "/YUS/listyus.html",
@@ -45,23 +43,27 @@ angular.module("Sos161701App", ["ngRoute"])
   .when("/ss/:country", {
       templateUrl : "/SS/country-ss.html",
       controller: "CountryController"
+ 
+  
+   })
+   .when("/proxyAlb",{
+     templateUrl:"/YUS/proxyalb.html",
+     controller:"proxyCtrlalb"
+     
   })
+  .when("/corsAlb",{
+     templateUrl:"/YUS/corsalb.html",
+     controller:"CorsCtrlalb"
+  })
+ 
+  
+  //IRENE
+  
   .when("/analytics/irene", {
       templateUrl : "/SS/chart.html",
       controller: "ChartCtrl"
    })
 
-   .when("/integrations/corsBea",{
-    templateUrl:"/GVG/cors.html",
-    controller:"corsCtrl"
-    
-  })
-  .when("/integrations/proxyBea",{
-   templateUrl:"/GVG/proxyBea.html",
-   controller:"proxyCtrl"
-  })
-
-   
    .when("/corsirene",{
       templateUrl : "/SS/corsirene.html",
       controller: "CorsIreneCtrl"
@@ -70,18 +72,10 @@ angular.module("Sos161701App", ["ngRoute"])
    .when("/proxyirene",{
       templateUrl : "/SS/proxyirene.html",
       controller: "ProxyIreneCtrl"
-
-   }).when("/proxyAlb",{
-     templateUrl:"/YUS/proxyalb.html",
-     controller:"proxyCtrlalb"
-     
-  }).when("/corsAlb",{
-     templateUrl:"/YUS/corsalb.html",
-     controller:"CorsCtrlalb"
   })
-  .when("/governance",{
-   templateUrl:"governance.html"
-  })
+  
+  //BEA
+  
   .when("/integrations/nasa",{
    templateUrl:"/GVG/nasa.html",
    controller:"nasaCtrl"
@@ -90,6 +84,27 @@ angular.module("Sos161701App", ["ngRoute"])
    templateUrl:"/GVG/iata.html",
    controller:"iataCtrl"
   })
+   .when("/integrations/chart", {
+    templateUrl: "/GVG/chart.html",
+    controller: "lisChartCtrl"
+   })
+ .when("/integrations/proxyBea",{
+   templateUrl:"/GVG/proxyBea.html",
+   controller:"proxyCtrl"
+  })
+.when("/integrations/corsBea",{
+    templateUrl:"/GVG/cors.html",
+    controller:"corsCtrl"
+    
+  })
+  .when("/gvg", {
+    templateUrl: "/GVG/lista.html",
+    controller: "ListCtrl"
+   })
+   .when("/gvg/:country", {
+    templateUrl: "/GVG/edit.html",
+    controller: "EditCtrl"
+   })
   ;
   
   console.log("App initialized");

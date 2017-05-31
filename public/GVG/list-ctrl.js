@@ -6,97 +6,52 @@
                 console.log("List Controller initialized");
             $scope.url="/api/v2/gvg";
   
+  var datos={};
+
+ 
   
-    $scope.gvg = {};
-    var datos = {};
-    $scope.actual = 1;
-    $scope.max = 1;
-    $scope.paginas = [];
-    $scope.izq = [];
-    $scope.centro = [];
-    $scope.der = [];
+    $scope.offset = 0;
 
 
 
-    var elementsPerPage = 6;
-
-    function pagination() {
-        var pagesNearby = 2;
-        $scope.izq = [];
-        $scope.centro = [];
-        $scope.der = [];
-        if ($scope.max <= pagesNearby * 2) {
-            for (var i = 1; i <= $scope.max; i++) $scope.izq.push(i);
-        }
-        else if ($scope.actual >= 0 && $scope.actual <= pagesNearby) {
-            for (var i = 1; i <= pagesNearby; i++) $scope.izq.push(i);
-            for (i = $scope.max - pagesNearby + 1; i <= $scope.max; i++) $scope.centro.push(i);
-        }
-        else if ($scope.actual >= $scope.max - pagesNearby + 1 && $scope.actual <= $scope.max) {
-            for (var i = 1; i <= pagesNearby; i++) $scope.centro.push(i);
-            for (i = $scope.max - pagesNearby + 1; i <= $scope.max; i++) $scope.der.push(i);
-        }
-        else {
-            
-            for (var i = 1; i <= pagesNearby; i++) $scope.izq.push(i);
-            for (var i = Math.max($scope.actual - 1, pagesNearby + 1); i <= Math.min($scope.actual + 1, $scope.max - pagesNearby); i++) $scope.centro.push(i);
-            for (i = $scope.max - pagesNearby + 1; i <= $scope.max; i++) $scope.der.push(i);
-            if (($scope.izq[$scope.izq.length - 1] == $scope.centro[0] - 1) && ($scope.centro[$scope.centro.length - 1] == $scope.der[0] - 1)) {
-                $scope.centro = $scope.centro.concat($scope.der);
-                $scope.izq = $scope.izq.concat($scope.centro);
-                $scope.centro = [];
-                $scope.der = [];
-            }
-            else if ($scope.izq[$scope.izq.length - 1] == $scope.centro[0] - 1) {
-                $scope.izq = $scope.izq.concat($scope.centro);
-                $scope.centro = [];
-            }
-            else if ($scope.centro[$scope.centro.length - 1] == $scope.der[0] - 1) {
-                $scope.der = $scope.centro.concat($scope.der);
-                $scope.centro = [];
-            }
-        }
-    }
-
-
-    $scope.cambio = function(page) {
-        $scope.actual = page;
-        $scope.refrescar();
-    };
+   
 
     $scope.anterior = function() {
-        $scope.actual--;
-        $scope.refrescar();
+           if($scope.offset>0){
+            $scope.offset = $scope.offset - $scope.limit;
+            }
+            $scope.paginacion();
     };
 
     $scope.siguiente = function() {
-        $scope.actual++;
-        $scope.refrescar();
+        $scope.offset = $scope.offset + $scope.limit;
+
+            $scope.paginacion();
     };
 
     $scope.refrescar = function() {
-        if ($scope.actual <= 0) $scope.actual = 1;
-        if ($scope.actual > $scope.max) $scope.actual = $scope.max;
-        pagination();
-        if (datos.length > elementsPerPage) {
-            $scope.gvg = datos.slice(Number(($scope.actual - 1) * elementsPerPage), Number(($scope.actual) * elementsPerPage));
+            if($scope.gvg == []){
+        
         }
-        else {
-            $scope.gvg = datos;
+        if ($scope.offset == 0){
+            $http
+              .get($scope.url+"?apikey="+$scope.apikey+"&from=1&to=100000&limit="+$scope.limit+"&offset="+$scope.offset)
+              .then(function (response){
+                 
+                    $scope.gvg = response.data;
+              });
         }
+        
     };
     $scope.load=function(){
                     
                 $http
                 .get($scope.url +"?" + "apikey="+$scope.apikey)
                  .then(function(response) {
-                $scope.max = Math.max(Math.ceil(response.data.length / elementsPerPage), 1);
+             
 
                      datos = response.data;
-                     $scope.refrescar();
                     
-                 //  sweetAlert("200 OK!!");
-                   
                       },function error(response){
                            $scope.max = 1;
                          datos = {};
@@ -104,23 +59,24 @@
                           if(response.apikey!=$scope.apikey&response.status==403){
                               datos = {};
                             $scope.refrescar();
-                            //  sweetAlert("Incorrect apikey!!! ->Error "+response.status);
+                             sweetAlert("Incorrect apikey!!! ->Error "+response.status);
                           }else if(response.status==401){
                                 datos = {};
                             $scope.refrescar();
-                         // sweetAlert("Empty apikey!!! ->Error "+response.status);
+                          sweetAlert("Empty apikey!!! ->Error "+response.status);
                           }else if(response.status==404){
                                 datos = {};
                             $scope.refrescar();
                                 sweetAlert("Empty Resource but CORRECT APIKEY!!! ->Error "+response.status);
                           }else if(response.status==200){
                                 datos = {};
+                                sweetAlert("CORRECT apikey!! "+response.status);
                             $scope.refrescar();
-                             // sweetAlert("CORRECT apikey!! "+response.status);
+                              
                           }
                       });
                    
-                 
+              
             };
           
                $scope.load();
@@ -129,12 +85,12 @@
                 $http
                 .get($scope.url+"/loadInitialData?apikey="+$scope.apikey)
                 .then(function(response){
-                      $scope.max = Math.max(Math.ceil(response.data.length / elementsPerPage), 1);
+                    
 
                      $scope.gvg= response.data;
-                     $scope.refrescar();
+                     $scope.paginacion();
                     sweetAlert("LOADINITIAL 200 ok and CORRECT APIKEY!!");
-                  //$scope.load();
+                  $scope.load();
                 },function error(response){
                      if(response.apikey!=$scope.apikey&response.status==403){
                               sweetAlert("Incorrect apikey!!! ->Error "+response.status);
@@ -147,12 +103,40 @@
             };
              $scope.paginacion= function(){
                     
-                $http
-                .get($scope.url+"?apikey="+$scope.apikey+"&from="+$scope.from+"&to="+$scope.to+"&limit="+$scope.limit+"&offset="+$scope.offset)
-                .then(function (response){
-                    $scope.gvg=response.data;
+               $scope.datas = {};
+
+            $http
+                .get($scope.url + "?apikey=" + $scope.apikey + "&from=10&to=10000&limit=" + $scope.limit + "&offset=" + $scope.offset)
+                .then(function(response) {
+                  
+                    $scope.gvg = response.data;
+                    console.log("GET 200 ok");
                  //   sweetAlert("GET 200 ok");
-                 
+                 $scope.load();
+                      },function error(response){
+                           if(response.apikey!=$scope.apikey&response.status==403){
+                              sweetAlert("Incorrect apikey!!! ->Error "+response.status);
+                          }else if(response.status==401){
+                          sweetAlert("Empty apikey!!! ->Error "+response.status);
+                          }else if(response.status==200){
+                            //  sweetAlert("CORRECT apikey!! "+response.status);
+                          }
+                          
+                      });
+                       
+            };
+             $scope.paginacion2= function(){
+                    
+               $scope.datas = {};
+
+            $http
+                .get($scope.url + "?apikey=" + $scope.apikey + "&from="+$scope.from+"&to="+$scope.to+"&limit=100&offset=0")
+                .then(function(response) {
+                  
+                    $scope.gvg = response.data;
+                    console.log("GET 200 ok");
+                 //   sweetAlert("GET 200 ok");
+                 $scope.load();
                       },function error(response){
                            if(response.apikey!=$scope.apikey&response.status==403){
                               sweetAlert("Incorrect apikey!!! ->Error "+response.status);
@@ -175,7 +159,7 @@
                    
                      $scope.gvg2=response.data;
                       sweetAlert("SEARCH 200 ok");
-              
+                       
                     
                       },function error(response) {
                            if(response.apikey!=$scope.apikey&response.status==403){
@@ -210,7 +194,7 @@
                 $http.post($scope.url+"?apikey=sos161701",$scope.newCountry)
                 .then(function(response){
                 //  sweetAlert("POST 200 ok");
-                $scope.load();
+                $scope.paginacion();
                  },function error(response){
                       if(response.apikey!=$scope.apikey&response.status==403){
                               sweetAlert("Incorrect apikey!!! ->Error "+response.status);
@@ -219,15 +203,16 @@
                           }else if(response.status==409){
                               sweetAlert("El país ya existe!!! ->Error "+response.status);
                           }
+                           
                  });
-                   
+                 ;
                    
                 }; 
                $scope.removeAll=function(){
                    $http.delete($scope.url+"?apikey="+$scope.apikey)
                         .then(function(){
                            sweetAlert("REMOVE 200 ok");
-                             $scope.load();
+                             $scope.paginacion();
                         },function error(response){
                               if(response.apikey!=$scope.apikey&response.status==403){
                               sweetAlert("Incorrect apikey!!! ->Error "+response.status);
@@ -243,7 +228,7 @@
                 .delete($scope.url+"/"+ country +"/?apikey="+$scope.apikey)
                 .then(function(response){
                     sweetAlert("DELETE one 200 ok");
-                    $scope.load();
+                    $scope.paginacion();
                 },function error(response){
                       if(response.apikey!=$scope.apikey&response.status==403){
                             sweetAlert("Incorrect apikey!!! ->Error "+response.status);

@@ -38,7 +38,7 @@
                         <th><input class="form-control" ng-model="offset">Offset</th>
                         <th><input class="form-control" ng-model="from">From</th>
                         <th><input class="form-control" ng-model="to">To</th>
-                        <th class="text-center"><button class="btn-primary" ng-click="paginacion()">Paginación y busqueda</button></th>
+                        <th class="text-center"><button class="btn-primary" ng-click="paginacion2()">Paginación y busqueda</button></th>
                     </tr>
                     
                       
@@ -92,26 +92,17 @@
    <div class="container">
                 <div class="row">
                     <div class="col s12 center-align">
-                        
-                        <div class="pagination">
-                    <li class="disabled" ng-show="actual == 1"><a href=""><i class="material-icons">Anterior</i></a></li>
-                    <li class="waves-effect" ng-hide="actual == 1"><a href="" ng-click="anterior()"><i class="material-icons">Anterior</i></a></li>
-                    
-                    <span ng-repeat="page in izq">
-                        <li class="waves-effect" ng-class="{active: page == actual}"><a href="" ng-click="cambio(page)">{{page}}</a></li>
-                    </span>
-                    <li ng-show="izq.length != 0 && centro != 0">...</li>
-                    <span ng-repeat="page in centro">
-                        <li class="waves-effect" ng-class="{active: page == actual}"><a href="" ng-click="cambio(page)">{{page}}</a></li>
-                    </span>
-                    <li ng-show="centro.length != 0 && der != 0">...</li>
-                    <li ng-show="izq.length != 0 && centro.length == 0 && der != 0">...</li>
-                    <span ng-repeat="page in der">
-                        <li class="waves-effect" ng-class="{active: page == actual}"><a href="" ng-click="cambio(page)">{{page}}</a></li>
-                    </span>
-                    
-                    <li class="disabled" ng-show="actual == max"><a href=""><i class="material-icons">Siguiente</i></a></li>
-                    <li class="waves-effect" ng-show="actual != max"><a href="" ng-click="siguiente()"><i class="material-icons">Siguiente</i></a></li>
+                             <tr>
+            <th>Limit<input class="form-control" id="ex1" ng-model="limit"></th>
+            <th class="text-center"><button class="btn btn-success btn-xs" ng-click="paginacion(0)">Paginación</button></th>
+
+        </tr>
+
+        <tr>
+            <th class="text-center"><button class="btn btn-success" ng-click="anterior()">Anterior</button></th>
+            <th class="text-center"><button class="btn btn-success" ng-click="siguiente()">Siguiente</button></th>
+
+        </tr>
                 </div>
                         </ul>
                     </div>

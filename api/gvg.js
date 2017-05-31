@@ -23,25 +23,63 @@ exports.initial=function(app,db,BASE_API_PATH,ApikeyFunction){
 
         var countries = [{
                
-                "country":"Alemania",
-                "year":"2016",
-                "income_million":"4000",
-                "income_ratio":"8.5"
-            },
-            {
-               
-                "country":"Reino Unido",
-                "year":"2016",
-                "income_million":"3800",
-                "income_ratio":"8.5"
-            },
-            {
-           
-                "country":"Francia",
-                "year":"2016",
-                "income_million":"2700",
-                "income_ratio":"4.2"
-            },
+              
+    
+    "country": "Alemania",
+    "year": "2016",
+    "income_million": "4000",
+    "income_ratio": "8.5"
+  },
+  {
+   
+    "country": "Reino Unido",
+    "year": "2016",
+    "income_million": "3800",
+    "income_ratio": "8.5"
+  },
+  {
+   
+    "country": "Rusia",
+    "year": "2014",
+    "income_million": "6300",
+    "income_ratio": "4.5"
+  },
+  {
+  
+    "country": "Ecuador",
+    "year": "2013",
+    "income_million": "5600",
+    "income_ratio": "4.8"
+  },
+  {
+   
+    "country": "Argentina",
+    "year": "2015",
+    "income_million": "8900",
+    "income_ratio": "7.9"
+  },
+ 
+  {
+   
+    "country": "Reino Unido",
+    "year": "2014",
+    "income_million": "3800",
+    "income_ratio": "7.6"
+  },
+  {
+   
+    "country": "EEUU",
+    "year": "2013",
+    "income_million": "4500",
+    "income_ratio": "5.8"
+  },
+  {
+   
+    "country": "Japon",
+    "year": "2014",
+    "income_million": "6500",
+    "income_ratio": "4.9"
+  }
             
         ];
         db.insert(countries);
