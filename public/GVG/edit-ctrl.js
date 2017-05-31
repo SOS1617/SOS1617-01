@@ -28,7 +28,7 @@
                      var pais=JSON.stringify($scope.updateCountry,null,2);
                      console.log("El pais actualizado es-> "+pais);
                       
-                $location.path("/");
+                $location.path("/gvg");
                 },function error(response){
                      if(response.apikey!=$scope.apikey&response.status==403){
                               sweetAlert("Incorrect apikey!!! ->Error "+response.status);

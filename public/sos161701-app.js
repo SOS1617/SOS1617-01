@@ -16,6 +16,9 @@ angular.module("Sos161701App", ["ngRoute"])
    .when("/integrations",{
     templateUrl:"integrations.html"
    })
+   .when("/about",{
+    templateUrl:"/videos.thml"
+   })
    
    //ALBERTO
    .when("/analytics/alberto", {
@@ -84,7 +87,7 @@ angular.module("Sos161701App", ["ngRoute"])
    templateUrl:"/GVG/iata.html",
    controller:"iataCtrl"
   })
-   .when("/integrations/chart", {
+   .when("/analytics/bea", {
     templateUrl: "/GVG/chart.html",
     controller: "lisChartCtrl"
    })
