@@ -52,7 +52,7 @@ angular
         
     },
     series: [{
-        name: 'Income milliion',
+        name: 'Income million',
         data: dat1.map(function(d){
             return Number(d.income_million);
         })

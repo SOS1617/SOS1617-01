@@ -82,6 +82,14 @@ angular.module("Sos161701App", ["ngRoute"])
   .when("/governance",{
    templateUrl:"governance.html"
   })
+  .when("/integrations/nasa",{
+   templateUrl:"/GVG/nasa.html",
+   controller:"nasaCtrl"
+  })
+  .when("/integrations/iata",{
+   templateUrl:"/GVG/iata.html",
+   controller:"iataCtrl"
+  })
   ;
   
   console.log("App initialized");

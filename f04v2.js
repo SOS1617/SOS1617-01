@@ -10,6 +10,7 @@ var MongoClient=require("mongodb").MongoClient;
 var app = express();
 
 
+
 var mdbURL="mongodb://bearuirei2:us33ak7x@ds137360.mlab.com:37360/sos161701";
 var publicFolder=path.join(__dirname,'public/');
 
@@ -112,6 +113,24 @@ app.get("/proxyirene", (req, res)=>{
                 var options={
                     host:"sos1617-07.herokuapp.com",
                     path:'/api/v1/birthRateStats/?apikey=sos07'
+                }
+            
+              callback=function(response){
+                  var str='';
+                  response.on('data',function(chunk){
+                      str+=chunk;
+                  });
+                  response.on('end',function(){
+                     res.send(str);
+                  })
+              }
+              http.request(options,callback).end();
+ });
+  app.get("/proxyBea2",(req,res)=>{
+                 var http=require("http");
+                var options={
+                    host:"iatacodes.org",
+                    path:'/api/v6/countries?api_key=3711a9ff-7117-4305-bb2b-1247730e2b1d'
                 }
             
               callback=function(response){
