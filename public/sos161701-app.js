@@ -32,14 +32,22 @@ angular.module("Sos161701App", ["ngRoute"])
     controller: "EditCtrlyus"
    })
    
-   .when("/proxyAlb",{
+   .when("/integrations/proxyAlb",{
      templateUrl:"/YUS/proxyalb.html",
      controller:"proxyCtrlalb"
      
   })
-  .when("/corsAlb",{
+  .when("/integrations/corsAlb",{
      templateUrl:"/YUS/corsalb.html",
      controller:"CorsCtrlalb"
+  })
+  .when("/integrations/netflix",{
+     templateUrl:"/YUS/chartnet.html",
+     controller:"netCtrlalb"
+  })
+   .when("/integrations/quandl",{
+     templateUrl:"/YUS/chartwb.html",
+     controller:"wbCtrlalb"
   })
  
   
