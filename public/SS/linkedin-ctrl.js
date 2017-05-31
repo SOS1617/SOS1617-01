@@ -50,15 +50,15 @@ angular
             
     function datos(){
       var ret=[];
-      for(var d in res.data.results){
-      //res.forEach(function(d){
-         res.data.results.name=d.name;
-         res.data.results.diameter=d.diameter;
+      
+     res.data.results.forEach(function(d){
+         res.data.name=d.name;
+         res.data.diameter=d.diameter;
 
-          ret.push({"name":res.data.results.name,
-          "diameter":res.data.results.diameter});
+          ret.push({"name":res.data.name,
+          "diameter":res.data.diameter});
          
-          }
+          });
      
       return ret;
      

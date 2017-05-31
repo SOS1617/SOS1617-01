@@ -12,7 +12,7 @@ angular
         
        Highcharts.chart('chartnet4', {
     chart: {
-        type: 'column',
+        type: 'areaspline',
         options3d: {
             enabled: true,
             alpha: 15,
@@ -50,15 +50,15 @@ angular
             
     function datos(){
       var ret=[];
-      for(var d in res.data){
-      //res.forEach(function(d){
+      
+     res.data.forEach(function(d){
          res.data.name=d.name;
          res.data.id=d.id;
 
           ret.push({"name":res.data.name,
           "id":res.data.id});
          
-          }
+          });
      
       return ret;
      
