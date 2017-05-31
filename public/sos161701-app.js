@@ -62,12 +62,12 @@ angular.module("Sos161701App", ["ngRoute"])
   })
 
    
-   .when("/corsirene",{
+   .when("/integrations/corsirene",{
       templateUrl : "/SS/corsirene.html",
       controller: "CorsIreneCtrl"
    })
 
-   .when("/proxyirene",{
+   .when("/integrations/proxyirene",{
       templateUrl : "/SS/proxyirene.html",
       controller: "ProxyIreneCtrl"
 
@@ -89,6 +89,10 @@ angular.module("Sos161701App", ["ngRoute"])
   .when("/integrations/iata",{
    templateUrl:"/GVG/iata.html",
    controller:"iataCtrl"
+  })
+  .when("/integrations/linkedin",{
+   //templateUrl:"/SS/linkedin.html",
+   controller:"linkedinCtrl"
   })
   ;
   
